@@ -13,7 +13,7 @@ public class BookDaoJdbcImpl implements BookDao {
     private static final String GET_ALL =
             "SELECT id, title, author, cover, number_of_pages, price, deleted FROM books WHERE deleted = false";
     private static final String GET_PREVIEW_BOOKS =
-            "SELECT id, title, author, price FROM books WHERE deleted = false";
+            "SELECT id, title, author, price FROM books WHERE deleted = false ORDER BY id";
     private static final String GET_BY_ID =
             "SELECT id, title, author, cover, number_of_pages, price, deleted FROM books WHERE id = ? AND deleted = false";
     private static final String GET_BY_ORDER_ID =
