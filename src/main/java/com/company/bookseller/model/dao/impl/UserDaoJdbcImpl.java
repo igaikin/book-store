@@ -5,7 +5,7 @@ import com.company.bookseller.model.dao.UserDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
 import java.sql.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJdbcImpl implements UserDao {
@@ -33,7 +33,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        List<User> users = new LinkedList<>();
+        List<User> users = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
             Statement statement = connection.createStatement();

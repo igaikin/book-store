@@ -5,7 +5,7 @@ import com.company.bookseller.model.dao.OrderDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
 import java.sql.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoJdbcImpl implements OrderDao {
@@ -32,7 +32,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public List<Order> getAll() {
-        List<Order> orders = new LinkedList<>();
+        List<Order> orders = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
             Statement statement = connection.createStatement();
@@ -72,7 +72,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     private List<Order> getOrder(long userId, String getByUserId) {
-        List<Order> orders = new LinkedList<>();
+        List<Order> orders = new ArrayList<>();
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(getByUserId);

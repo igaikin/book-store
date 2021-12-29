@@ -15,6 +15,7 @@ public class Contractor {
     public static void main(String[] args) {
         BookService bookService = new BookServiceImpl();
         UserService userService = new UserServiceImpl();
+
 //        OrderService orderService = new OrderServiceImpl();
 //
         List<Book> previewBooks = bookService.getPreviewBooks();

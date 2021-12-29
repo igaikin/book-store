@@ -5,7 +5,7 @@ import com.company.bookseller.model.dao.BookDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
 import java.sql.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoJdbcImpl implements BookDao {
@@ -60,7 +60,7 @@ public class BookDaoJdbcImpl implements BookDao {
 
     @Override
     public List<Book> getAll() {
-        List<Book> books = new LinkedList<>();
+        List<Book> books = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
             Statement statement = connection.createStatement();
@@ -93,7 +93,7 @@ public class BookDaoJdbcImpl implements BookDao {
 
     @Override
     public List<Book> getByOrderId(long orderId) {
-        List<Book> books = new LinkedList<>();
+        List<Book> books = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(GET_BY_ORDER_ID);

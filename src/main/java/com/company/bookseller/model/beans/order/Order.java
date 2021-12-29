@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,7 +17,7 @@ public class Order {
     private int quantity;
     private boolean deleted;
     private User user;
-    private List<Book> books = new LinkedList<>();
+    private List<Book> books = new ArrayList<>();
     private static final String NEW_LINE = System.lineSeparator();
 
     public enum Status {
