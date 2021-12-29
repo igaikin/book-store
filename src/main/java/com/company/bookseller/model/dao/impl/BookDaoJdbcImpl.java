@@ -12,7 +12,7 @@ public class BookDaoJdbcImpl implements BookDao {
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
     private static final String GET_ALL =
             "SELECT id, title, author, cover, number_of_pages, price, deleted FROM books WHERE deleted = false";
-    private static final String GET_ALL_PREVIEW =
+    private static final String GET_PREVIEW_BOOKS =
             "SELECT id, title, author, price FROM books WHERE deleted = false";
     private static final String GET_BY_ID =
             "SELECT id, title, author, cover, number_of_pages, price, deleted FROM books WHERE id = ? AND deleted = false";
@@ -34,28 +34,28 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     private Book processPreviewBook(ResultSet resultSet) throws SQLException {
-        Book book = new Book();
-        book.setId(resultSet.getLong("id"));
-        book.setAuthor(resultSet.getString("author"));
-        book.setTitle(resultSet.getString("title"));
-        book.setPrice(resultSet.getBigDecimal("price"));
-        return book;
+        Book bookPreview = new Book();
+        bookPreview.setId(resultSet.getLong("id"));
+        bookPreview.setAuthor(resultSet.getString("author"));
+        bookPreview.setTitle(resultSet.getString("title"));
+        bookPreview.setPrice(resultSet.getBigDecimal("price"));
+        return bookPreview;
     }
 
     @Override
-    public List<Book> getAllPreview() {
-        List<Book> books = new LinkedList<>();
+    public List<Book> getPreviewBooks() {
+        List<Book> previewBooks = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(GET_ALL_PREVIEW);
+            ResultSet resultSet = statement.executeQuery(GET_PREVIEW_BOOKS);
             while (resultSet.next()) {
-                books.add(processPreviewBook(resultSet));
+                previewBooks.add(processPreviewBook(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return books;
+        return previewBooks;
     }
 
     @Override

@@ -19,8 +19,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getAllPreview() {
-        return bookDao.getAllPreview();
+    public List<Book> getPreviewBooks() {
+        return bookDao.getPreviewBooks();
     }
 
     @Override

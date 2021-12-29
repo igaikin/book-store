@@ -9,5 +9,5 @@ public interface BookService {
 
     List<Book> getAll();
 
-    List<Book> getAllPreview();
+    List<Book> getPreviewBooks();
 }

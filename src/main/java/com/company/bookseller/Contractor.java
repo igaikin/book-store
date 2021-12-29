@@ -8,6 +8,7 @@ import com.company.bookseller.model.service.UserService;
 import com.company.bookseller.model.service.impl.BookServiceImpl;
 import com.company.bookseller.model.service.impl.UserServiceImpl;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Contractor {
@@ -16,9 +17,12 @@ public class Contractor {
         UserService userService = new UserServiceImpl();
 //        OrderService orderService = new OrderServiceImpl();
 //
-//        List<Book> books = bookService.getAllPreview();
+        List<Book> previewBooks = bookService.getPreviewBooks();
+        for (Book books : previewBooks) {
+            System.out.println(books.getPreviewFormattedOutput());
+        }
+
 //        List<User> users = userService.getAll();
-//        System.out.println(books);
 //        System.out.println(users);
         Scanner scanner = new Scanner(System.in);
         try {

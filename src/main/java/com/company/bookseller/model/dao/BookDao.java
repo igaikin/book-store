@@ -7,7 +7,7 @@ import java.util.List;
 public interface BookDao {
     List<Book> getAll();
 
-    List<Book> getAllPreview();
+    List<Book> getPreviewBooks();
 
     Book getById(long id);
 
