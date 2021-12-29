@@ -29,8 +29,9 @@ public class Book {
         }
     }
 
-    public String getAllBooksList() {
-        return String.format("ID - %d, Author - %s, Title - %s%n", getId(), getAuthor(), getTitle());
+    public String getPreviewFormattedOutput() {
+        return String.format("ID - %d, Author - %s, Title - %s, Price - $%s", getId(), getAuthor(), getTitle(),
+                getPrice());
     }
 
     public String getFormattedOutput() {
