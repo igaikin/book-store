@@ -1,24 +1,30 @@
 package com.company.bookseller.model.dao.impl;
 
-import com.company.bookseller.model.beans.entities.Book;
+import com.company.bookseller.model.beans.Book;
 import com.company.bookseller.model.dao.BookDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoJdbcImpl implements BookDao {
-    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
     private static final String GET_ALL =
             "SELECT id, title, author, cover, number_of_pages, price, deleted FROM books WHERE deleted = false";
     private static final String GET_PREVIEW_BOOKS =
             "SELECT id, title, author, price FROM books WHERE deleted = false ORDER BY id";
     private static final String GET_BY_ID =
-            "SELECT id, title, author, cover, number_of_pages, price, deleted FROM books WHERE id = ? AND deleted = false";
-    private static final String GET_BY_ORDER_ID =
-            "SELECT id, title, author, cover, order_id, number_of_pages, price, deleted FROM books WHERE   order_id = ? "
-                    + "AND deleted = false";
+            "SELECT id, title, author, cover, number_of_pages, price, deleted FROM books WHERE id = ? AND deleted = "
+                    + "false";
+    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
+//    private static final String GET_BY_ORDER_ID =
+//            "SELECT id, title, author, cover, order_id, number_of_pages, price, deleted FROM books WHERE   order_id
+//            = ? "
+//                    + "AND deleted = false";
 
     private Book processBook(ResultSet resultSet) throws SQLException {
         Book book = new Book();
@@ -29,33 +35,7 @@ public class BookDaoJdbcImpl implements BookDao {
         book.setCover(cover);
         book.setNumberOfPages(resultSet.getInt("number_of_pages"));
         book.setPrice(resultSet.getBigDecimal("price"));
-        book.setDeleted(resultSet.getBoolean("deleted"));
         return book;
-    }
-
-    private Book processPreviewBook(ResultSet resultSet) throws SQLException {
-        Book bookPreview = new Book();
-        bookPreview.setId(resultSet.getLong("id"));
-        bookPreview.setAuthor(resultSet.getString("author"));
-        bookPreview.setTitle(resultSet.getString("title"));
-        bookPreview.setPrice(resultSet.getBigDecimal("price"));
-        return bookPreview;
-    }
-
-    @Override
-    public List<Book> getPreviewBooks() {
-        List<Book> previewBooks = new ArrayList<>();
-        try {
-            Connection connection = connectionManager.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(GET_PREVIEW_BOOKS);
-            while (resultSet.next()) {
-                previewBooks.add(processPreviewBook(resultSet));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return previewBooks;
     }
 
     @Override
@@ -75,7 +55,7 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
-    public Book getById(long id) {
+    public Book get(Long id) {
         Book book = null;
         try {
             Connection connection = connectionManager.getConnection();
@@ -92,19 +72,18 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
-    public List<Book> getByOrderId(long orderId) {
-        List<Book> books = new ArrayList<>();
-        try {
-            Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(GET_BY_ORDER_ID);
-            statement.setLong(1, orderId);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                books.add(processBook(resultSet));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return books;
+    public Book create(Book entity) {
+        return null;
     }
+
+    @Override
+    public Book update(Book entity) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return false;
+    }
+
 }

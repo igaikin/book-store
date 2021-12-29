@@ -1,23 +1,55 @@
 package com.company.bookseller.model.dao.impl;
 
-import com.company.bookseller.model.beans.entities.User;
+import com.company.bookseller.model.beans.User;
 import com.company.bookseller.model.dao.UserDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJdbcImpl implements UserDao {
+    private static final String USER_ALL = "SELECT u.id, u.first_name, u.last_name, r.role, u.email, u.password "
+            + "FROM users u JOIN roles r ON u.role_id = r.id ";
+    private static final String GET_ALL = USER_ALL + "WHERE u.deleted = false";
+    private static final String GET_BY_ID = USER_ALL + "WHERE u.id = ? AND u.deleted = false";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
-    private static final String GET_ALL =
-            "SELECT u.id, u.first_name, u.last_name, u.role, u.email, u.password FROM users u WHERE deleted = false";
-    private static final String GET_BY_ID =
-            "SELECT u.id, u.first_name, u.last_name, u.role, u.email, u.password FROM users u WHERE id = ? AND "
-                    + "deleted = false";
-    private static final String GET_BY_ORDER_ID =
-            "SELECT u.id, u.first_name, u.last_name, u.role, u.email, u.password FROM users u WHERE order_id = ? AND "
-                    + "deleted = false";
+
+    @Override
+    public User get(Long id) {
+        User user = null;
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(GET_BY_ID);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = processUser(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
+    public User create(User entity) {
+        return null;
+    }
+
+    @Override
+    public User update(User entity) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return false;
+    }
 
     private User processUser(ResultSet resultSet) throws SQLException {
         User user = new User();
@@ -47,37 +79,4 @@ public class UserDaoJdbcImpl implements UserDao {
         return users;
     }
 
-    @Override
-    public User getById(long id) {
-        User user = null;
-        try {
-            Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(GET_BY_ID);
-            statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = processUser(resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return user;
-    }
-
-    @Override
-    public User getByOrderId(long orderId) {
-        User user = null;
-        try {
-            Connection connection = ConnectionManager.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(GET_BY_ORDER_ID);
-            statement.setLong(1, orderId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = processUser(resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return user;
-    }
 }

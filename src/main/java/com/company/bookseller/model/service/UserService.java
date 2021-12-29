@@ -1,6 +1,6 @@
 package com.company.bookseller.model.service;
 
-import com.company.bookseller.model.beans.entities.User;
+import com.company.bookseller.model.beans.User;
 
 import java.util.List;
 

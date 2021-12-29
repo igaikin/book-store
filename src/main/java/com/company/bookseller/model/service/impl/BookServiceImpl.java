@@ -1,6 +1,6 @@
 package com.company.bookseller.model.service.impl;
 
-import com.company.bookseller.model.beans.entities.Book;
+import com.company.bookseller.model.beans.Book;
 import com.company.bookseller.model.dao.BookDao;
 import com.company.bookseller.model.dao.impl.BookDaoJdbcImpl;
 import com.company.bookseller.model.service.BookService;
@@ -14,13 +14,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book getById(long id) {
-        Book book = bookDao.getById(id);
+        Book book = bookDao.get(id);
         return book;
-    }
-
-    @Override
-    public List<Book> getPreviewBooks() {
-        return bookDao.getPreviewBooks();
     }
 
     @Override

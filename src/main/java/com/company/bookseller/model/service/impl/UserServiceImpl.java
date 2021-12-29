@@ -1,6 +1,6 @@
 package com.company.bookseller.model.service.impl;
 
-import com.company.bookseller.model.beans.entities.User;
+import com.company.bookseller.model.beans.User;
 import com.company.bookseller.model.dao.UserDao;
 import com.company.bookseller.model.dao.impl.UserDaoJdbcImpl;
 import com.company.bookseller.model.service.OrderService;
@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(long id) {
-        User user = userDao.getById(id);
+        User user = userDao.get(id);
         return user;
     }
 

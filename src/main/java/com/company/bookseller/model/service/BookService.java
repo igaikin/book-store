@@ -1,6 +1,6 @@
 package com.company.bookseller.model.service;
 
-import com.company.bookseller.model.beans.entities.Book;
+import com.company.bookseller.model.beans.Book;
 
 import java.util.List;
 
@@ -9,5 +9,4 @@ public interface BookService {
 
     List<Book> getAll();
 
-    List<Book> getPreviewBooks();
 }

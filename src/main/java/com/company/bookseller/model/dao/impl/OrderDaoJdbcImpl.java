@@ -1,33 +1,52 @@
 package com.company.bookseller.model.dao.impl;
 
-import com.company.bookseller.model.beans.order.Order;
+import com.company.bookseller.model.beans.Book;
+import com.company.bookseller.model.beans.Order;
+import com.company.bookseller.model.beans.Order.Status;
+import com.company.bookseller.model.beans.User;
 import com.company.bookseller.model.dao.OrderDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoJdbcImpl implements OrderDao {
-    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
-    private static final String GET_ALL =
-            "SELECT o.id, o.status, o.total_price FROM orders o WHERE deleted = false";
-    private static final String GET_BY_ID =
-            "SELECT o.id, o.status, o.total_price FROM orders o WHERE id = ? AND deleted = false";
+    private static final String ORDERS_ALL =
+            "SELECT o.id, o.status, o.quantity, o.user_id, o.book_id, o.total_price FROM orders o ";
+    private static final String GET_ALL = ORDERS_ALL + "WHERE deleted = false";
+    private static final String GET_BY_ID = ORDERS_ALL + "WHERE id = ? AND deleted = false";
     private static final String GET_BY_BOOK_ID =
             "SELECT o.id, o.status, o.total_price FROM orders o JOIN books b on o.id = b.order_id WHERE b.id = ?";
     private static final String GET_BY_USER_ID =
             "SELECT o.id, o.status, o.total_price FROM orders o JOIN users u on o.id = u.order_id WHERE u.id = ?";
+    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
     private Order processOrder(ResultSet resultSet) throws SQLException {
         Order order = new Order();
         order.setId(resultSet.getLong("id"));
-        Order.Status status = Order.Status.valueOf(resultSet.getString("status"));
-        Order.setStatus(status);
+        order.setStatus(Status.valueOf(resultSet.getString("status")));
+        order.setQuantity(resultSet.getInt("quantity"));
+        order.setUser(getUser(resultSet));
+        order.setBook(getBook(resultSet));
         order.setTotalPrice(resultSet.getBigDecimal("total_price"));
-        order.setDeleted(resultSet.getBoolean("deleted"));
-
         return order;
+    }
+
+    private Book getBook(ResultSet resultSet) throws SQLException {
+        Book book = new Book();
+        book.setId(resultSet.getLong("book_id"));
+        return book;
+    }
+
+    private User getUser(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getLong("user_id"));
+        return user;
     }
 
     @Override
@@ -46,8 +65,12 @@ public class OrderDaoJdbcImpl implements OrderDao {
         return orders;
     }
 
+    public List<Order> getByBookId(long bookId) {
+        return getOrder(bookId, GET_BY_BOOK_ID);
+    }
+
     @Override
-    public Order getById(long id) {
+    public Order get(Long id) {
         Order order = null;
         try {
             Connection connection = connectionManager.getConnection();
@@ -63,19 +86,30 @@ public class OrderDaoJdbcImpl implements OrderDao {
         return order;
     }
 
-    public List<Order> getByBookId(long bookId) {
-        return getOrder(bookId, GET_BY_BOOK_ID);
+    @Override
+    public Order create(Order entity) {
+        return null;
+    }
+
+    @Override
+    public Order update(Order entity) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return false;
     }
 
     public List<Order> getByUserId(long userId) {
         return getOrder(userId, GET_BY_USER_ID);
     }
 
-    private List<Order> getOrder(long userId, String getByUserId) {
+    private List<Order> getOrder(long userId, String sql) {
         List<Order> orders = new ArrayList<>();
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(getByUserId);
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
