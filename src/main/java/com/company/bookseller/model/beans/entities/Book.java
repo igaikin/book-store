@@ -29,9 +29,16 @@ public class Book {
         }
     }
 
+    public String getHeadTable() {
+return "+----------------------------------------------------------+"
+        + "| ID |     Author     |        Title       |     Price    |"
+        + "+---------------------+--------------------+--------------+";
+    }
+
     public String getPreviewFormattedOutput() {
-        return String.format("ID - %d, Author - %s, Title - %s, Price - $%s", getId(), getAuthor(), getTitle(),
-                getPrice());
+        return String.format("| %3d | %-24s| %-30s| $%-7s|%n"
+                        + "+-------------------------------------------------------------------------+",
+                getId(), getAuthor(), getTitle(), getPrice());
     }
 
     public String getFormattedOutput() {
@@ -41,7 +48,7 @@ public class Book {
                         + "Title           | %s%n"
                         + "Cover           | %s%n"
                         + "Number of Pages | %d%n"
-                        + "Price           | %.2f%n"
+                        + "Price           | $%.2f%n"
                         + "%n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
                 getId(), getAuthor(), getTitle(), cover.name, getNumberOfPages(), getPrice());
     }

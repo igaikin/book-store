@@ -14,8 +14,7 @@ import java.util.Scanner;
 public class Contractor {
     public static void main(String[] args) {
         BookService bookService = new BookServiceImpl();
-        UserService userService = new UserServiceImpl();
-
+//        UserService userService = new UserServiceImpl();
 //        OrderService orderService = new OrderServiceImpl();
 //
         List<Book> previewBooks = bookService.getPreviewBooks();
@@ -28,7 +27,7 @@ public class Contractor {
         Scanner scanner = new Scanner(System.in);
         try {
             while (true) {
-                System.out.print("Please enter the ID to see detailed information for the book and user: ");
+                System.out.print("Please enter the ID to see detailed information for the book: ");
                 long id = scanner.nextLong();
                 if (id <= 0) {
                     break;
@@ -40,14 +39,12 @@ public class Contractor {
                 } catch (NullPointerException e) {
                     System.out.println("Book with this ID does not exist");
                 }
-
-                User user = userService.getById(id);
-                try {
-                    System.out.println(user.getFormattedOutput());
-                } catch (NullPointerException e) {
-                    System.out.println("User with this ID does not exist");
-                }
-
+//                User user = userService.getById(id);
+//                try {
+//                    System.out.println(user.getFormattedOutput());
+//                } catch (NullPointerException e) {
+//                    System.out.println("User with this ID does not exist");
+//                }
 //                Order order = orderService.getById(id);try {
 //                    System.out.println(order.getFormattedOutput());
 //                } catch (NullPointerException e) {
