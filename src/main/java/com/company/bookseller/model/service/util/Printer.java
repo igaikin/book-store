@@ -24,7 +24,20 @@ public class Printer {
         return table.toString();
     }
 
-    public static String getUserFormattedTable(List<User> users) {//FIXME
-        throw new UnsupportedOperationException();
+    private static final String userHeaderRow = """
+            +--------------------------------------------------+
+            |  ID |     First Name     |       Last Name       |
+            +-----+--------------------+-----------------------+
+            """;
+    private static String getUserPreviewFormattedOutput(User user) {
+        return String.format("| %3d | %-19s| %-22s|%n"
+                        + "+-----+--------------------+-----------------------+%n",
+                user.getId(), user.getFirstName(), user.getLastName());
+    }
+
+    public static String getUserFormattedTable(List<User> users) {
+        StringBuilder table = new StringBuilder(userHeaderRow);
+        users.forEach(u -> table.append(getUserPreviewFormattedOutput(u)));
+        return table.toString();
     }
 }
