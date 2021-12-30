@@ -12,8 +12,17 @@ public class User {
     private String email;
     private String password;
 
-    public String getAllUsersList() {
-        return String.format("ID - %d, First Name - %s, Last Name - %s%n", getId(), getFirstName(), getLastName());
+    public enum Role {
+        CUSTOMER("Customer"),
+        MANAGER("Manager"),
+        ADMIN("Administrator");
+
+        @Getter
+        private final String name;
+
+        Role(String name) {
+            this.name = name;
+        }
     }
 
     public String getFormattedOutput() {
@@ -26,18 +35,5 @@ public class User {
                         + "Password     | %s%n"
                         + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
                 getId(), getFirstName(), getLastName(), role.name, getEmail(), getPassword());
-    }
-
-    public enum Role {
-        CUSTOMER("Customer"),
-        MANAGER("Manager"),
-        ADMIN("Administrator");
-
-        @Getter
-        private final String name;
-
-        Role(String name) {
-            this.name = name;
-        }
     }
 }
