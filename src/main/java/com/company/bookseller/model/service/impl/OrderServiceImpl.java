@@ -18,13 +18,11 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao = new OrderDaoJdbcImpl();
     private final UserDao userDao = new UserDaoJdbcImpl();
 
-    @Override
-    public Order getById(long id) {
-        Order order = orderDao.get(id);
-        if (order != null) {
-            processOrder(order);
-        }
-        return order;
+    private void processOrder(Order order) {
+        User user = userDao.get(order.getUser().getId());
+        order.setUser(user);
+        Book book = bookDao.get(order.getBook().getId());
+        order.setBook(book);
     }
 
     @Override
@@ -34,11 +32,13 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
-    private void processOrder(Order order) {
-        User user = userDao.get(order.getUser().getId());
-        order.setUser(user);
-        Book book = bookDao.get(order.getBook().getId());
-        order.setBook(book);
+    @Override
+    public Order getById(long id) {
+        Order order = orderDao.get(id);
+        if (order != null) {
+            processOrder(order);
+        }
+        return order;
     }
 
     @Override

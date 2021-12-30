@@ -14,13 +14,13 @@ public class UserServiceImpl implements UserService {
     private final OrderService orderService = new OrderServiceImpl();
 
     @Override
-    public User getById(long id) {
-        User user = userDao.get(id);
-        return user;
+    public List<User> getAll() {
+        return userDao.getAll();
     }
 
     @Override
-    public List<User> getAll() {
-        return userDao.getAll();
+    public User getById(long id) {
+        User user = userDao.get(id);
+        return user;
     }
 }

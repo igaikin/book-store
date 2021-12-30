@@ -66,10 +66,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
         return orders;
     }
 
-    public List<Order> getByBookId(long bookId) {
-        return getOrder(bookId, GET_BY_BOOK_ID);
-    }
-
     @Override
     public Order get(Long id) {
         Order order = null;
@@ -100,6 +96,10 @@ public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public boolean delete(Long id) {
         return false;
+    }
+
+    public List<Order> getByBookId(long bookId) {
+        return getOrder(bookId, GET_BY_BOOK_ID);
     }
 
     public List<Order> getByUserId(long userId) {

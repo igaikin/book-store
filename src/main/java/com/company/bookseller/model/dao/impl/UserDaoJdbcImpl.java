@@ -19,6 +19,33 @@ public class UserDaoJdbcImpl implements UserDao {
     private static final String GET_BY_ID = USER_ALL + "WHERE u.id = ? AND u.deleted = false ORDER BY u.id";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
+    private User processUser(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getLong("id"));
+        user.setFirstName(resultSet.getString("first_name"));
+        user.setLastName(resultSet.getString("last_name"));
+        user.setRole(User.Role.valueOf(resultSet.getString("role")));
+        user.setEmail(resultSet.getString("email"));
+        user.setPassword(resultSet.getString("password"));
+        return user;
+    }
+
+    @Override
+    public List<User> getAll() {
+        List<User> users = new ArrayList<>();
+        try {
+            Connection connection = connectionManager.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GET_ALL);
+            while (resultSet.next()) {
+                users.add(processUser(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
     @Override
     public User get(Long id) {
         User user = null;
@@ -51,31 +78,8 @@ public class UserDaoJdbcImpl implements UserDao {
         return false;
     }
 
-    private User processUser(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getLong("id"));
-        user.setFirstName(resultSet.getString("first_name"));
-        user.setLastName(resultSet.getString("last_name"));
-        user.setRole(User.Role.valueOf(resultSet.getString("role")));
-        user.setEmail(resultSet.getString("email"));
-        user.setPassword(resultSet.getString("password"));
-        return user;
-    }
 
-    @Override
-    public List<User> getAll() {
-        List<User> users = new ArrayList<>();
-        try {
-            Connection connection = connectionManager.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(GET_ALL);
-            while (resultSet.next()) {
-                users.add(processUser(resultSet));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
+
+
 
 }

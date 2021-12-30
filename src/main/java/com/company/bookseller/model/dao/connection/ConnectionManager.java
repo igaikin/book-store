@@ -20,7 +20,7 @@ public class ConnectionManager {
             instance = new ConnectionManager();
         }
         return instance;
-    }//Spring/SpringBoot -> SpringMVC / SpringSecurity / SpringData + JPA (Hibernate) / SpringJDBCTemplate
+    }
 
     public Connection getConnection() {
         if (connection == null) {

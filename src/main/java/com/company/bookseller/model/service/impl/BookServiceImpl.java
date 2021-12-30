@@ -13,14 +13,13 @@ public class BookServiceImpl implements BookService {
     private final OrderService orderService = new OrderServiceImpl();
 
     @Override
-    public Book getById(long id) {
-        Book book = bookDao.get(id);
-        return book;
-    }
-
-    @Override
     public List<Book> getAll() {
         return bookDao.getAll();
     }
 
+    @Override
+    public Book getById(long id) {
+        Book book = bookDao.get(id);
+        return book;
+    }
 }
