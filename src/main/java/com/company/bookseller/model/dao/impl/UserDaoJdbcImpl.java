@@ -15,8 +15,8 @@ import java.util.List;
 public class UserDaoJdbcImpl implements UserDao {
     private static final String USER_ALL = "SELECT u.id, u.first_name, u.last_name, r.role, u.email, u.password "
             + "FROM users u JOIN roles r ON u.role_id = r.id ";
-    private static final String GET_ALL = USER_ALL + "WHERE u.deleted = false";
-    private static final String GET_BY_ID = USER_ALL + "WHERE u.id = ? AND u.deleted = false";
+    private static final String GET_ALL = USER_ALL + "WHERE u.deleted = false ORDER BY u.id";
+    private static final String GET_BY_ID = USER_ALL + "WHERE u.id = ? AND u.deleted = false ORDER BY u.id";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
     @Override
@@ -56,8 +56,7 @@ public class UserDaoJdbcImpl implements UserDao {
         user.setId(resultSet.getLong("id"));
         user.setFirstName(resultSet.getString("first_name"));
         user.setLastName(resultSet.getString("last_name"));
-        User.Role role = User.Role.valueOf(resultSet.getString("role"));
-        user.setRole(role);
+        user.setRole(User.Role.valueOf(resultSet.getString("role")));
         user.setEmail(resultSet.getString("email"));
         user.setPassword(resultSet.getString("password"));
         return user;
