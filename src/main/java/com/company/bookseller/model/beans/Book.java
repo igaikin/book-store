@@ -14,18 +14,6 @@ public class Book {
     private int numberOfPages;
     private BigDecimal price;
 
-    public String getFormattedOutput() {
-        return String.format("Book:%n"
-                        + "ID              | %d%n"
-                        + "Author          | %s%n"
-                        + "Title           | %s%n"
-                        + "Cover           | %s%n"
-                        + "Number of Pages | %d%n"
-                        + "Price           | $%.2f%n"
-                        + "%n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
-                getId(), getAuthor(), getTitle(), cover.name, getNumberOfPages(), getPrice());
-    }
-
     public enum Cover {
         HARD("Hardcover"),
         SOFT("Paperback");
@@ -36,5 +24,17 @@ public class Book {
         Cover(String name) {
             this.name = name;
         }
+    }
+
+    public String getFormattedOutput() {
+        return String.format("Book:%n"
+                        + "ID              | %d%n"
+                        + "Author          | %s%n"
+                        + "Title           | %s%n"
+                        + "Cover           | %s%n"
+                        + "Number of Pages | %d%n"
+                        + "Price           | $%.2f%n"
+                        + "%n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+                getId(), getAuthor(), getTitle(), cover.name, getNumberOfPages(), getPrice());
     }
 }
