@@ -1,7 +1,6 @@
 package com.company.bookseller.model.dao.impl;
 
 import com.company.bookseller.model.beans.Book;
-import com.company.bookseller.model.beans.Order;
 import com.company.bookseller.model.dao.BookDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
