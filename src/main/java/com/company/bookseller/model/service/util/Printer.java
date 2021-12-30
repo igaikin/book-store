@@ -1,6 +1,7 @@
 package com.company.bookseller.model.service.util;
 
 import com.company.bookseller.model.beans.Book;
+import com.company.bookseller.model.beans.Order;
 import com.company.bookseller.model.beans.User;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class Printer {
             |  ID |     First Name     |       Last Name       |
             +-----+--------------------+-----------------------+
             """;
+
     private static String getUserPreviewFormattedOutput(User user) {
         return String.format("| %3d | %-19s| %-22s|%n"
                         + "+-----+--------------------+-----------------------+%n",
@@ -38,6 +40,34 @@ public class Printer {
     public static String getUserFormattedTable(List<User> users) {
         StringBuilder table = new StringBuilder(userHeaderRow);
         users.forEach(u -> table.append(getUserPreviewFormattedOutput(u)));
+        return table.toString();
+    }
+
+    public static final String orderHeaderRow = """
+            +-------------------------------------------------------------------------------------------+
+            | ID  |   Status   |          User          |                     Book                      |
+            +-----+------------+------------------------+-----------------------------------------------+
+            """;
+
+    private static String getFormattedUser(User user) {
+        return user.getFirstName() + " " + user.getLastName();
+    }
+
+    private static String getFormattedBook(Book book) {
+        return book.getAuthor() + " - " + book.getTitle();
+    }
+
+    private static String getOrderPreviewFormattedOutput(Order order) {
+        String user = getFormattedUser(order.getUser());
+        String book = getFormattedBook(order.getBook());
+        return String.format("| %3d | %-11s| %-22s | %-45s |%n"
+                        + "+-----+------------+------------------------+-----------------------------------------------+%n",
+                order.getId(), order.getStatus().getName(), user, book);
+    }
+
+    public static String getOrderFormattedTable(List<Order> orders) {
+        StringBuilder table = new StringBuilder(orderHeaderRow);
+        orders.forEach(o -> table.append(getOrderPreviewFormattedOutput(o)));
         return table.toString();
     }
 }
