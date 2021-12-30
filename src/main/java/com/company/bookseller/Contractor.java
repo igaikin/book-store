@@ -30,8 +30,8 @@ public class Contractor {
         System.out.println(tableUsers);
 
         OrderService orderService = new OrderServiceImpl();
-        List<Order> prewieOrders = orderService.getAll();
-        String tableOrders = Printer.getOrderFormattedTable(prewieOrders);
+        List<Order> previewOrders = orderService.getAll();
+        String tableOrders = Printer.getOrderFormattedTable(previewOrders);
         System.out.println(tableOrders);
 
         Scanner scanner = new Scanner(System.in);
