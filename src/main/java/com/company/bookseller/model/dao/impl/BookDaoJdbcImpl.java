@@ -1,6 +1,7 @@
 package com.company.bookseller.model.dao.impl;
 
 import com.company.bookseller.model.beans.Book;
+import com.company.bookseller.model.beans.Order;
 import com.company.bookseller.model.dao.BookDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
@@ -13,26 +14,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoJdbcImpl implements BookDao {
-    private static final String GET_ALL =
-            "SELECT id, title, author, cover, number_of_pages, price, deleted FROM books WHERE deleted = false";
+    private static final String BOOK_ALL =
+            "SELECT b.id, b.title, b.author, c.cover, b.number_of_pages, b.price, b.deleted"
+                    + " FROM books b JOIN covers c ON b.cover_id = c.id";
+    private static final String GET_ALL = BOOK_ALL + " WHERE b.deleted = false ORDER BY b.id";
     private static final String GET_PREVIEW_BOOKS =
-            "SELECT id, title, author, price FROM books WHERE deleted = false ORDER BY id";
-    private static final String GET_BY_ID =
-            "SELECT id, title, author, cover, number_of_pages, price, deleted FROM books WHERE id = ? AND deleted = "
-                    + "false";
+            "SELECT b.id, b.title, b.author, b.price FROM books b WHERE b.deleted = false ORDER BY id";
+    private static final String GET_BY_ID = BOOK_ALL + " WHERE b.id = ? AND deleted = false ORDER BY b.id";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 //    private static final String GET_BY_ORDER_ID =
-//            "SELECT id, title, author, cover, order_id, number_of_pages, price, deleted FROM books WHERE   order_id
-//            = ? "
-//                    + "AND deleted = false";
+//            "SELECT id, title, author, cover, order_id, number_of_pages, price, deleted FROM books
+//            WHERE order_id = ? AND deleted = false";
 
     private Book processBook(ResultSet resultSet) throws SQLException {
         Book book = new Book();
         book.setId(resultSet.getLong("id"));
         book.setAuthor(resultSet.getString("author"));
         book.setTitle(resultSet.getString("title"));
-        Book.Cover cover = Book.Cover.valueOf(resultSet.getString("cover"));
-        book.setCover(cover);
+        book.setCover(Book.Cover.valueOf(resultSet.getString("cover")));
         book.setNumberOfPages(resultSet.getInt("number_of_pages"));
         book.setPrice(resultSet.getBigDecimal("price"));
         return book;
