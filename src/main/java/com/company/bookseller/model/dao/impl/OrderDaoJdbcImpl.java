@@ -17,9 +17,10 @@ import java.util.List;
 
 public class OrderDaoJdbcImpl implements OrderDao {
     private static final String ORDERS_ALL =
-            "SELECT o.id, o.status, o.quantity, o.user_id, o.book_id, o.total_price FROM orders o ";
-    private static final String GET_ALL = ORDERS_ALL + "WHERE deleted = false";
-    private static final String GET_BY_ID = ORDERS_ALL + "WHERE id = ? AND deleted = false";
+            "SELECT o.id, s.status, o.quantity, o.user_id, o.book_id, o.total_price "
+                    + "FROM orders o JOIN statuses s ON o.status_id = s.id";
+    private static final String GET_ALL = ORDERS_ALL + " WHERE deleted = false ORDER BY o.id";
+    private static final String GET_BY_ID = ORDERS_ALL + " WHERE id = ? AND deleted = false ORDER BY o.id";
     private static final String GET_BY_BOOK_ID =
             "SELECT o.id, o.status, o.total_price FROM orders o JOIN books b on o.id = b.order_id WHERE b.id = ?";
     private static final String GET_BY_USER_ID =
