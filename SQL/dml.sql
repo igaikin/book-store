@@ -1,4 +1,5 @@
 /*
+TRUNCATE statuses CASCADE;
 TRUNCATE orders CASCADE;
 TRUNCATE covers CASCADE;
 TRUNCATE books CASCADE;
@@ -46,13 +47,18 @@ VALUES ('Muammar', 'Gaddafi', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'm
        ('Joseph', 'Stalin', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'ya_samiy_krutoj@mail.ussr', '22222222'),
        ('Alesandro', 'Shoushenko', (SELECT id FROM roles WHERE role = 'MANAGER'), 'usatiy_nany@mail.by', '11111111');
 
-INSERT INTO orders (status, quantity, book_id, user_id, total_price)
-VALUES ('PENDING', 2,
+INSERT INTO statuses (status)
+VALUES ('PENDING'),
+       ('DELIVERING'),
+       ('DELIVERED'),
+       ('CANCELLED');
+
+INSERT INTO orders (status_id, quantity, book_id, user_id, total_price)
+VALUES ((SELECT id FROM statuses WHERE status = 'PENDING'), 2,
         (SELECT id FROM books WHERE title = 'Glory in Death' AND author = 'J. D. Robb' AND books.deleted = false),
         (SELECT id FROM users WHERE email = 'muamar@mail.lby' AND users.deleted = false),
         (SELECT price FROM books WHERE title = 'Glory in Death' AND author = 'J. D. Robb' AND books.deleted = false) * 2),
-       ('DELIVERED', 1,
-        (SELECT id
-         FROM books
-         WHERE title = 'The Last Kids on Earth' AND author = 'Max Brallier' AND books.deleted = false),
+
+       ((SELECT id FROM statuses WHERE status = 'DELIVERED'), 1,
+        (SELECT id FROM books WHERE title = 'The Last Kids on Earth' AND author = 'Max Brallier' AND books.deleted = false),
         (SELECT id FROM users WHERE email = 'usatiy_nany@mail.by' AND users.deleted = false), 87.99);

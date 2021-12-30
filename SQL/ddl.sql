@@ -1,6 +1,7 @@
 --CREATE DATABASE bookstore;
 /*
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS statuses;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS books;
@@ -40,10 +41,16 @@ CREATE TABLE IF NOT EXISTS users
     deleted    BOOLEAN                 NOT NULL DEFAULT false
 );
 
+CREATE TABLE IF NOT EXISTS statuses
+(
+    id     BIGSERIAL PRIMARY KEY,
+    status VARCHAR(50) UNIQUE NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS orders
 (
     id          BIGSERIAL PRIMARY KEY,
-    status      VARCHAR(50)          NOT NULL,
+    status_id   BIGINT REFERENCES statuses NOT NULL,
     quantity    INT                  NOT NULL,
     book_id     INT REFERENCES books NOT NULL,
     user_id     INT REFERENCES users NOT NULL,
