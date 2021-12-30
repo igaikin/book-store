@@ -1,30 +1,35 @@
 /*
 TRUNCATE orders CASCADE;
-TRUNCATE roles CASCADE;
+TRUNCATE covers CASCADE;
 TRUNCATE books CASCADE;
+TRUNCATE roles CASCADE;
 TRUNCATE users CASCADE;
  */
+INSERT INTO covers (cover)
+VALUES ('HARD'),
+       ('SOFT'),
+       ('NO_INFO');
 
-INSERT INTO books (author, title, cover, number_of_pages, price)
-VALUES ('Sandra Brown', 'The Switch', 'SOFT', 512, 5.25),
-       ('Sherryl Woods', 'Home in Carolina', 'SOFT', 384, 5.10),
-       ('J. D. Robb', 'Glory in Death', 'SOFT', 320, 5.98),
-       ('Nicholas Sparks', 'The Last Song', 'SOFT', 480, 8.79),
-       ('Jayne Ann Krentz', 'Untouchable', 'SOFT', 416, 8.40),
-       ('Nora Roberts', 'Hot Rocks', 'SOFT', 320, 8.99),
-       ('Jeaniene Frost', 'This Side of the Grave', 'SOFT', 384, 8.57),
-       ('Carolyn Brown', 'Christmas at Home', 'SOFT', 384, 6.74),
-       ('Robert Orlando', 'The Divine Plan', 'HARD', 288, 21.42),
-       ('Colleen Hoover', 'Maybe Someday', 'SOFT', 384, 11.27),
-       ('Shelley Shepard Gray', 'An Amish Family Christmas', 'SOFT', 368, 3.99),
-       ('Amanda Bouchet', 'Starbreaker', 'SOFT', 448, 5.98),
-       ('Stephen King', 'Billy Summers', 'HARD', 528, 15.00),
-       ('J. K. Rowling', 'The Christmas Pig', 'HARD', 288, 18.31),
-       ('Rebecca Stead', 'Goodbye Stranger', 'HARD', 304, 15.33),
-       ('Julia Quinn', 'The Viscount Who Loved Me', 'SOFT', 400, 9.44),
-       ('George Orwell', '1984', 'SOFT', 304, 13.49),
-       ('Stephen King', 'The Institute', 'HARD', 576, 13.93),
-       ('Max Brallier', 'The Last Kids on Earth', 'HARD', 240, 8.34);
+INSERT INTO books (author, title, cover_id, number_of_pages, price)
+VALUES ('Sandra Brown', 'The Switch', (SELECT id FROM covers WHERE cover = 'SOFT'), 512, 5.25),
+       ('Sherryl Woods', 'Home in Carolina', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 5.10),
+       ('J. D. Robb', 'Glory in Death', (SELECT id FROM covers WHERE cover = 'SOFT'), 320, 5.98),
+       ('Nicholas Sparks', 'The Last Song', (SELECT id FROM covers WHERE cover = 'SOFT'), 480, 8.79),
+       ('Jayne Ann Krentz', 'Untouchable', (SELECT id FROM covers WHERE cover = 'SOFT'), 416, 8.40),
+       ('Nora Roberts', 'Hot Rocks', (SELECT id FROM covers WHERE cover = 'SOFT'), 320, 8.99),
+       ('Jeaniene Frost', 'This Side of the Grave', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 8.57),
+       ('Carolyn Brown', 'Christmas at Home', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 6.74),
+       ('Robert Orlando', 'The Divine Plan', (SELECT id FROM covers WHERE cover = 'HARD'), 288, 21.42),
+       ('Colleen Hoover', 'Maybe Someday', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 11.27),
+       ('Shelley Shepard Gray', 'An Amish Family Christmas', (SELECT id FROM covers WHERE cover = 'SOFT'), 368, 3.99),
+       ('Amanda Bouchet', 'Starbreaker', (SELECT id FROM covers WHERE cover = 'SOFT'), 448, 5.98),
+       ('Stephen King', 'Billy Summers', (SELECT id FROM covers WHERE cover = 'HARD'), 528, 15.00),
+       ('J. K. Rowling', 'The Christmas Pig', (SELECT id FROM covers WHERE cover = 'HARD'), 288, 18.31),
+       ('Rebecca Stead', 'Goodbye Stranger', (SELECT id FROM covers WHERE cover = 'HARD'), 304, 15.33),
+       ('Julia Quinn', 'The Viscount Who Loved Me', (SELECT id FROM covers WHERE cover = 'SOFT'), 400, 9.44),
+       ('George Orwell', '1984', (SELECT id FROM covers WHERE cover = 'SOFT'), 304, 13.49),
+       ('Stephen King', 'The Institute', (SELECT id FROM covers WHERE cover = 'HARD'), 576, 13.93),
+       ('Max Brallier', 'The Last Kids on Earth', (SELECT id FROM covers WHERE cover = 'HARD'), 240, 8.34);
 
 INSERT INTO roles (role)
 VALUES ('CUSTOMER'),

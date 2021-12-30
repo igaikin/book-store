@@ -4,19 +4,24 @@ DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS covers;
 */
+CREATE TABLE IF NOT EXISTS covers
+(
+    id    BIGSERIAL PRIMARY KEY,
+    cover VARCHAR(50) UNIQUE NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS books
 (
     id              BIGSERIAL PRIMARY KEY,
     author          VARCHAR(100) NOT NULL,
     title           VARCHAR(100) NOT NULL,
-    cover           VARCHAR(10),
+    cover_id        BIGINT REFERENCES covers NOT NULL,
     number_of_pages INT,
     price           DECIMAL(8, 2),
     deleted         BOOLEAN      NOT NULL DEFAULT false
 );
-
 
 CREATE TABLE IF NOT EXISTS roles
 (
