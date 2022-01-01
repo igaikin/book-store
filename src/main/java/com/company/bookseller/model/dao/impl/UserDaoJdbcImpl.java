@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJdbcImpl implements UserDao {
-    private static final String ADD_USER = "INSERT INTO users  (id, first_name, last_name, role_id, email, password) "
+    private static final String CREATE_USER = "INSERT INTO users  (id, first_name, last_name, role_id, email, password) "
             + "VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String EDIT_USER = "UPDATE users SET first_name = ? WHERE id = ? AND  deleted = false";
-    private static final String REMOVE_USER = "UPDATE users SET deleted = true WHERE id = ? AND  deleted = false";
+    private static final String UPDATE_USER = "UPDATE users SET first_name = ? WHERE id = ? AND  deleted = false";
+    private static final String DELETE_USER = "UPDATE users SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String USER_ALL = "SELECT u.id, u.first_name, u.last_name, r.role, u.email, u.password "
             + "FROM users u JOIN roles r ON u.role_id = r.id ";
     private static final String GET_ALL = USER_ALL + "WHERE u.deleted = false ORDER BY u.id";
@@ -70,7 +70,7 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User create(User user) {try {
         Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = connection.prepareStatement(ADD_USER);
+        PreparedStatement statement = connection.prepareStatement(CREATE_USER);
         statement.executeUpdate();
     } catch (SQLException e) {
         e.printStackTrace();
@@ -82,7 +82,7 @@ public class UserDaoJdbcImpl implements UserDao {
     public User update(User user) {
         try {
             Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(EDIT_USER);
+            PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,7 +94,7 @@ public class UserDaoJdbcImpl implements UserDao {
     public boolean delete(Long id) {
         try {
             Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(REMOVE_USER);
+            PreparedStatement statement = connection.prepareStatement(DELETE_USER);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
