@@ -13,12 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoJdbcImpl implements BookDao {
+    private static final String ADD_BOOK = "INSERT INTO books  (id, title, author, cover_id, number_of_pages, price) "
+            + "VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String EDIT_BOOK = "UPDATE books SET author = ? WHERE id = ? AND  deleted = false";
+    private static final String REMOVE_BOOK = "UPDATE books SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String BOOK_ALL =
             "SELECT b.id, b.title, b.author, c.cover, b.number_of_pages, b.price, b.deleted"
                     + " FROM books b JOIN covers c ON b.cover_id = c.id";
     private static final String GET_ALL = BOOK_ALL + " WHERE b.deleted = false ORDER BY b.id";
-    private static final String GET_PREVIEW_BOOKS =
-            "SELECT b.id, b.title, b.author, b.price FROM books b WHERE b.deleted = false ORDER BY id";
     private static final String GET_BY_ID = BOOK_ALL + " WHERE b.id = ? AND deleted = false ORDER BY b.id";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 //    private static final String GET_BY_ORDER_ID =
@@ -70,18 +72,37 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
-    public Book create(Book entity) {
-        return null;
+    public Book create(Book book) {
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(ADD_BOOK);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return book;
     }
 
-    @Override
-    public Book update(Book entity) {
-        return null;
+    public Book update(Book book) {
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(EDIT_BOOK);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return book;
     }
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(REMOVE_BOOK);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
-
 }
