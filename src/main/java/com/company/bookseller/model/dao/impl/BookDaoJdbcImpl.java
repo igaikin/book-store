@@ -13,9 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoJdbcImpl implements BookDao {
-    private static final String CREATE_BOOK = "INSERT INTO books  (id, title, author, cover_id, number_of_pages, price) "
+    private static final String CREATE_BOOK =
+            "INSERT INTO books  (id, title, author, cover_id, number_of_pages, price) "
             + "VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_BOOK = "UPDATE books SET author = ? WHERE id = ? AND  deleted = false";
+    private static final String UPDATE_BOOK =
+            "UPDATE books SET author = ?, title = ?, cover_id = ?, number_of_pages =?, price = ?"
+                    + "WHERE id = ? AND deleted = false";
     private static final String DELETE_BOOK = "UPDATE books SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String BOOK_ALL =
             "SELECT b.id, b.title, b.author, c.cover, b.number_of_pages, b.price, b.deleted"
@@ -75,7 +78,12 @@ public class BookDaoJdbcImpl implements BookDao {
     public Book create(Book book) {
         try {
             Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(CREATE_BOOK);
+            PreparedStatement statement = connection.prepareStatement(CREATE_BOOK);;
+            statement.setString(2,book.getAuthor());
+            statement.setString(3, book.getTitle());
+            statement.setString(4, String.valueOf(book.getCover()));
+            statement.setInt(5, book.getNumberOfPages());
+            statement.setBigDecimal(6, book.getPrice());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,6 +95,11 @@ public class BookDaoJdbcImpl implements BookDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_BOOK);
+            statement.setString(2,book.getAuthor());
+            statement.setString(3, book.getTitle());
+            statement.setString(4, String.valueOf(book.getCover()));
+            statement.setInt(5, book.getNumberOfPages());
+            statement.setBigDecimal(6, book.getPrice());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
