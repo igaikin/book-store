@@ -44,9 +44,9 @@ public class Printer {
     }
 
     public static final String orderHeaderRow = """
-            +-------------------------------------------------------------------------------------------+
-            | ID  |   Status   |          User          |                     Book                      |
-            +-----+------------+------------------------+-----------------------------------------------+
+            +---------------------------------------------------------------------------------------------------------------+
+            | ID  |   Status   |          User          |                     Book                      | QTY | Total Price |
+            +-----+------------+------------------------+-----------------------------------------------+-----+-------------+
             """;
 
     private static String getFormattedUser(User user) {
@@ -60,9 +60,9 @@ public class Printer {
     private static String getOrderPreviewFormattedOutput(Order order) {
         String user = getFormattedUser(order.getUser());
         String book = getFormattedBook(order.getBook());
-        return String.format("| %3d | %-11s| %-22s | %-45s |%n"
-                        + "+-----+------------+------------------------+-----------------------------------------------+%n",
-                order.getId(), order.getStatus().getName(), user, book);
+        return String.format("| %3d | %-11s| %-22s | %-45s | %-3d | $%-10.2f |%n"
+                        + "+-----+------------+------------------------+-----------------------------------------------+-----+-------------+%n",
+                order.getId(), order.getStatus().getName(), user, book, order.getQuantity(), order.getTotalPrice());
     }
 
     public static String getOrderFormattedTable(List<Order> orders) {
