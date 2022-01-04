@@ -21,8 +21,8 @@ public class BookDaoJdbcImpl implements BookDao {
                     + "WHERE id = ? AND deleted = false";
     private static final String DELETE_BOOK = "UPDATE books SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String BOOK_ALL =
-            "SELECT b.id, b.title, b.author, c.cover, b.number_of_pages, b.price, b.deleted"
-                    + " FROM books b JOIN covers c ON b.cover_id = c.id";
+            "SELECT b.id, b.title, b.author, c.cover, b.number_of_pages, b.price, b.deleted "
+                    + "FROM books b JOIN covers c ON b.cover_id = c.id";
     private static final String GET_ALL = BOOK_ALL + " WHERE b.deleted = false ORDER BY b.id";
     private static final String GET_BY_ID = BOOK_ALL + " WHERE b.id = ? AND deleted = false ORDER BY b.id";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
