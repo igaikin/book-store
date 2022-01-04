@@ -16,11 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoJdbcImpl implements OrderDao {
+    private static final String CREATE_ORDER =
+            "INSERT INTO orders  (id, status_id, quantity, user_id, book_id, total_price)"
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_ORDER =
+            "UPDATE orders SET status_id = ?, quantity = ?, user_id = ?, book_id =?, total_price = ?"
+                    + "WHERE id = ? AND deleted = false";
+    private static final String DELETE_ORDER = "UPDATE orders SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String ORDERS_ALL =
             "SELECT o.id, s.status, o.quantity, o.user_id, o.book_id, o.total_price "
                     + "FROM orders o JOIN statuses s ON o.status_id = s.id";
     private static final String GET_ALL = ORDERS_ALL + " WHERE deleted = false ORDER BY o.id";
-    private static final String GET_BY_ID = ORDERS_ALL + " WHERE id = ? AND deleted = false ORDER BY o.id";
+    private static final String GET_BY_ID = ORDERS_ALL + " WHERE o.id = ? AND deleted = false ORDER BY o.id";
     private static final String GET_BY_BOOK_ID =
             "SELECT o.id, o.status, o.total_price FROM orders o JOIN books b on o.id = b.order_id WHERE b.id = ?";
     private static final String GET_BY_USER_ID =
@@ -36,18 +43,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
         order.setBook(getBook(resultSet));
         order.setTotalPrice(resultSet.getBigDecimal("total_price"));
         return order;
-    }
-
-    private Book getBook(ResultSet resultSet) throws SQLException {
-        Book book = new Book();
-        book.setId(resultSet.getLong("book_id"));
-        return book;
-    }
-
-    private User getUser(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getLong("user_id"));
-        return user;
     }
 
     @Override
@@ -84,18 +79,61 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     @Override
-    public Order create(Order entity) {
-        return null;
+    public Order create(Order order) {
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(CREATE_ORDER);
+            statement.setString(2, String.valueOf(order.getStatus()));
+            statement.setInt(3,order.getQuantity());
+            statement.setBook();
+            statement.setUser();
+            statement.setBigDecimal(6, order.getTotalPrice());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order;
     }
 
     @Override
-    public Order update(Order entity) {
-        return null;
+    public Order update(Order order) {
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER);
+            statement.setString(2, String.valueOf(order.getStatus()));
+            statement.setInt(3,order.getQuantity());
+            statement.setLong(4, getBook());
+            statement.setLong(5, getUser());
+            statement.setBigDecimal(6, order.getTotalPrice());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order;
     }
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(DELETE_ORDER);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private Book getBook(ResultSet resultSet) throws SQLException {
+        Book book = new Book();
+        book.setId(resultSet.getLong("book_id"));
+        return book;
+    }
+
+    private User getUser(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getLong("user_id"));
+        return user;
     }
 
     public List<Order> getByBookId(long bookId) {
