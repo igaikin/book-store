@@ -26,8 +26,7 @@ public class ConnectionManager {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-                System.out.println("[LOGGER] connection opened");
-                LOG.info("connection opened");
+                LOG.error("Connection opened");
             } catch (SQLException e) {
                 LOG.error(e);
             }
@@ -39,7 +38,7 @@ public class ConnectionManager {
         if (connection != null) {
             try {
                 connection.close();
-                System.out.println("[LOGGER] connection closed");
+                LOG.error("Connection closed");
                 connection = null;
             } catch (SQLException e) {
                 e.printStackTrace();
