@@ -11,7 +11,6 @@ import com.company.bookseller.model.service.impl.BookServiceImpl;
 import com.company.bookseller.model.service.impl.OrderServiceImpl;
 import com.company.bookseller.model.service.impl.UserServiceImpl;
 import com.company.bookseller.model.service.util.Printer;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Scanner;
@@ -36,45 +35,45 @@ public class Contractor {
 
         Scanner scanner = new Scanner(System.in);
         try {
-            while (true) {
-                System.out.print("Please enter the ID to see detailed information for the list Books: ");
-                long id = scanner.nextLong();
-                if (id <= 0) {
-                    break;
-                }
-                Book book = bookService.getById(id);
-                if (book != null) {
-                    System.out.println(book.getFormattedOutput());
-                } else {
-                    System.out.println("Book with this ID does not exist");
-                }
-            }
-            while (true) {
-                System.out.print("Please enter the ID to see detailed information for the list Users: ");
-                long id = scanner.nextLong();
-                if (id <= 0) {
-                    break;
-                }
-                User user = userService.getById(id);
-                if (user != null) {
-                    System.out.println(user.getFormattedOutput());
-                } else {
-                    System.out.println("User with this ID does not exist");
-                }
-            }
-            while (true) {
-                System.out.print("Please enter the ID to see detailed information for the list Orders: ");
-                long id = scanner.nextLong();
-                if (id <= 0) {
-                    break;
-                }
-                Order order = orderService.getById(id);
-                if (order != null) {
-                    System.out.println(order.getFormattedOutput());
-                } else {
-                    System.out.println("Order with this ID does not exist");
-                }
-            }
+//            while (true) {
+//                System.out.print("Please enter the ID to see detailed information for the list Books: ");
+//                long id = scanner.nextLong();
+//                if (id <= 0) {
+//                    break;
+//                }
+//                Book book = bookService.getById(id);
+//                if (book != null) {
+//                    System.out.println(book.getFormattedOutput());
+//                } else {
+//                    System.out.println("Book with this ID does not exist");
+//                }
+//            }
+//            while (true) {
+//                System.out.print("Please enter the ID to see detailed information for the list Users: ");
+//                long id = scanner.nextLong();
+//                if (id <= 0) {
+//                    break;
+//                }
+//                User user = userService.getById(id);
+//                if (user != null) {
+//                    System.out.println(user.getFormattedOutput());
+//                } else {
+//                    System.out.println("User with this ID does not exist");
+//                }
+//            }
+//            while (true) {
+//                System.out.print("Please enter the ID to see detailed information for the list Orders: ");
+//                long id = scanner.nextLong();
+//                if (id <= 0) {
+//                    break;
+//                }
+//                Order order = orderService.getById(id);
+//                if (order != null) {
+//                    System.out.println(order.getFormattedOutput());
+//                } else {
+//                    System.out.println("Order with this ID does not exist");
+//                }
+//            }
         } finally {
             ConnectionManager.getInstance().tearDown();
         }
