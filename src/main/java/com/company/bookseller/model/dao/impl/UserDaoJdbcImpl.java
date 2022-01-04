@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJdbcImpl implements UserDao {
-    private static final String CREATE_USER = "INSERT INTO users  (id, first_name, last_name, role_id, email, password) "
-            + "VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_USER = "UPDATE users SET first_name = ? WHERE id = ? AND  deleted = false";
+    private static final String CREATE_USER =
+            "INSERT INTO users  (id, first_name, last_name, role_id, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_USER =
+            "UPDATE users SET first_name = ?, last_name = ?, role_id = ?, email = ?, password = ?"
+                    + "WHERE id = ? AND deleted = false";
     private static final String DELETE_USER = "UPDATE users SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String USER_ALL = "SELECT u.id, u.first_name, u.last_name, r.role, u.email, u.password "
             + "FROM users u JOIN roles r ON u.role_id = r.id ";
@@ -68,13 +70,19 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     @Override
-    public User create(User user) {try {
-        Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = connection.prepareStatement(CREATE_USER);
-        statement.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
+    public User create(User user) {
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(CREATE_USER);
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getLastName());
+            statement.setString(4, String.valueOf(user.getRole()));
+            statement.setString(5, user.getEmail());
+            statement.setString(5, user.getPassword());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return user;
     }
 
@@ -83,6 +91,11 @@ public class UserDaoJdbcImpl implements UserDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getLastName());
+            statement.setString(4, String.valueOf(user.getRole()));
+            statement.setString(5, user.getEmail());
+            statement.setString(5, user.getPassword());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
