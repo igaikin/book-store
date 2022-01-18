@@ -85,8 +85,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement statement = connection.prepareStatement(CREATE_ORDER);
             statement.setString(2, String.valueOf(order.getStatus()));
             statement.setInt(3,order.getQuantity());
-            statement.setBook();
-            statement.setUser();
+            statement.setLong(4, order.getUser().getId());
+            statement.setLong(5, order.getBook().getId());
             statement.setBigDecimal(6, order.getTotalPrice());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -102,8 +102,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER);
             statement.setString(2, String.valueOf(order.getStatus()));
             statement.setInt(3,order.getQuantity());
-            statement.setLong(4, getBook());
-            statement.setLong(5, getUser());
+            statement.setLong(4, order.getUser().getId());
+            statement.setLong(5, order.getBook().getId());
             statement.setBigDecimal(6, order.getTotalPrice());
             statement.executeUpdate();
         } catch (SQLException e) {
