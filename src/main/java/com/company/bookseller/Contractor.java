@@ -12,6 +12,7 @@ import com.company.bookseller.model.service.impl.OrderServiceImpl;
 import com.company.bookseller.model.service.impl.UserServiceImpl;
 import com.company.bookseller.model.service.util.Printer;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,6 +34,21 @@ public class Contractor {
         String tableOrders = Printer.getOrderFormattedTable(previewOrders);
         System.out.println(tableOrders);
 
+        Order order = new Order();
+        long userId = 1;
+        User user = userService.get(userId);
+        order.setUser(user);
+        long bookId = 16;
+        Book book = bookService.get(bookId);
+        order.setBook(book);
+        int quantity = 2;
+        order.setQuantity(quantity);
+        order.setStatus(Order.Status.PENDING);
+        BigDecimal price = order.getBook().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()));
+        order.setTotalPrice(price);
+        orderService.create(order);
+
+        orderService.getAll();
         Scanner scanner = new Scanner(System.in);
         try {
 //            while (true) {
