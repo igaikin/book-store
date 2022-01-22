@@ -15,7 +15,7 @@ import java.util.List;
 public class BookDaoJdbcImpl implements BookDao {
     private static final String CREATE_BOOK =
             "INSERT INTO books  (id, title, author, cover_id, number_of_pages, price) "
-            + "VALUES (?, ?, ?, ?, ?, ?)";
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_BOOK =
             "UPDATE books SET author = ?, title = ?, cover_id = ?, number_of_pages =?, price = ?"
                     + "WHERE id = ? AND deleted = false";
@@ -78,8 +78,9 @@ public class BookDaoJdbcImpl implements BookDao {
     public Book create(Book book) {
         try {
             Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(CREATE_BOOK);;
-            statement.setString(2,book.getAuthor());
+            PreparedStatement statement = connection.prepareStatement(CREATE_BOOK);
+            statement.setLong(1, book.getId());
+            statement.setString(2, book.getAuthor());
             statement.setString(3, book.getTitle());
             statement.setString(4, String.valueOf(book.getCover()));
             statement.setInt(5, book.getNumberOfPages());
@@ -95,7 +96,8 @@ public class BookDaoJdbcImpl implements BookDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_BOOK);
-            statement.setString(2,book.getAuthor());
+            statement.setLong(1, book.getId());
+            statement.setString(2, book.getAuthor());
             statement.setString(3, book.getTitle());
             statement.setString(4, String.valueOf(book.getCover()));
             statement.setInt(5, book.getNumberOfPages());

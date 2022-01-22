@@ -74,6 +74,7 @@ public class UserDaoJdbcImpl implements UserDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(CREATE_USER);
+            statement.setLong(1, user.getId());
             statement.setString(2, user.getFirstName());
             statement.setString(3, user.getLastName());
             statement.setString(4, String.valueOf(user.getRole()));
@@ -91,6 +92,7 @@ public class UserDaoJdbcImpl implements UserDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
+            statement.setLong(1, user.getId());
             statement.setString(2, user.getFirstName());
             statement.setString(3, user.getLastName());
             statement.setString(4, String.valueOf(user.getRole()));

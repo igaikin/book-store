@@ -17,8 +17,11 @@ import java.util.List;
 
 public class OrderDaoJdbcImpl implements OrderDao {
     private static final String CREATE_ORDER =
-            "INSERT INTO orders  (id, status_id, quantity, user_id, book_id, total_price)"
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
+            "INSERT INTO orders  (status_id, quantity, user_id, book_id, total_price)"
+                    + "VALUES ((SELECT id FROM statuses WHERE status = ?), ?,"
+                    + "(SELECT id FROM books WHERE title = ? AND author = ? AND books.deleted = false),"
+                    + "(SELECT id FROM users WHERE email = ? AND users.deleted = false),"
+                    + "(SELECT price FROM books WHERE title = ? AND author = ? AND books.deleted = false))";
     private static final String UPDATE_ORDER =
             "UPDATE orders SET status_id = ?, quantity = ?, user_id = ?, book_id =?, total_price = ?"
                     + "WHERE id = ? AND deleted = false";
@@ -83,6 +86,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(CREATE_ORDER);
+            statement.setLong(1, order.getId());
             statement.setString(2, String.valueOf(order.getStatus()));
             statement.setInt(3,order.getQuantity());
             statement.setLong(4, order.getUser().getId());
@@ -100,6 +104,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER);
+            statement.setLong(1, order.getId());
             statement.setString(2, String.valueOf(order.getStatus()));
             statement.setInt(3,order.getQuantity());
             statement.setLong(4, order.getUser().getId());
