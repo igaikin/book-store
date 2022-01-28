@@ -23,15 +23,15 @@ public class BookServiceImpl implements BookService {
         return book;
     }
 
-    public Book create (Book book){
+    public Book create(Book book) {
         return bookDao.create(book);
     }
 
-    public Book update (Book book){
+    public Book update(Book book) {
         return bookDao.update(book);
     }
 
-    public boolean delete (Long id){
+    public boolean delete(Long id) {
         return bookDao.delete(id);
     }
 }

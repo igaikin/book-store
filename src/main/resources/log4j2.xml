@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn" strict="true" name="XMLConfigTest" packages="org.apache.logging.log4j.test">
-    <Filter type="ThresholdFilter" level="debug" />
+    <Filter type="ThresholdFilter" level="debug"/>
     <Appenders>
         <Console name="STDOUT">
-            <Layout type="PatternLayout" pattern="%d{MM/dd yyyy HH:mm:ss} [%t] %-5level %logger{5} - %msg%n" />
+            <Layout type="PatternLayout" pattern="%d{MM/dd yyyy HH:mm:ss} [%t] %-5level %logger{5} - %msg%n"/>
         </Console>
         <RollingFile name="rollingFile"
                      fileName="logs/log4j2.log"
@@ -12,16 +12,16 @@
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
             <Policies>
-                <TimeBasedTriggeringPolicy interval = "1" />
-                <SizeBasedTriggeringPolicy size="20 MB" />
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="20 MB"/>
             </Policies>
         </RollingFile>
     </Appenders>
 
     <Loggers>
         <Root level="all">
-            <AppenderRef ref="STDOUT" />
-            <AppenderRef ref="rollingFile" />
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="rollingFile"/>
         </Root>
     </Loggers>
 </Configuration>

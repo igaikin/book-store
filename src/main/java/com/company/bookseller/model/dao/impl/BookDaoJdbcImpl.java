@@ -7,7 +7,6 @@ import com.company.bookseller.model.dao.connection.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -18,7 +17,8 @@ public class BookDaoJdbcImpl implements BookDao {
             "INSERT INTO books  (title, author, cover_id, number_of_pages, price)"
                     + "VALUES (?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?)";
     private static final String UPDATE_BOOK =
-            "UPDATE books SET author = ?, title = ?, cover_id = (SELECT id FROM covers WHERE cover = ?), number_of_pages =?, price = ? "
+            "UPDATE books SET author = ?, title = ?, cover_id = (SELECT id FROM covers WHERE cover = ?), "
+                    + "number_of_pages =?, price = ? "
                     + "WHERE id = ? AND deleted = false";
     private static final String DELETE_BOOK = "UPDATE books SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String BOOK_ALL =
