@@ -16,10 +16,22 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.company.bookseller.model.beans.Book.Cover.HARD;
+
 public class Contractor {
     public static void main(String[] args) {
 
         BookService bookService = new BookServiceImpl();
+
+        Book book = new Book();
+//        book.setId(20);
+        book.setAuthor("Rudyard Kipling");
+        book.setTitle("The Jungle Book");
+        book.setCover(HARD);
+        book.setNumberOfPages(110);
+        book.setPrice(BigDecimal.valueOf(23.86));
+        bookService.create(book);
+
         List<Book> previewBooks = bookService.getAll();
         String tableBooks = Printer.getBookFormattedTable(previewBooks);
         System.out.println(tableBooks);
