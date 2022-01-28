@@ -42,25 +42,26 @@ public class Contractor {
         System.out.println(tableUsers);
 
         OrderService orderService = new OrderServiceImpl();
+
+//        Order order = new Order();
+//        long userId = 1;
+//        User user = userService.get(userId);
+//        order.setUser(user);
+//        long bookId = 16;
+//        Book book = bookService.get(bookId);
+//        order.setBook(book);
+//        int quantity = 2;
+//        order.setQuantity(quantity);
+//        order.setStatus(Order.Status.PENDING);
+//        BigDecimal price = order.getBook().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()));
+//        order.setTotalPrice(price);
+//        orderService.create(order);
+
         List<Order> previewOrders = orderService.getAll();
         String tableOrders = Printer.getOrderFormattedTable(previewOrders);
-        System.out.println(tableOrders);
-
-        Order order = new Order();
-        long userId = 1;
-        User user = userService.get(userId);
-        order.setUser(user);
-        long bookId = 16;
-        Book book = bookService.get(bookId);
-        order.setBook(book);
-        int quantity = 2;
-        order.setQuantity(quantity);
-        order.setStatus(Order.Status.PENDING);
-        BigDecimal price = order.getBook().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()));
-        order.setTotalPrice(price);
-        orderService.create(order);
-
         orderService.getAll();
+
+        System.out.println(tableOrders);
         Scanner scanner = new Scanner(System.in);
         try {
 //            while (true) {
