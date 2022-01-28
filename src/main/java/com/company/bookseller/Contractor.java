@@ -14,97 +14,103 @@ import com.company.bookseller.model.service.util.Printer;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Random;
 
 import static com.company.bookseller.model.beans.Book.Cover.HARD;
 
 public class Contractor {
+
+    private static final BookService bookService = new BookServiceImpl();
+    private static final UserService userService = new UserServiceImpl();
+    private static final OrderService orderService = new OrderServiceImpl();
+
+    private static void print(Object o) {
+        List l;
+        if (!(o instanceof List)) {
+            l = List.of(o);
+        } else {
+            l = (List) o;
+        }
+        String str = "";
+        if (l.get(0) instanceof Book) {
+            str = Printer.getBookFormattedTable(l);
+        }
+        if (l.get(0) instanceof Order) {
+            str = Printer.getOrderFormattedTable(l);
+        }
+        if (l.get(0) instanceof User) {
+            str = Printer.getUserFormattedTable(l);
+        }
+        System.out.println(str);
+
+    }
+
     public static void main(String[] args) {
+        try {
+            testBook();
+            //FIXME test user
+            testOrder();
+        } finally {
+            ConnectionManager.getInstance().tearDown();
+        }
+    }
 
-        BookService bookService = new BookServiceImpl();
+    private static User getRandomUser() {
+        List<User> users = userService.getAll();
+        Random random = new Random();
+        return users.get(random.nextInt(users.size()));
+    }
 
+    private static Book getRandomBook() {
+        List<Book> books = bookService.getAll();
+        Random random = new Random();
+        return books.get(random.nextInt(books.size()));
+    }
+
+    private static void testOrder() {
+        Order order = new Order();
+        User user = getRandomUser();
+        order.setUser(user);
+        Book book = getRandomBook();
+        order.setBook(book);
+        int quantity = 99;
+        order.setQuantity(quantity);
+        order.setStatus(Order.Status.PENDING);
+        BigDecimal price = order.getBook().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()));
+        order.setTotalPrice(price);
+        Order createdOrder = orderService.create(order);
+
+        Order orderToRead = orderService.get(createdOrder.getId());
+        print(orderToRead);
+
+        createdOrder.setStatus(Order.Status.DELIVERED);
+        orderService.update(createdOrder);
+
+        List<Order> orders = orderService.getAll();
+        print(orders);
+
+        orderService.delete(createdOrder.getId());
+    }
+
+    private static void testBook() {
         Book book = new Book();
-//        book.setId(20);
         book.setAuthor("Rudyard Kipling");
         book.setTitle("The Jungle Book");
         book.setCover(HARD);
         book.setNumberOfPages(110);
         book.setPrice(BigDecimal.valueOf(23.86));
-        bookService.create(book);
+        Book createdBook = bookService.create(book);
 
-        List<Book> previewBooks = bookService.getAll();
-        String tableBooks = Printer.getBookFormattedTable(previewBooks);
-        System.out.println(tableBooks);
+        Book bookToRead = bookService.get(createdBook.getId());
+        print(bookToRead);
 
-        UserService userService = new UserServiceImpl();
-        List<User> previewUsers = userService.getAll();
-        String tableUsers = Printer.getUserFormattedTable(previewUsers);
-        System.out.println(tableUsers);
+        createdBook.setAuthor("XXXXXX");
+        createdBook.setTitle("XXXXXX");
+        bookService.update(createdBook);
 
-        OrderService orderService = new OrderServiceImpl();
+        List<Book> books = bookService.getAll();
+        print(books);
 
-//        Order order = new Order();
-//        long userId = 1;
-//        User user = userService.get(userId);
-//        order.setUser(user);
-//        long bookId = 16;
-//        Book book = bookService.get(bookId);
-//        order.setBook(book);
-//        int quantity = 2;
-//        order.setQuantity(quantity);
-//        order.setStatus(Order.Status.PENDING);
-//        BigDecimal price = order.getBook().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()));
-//        order.setTotalPrice(price);
-//        orderService.create(order);
-
-        List<Order> previewOrders = orderService.getAll();
-        String tableOrders = Printer.getOrderFormattedTable(previewOrders);
-        orderService.getAll();
-
-        System.out.println(tableOrders);
-        Scanner scanner = new Scanner(System.in);
-        try {
-//            while (true) {
-//                System.out.print("Please enter the ID to see detailed information for the list Books: ");
-//                long id = scanner.nextLong();
-//                if (id <= 0) {
-//                    break;
-//                }
-//                Book book = bookService.getById(id);
-//                if (book != null) {
-//                    System.out.println(book.getFormattedOutput());
-//                } else {
-//                    System.out.println("Book with this ID does not exist");
-//                }
-//            }
-//            while (true) {
-//                System.out.print("Please enter the ID to see detailed information for the list Users: ");
-//                long id = scanner.nextLong();
-//                if (id <= 0) {
-//                    break;
-//                }
-//                User user = userService.getById(id);
-//                if (user != null) {
-//                    System.out.println(user.getFormattedOutput());
-//                } else {
-//                    System.out.println("User with this ID does not exist");
-//                }
-//            }
-//            while (true) {
-//                System.out.print("Please enter the ID to see detailed information for the list Orders: ");
-//                long id = scanner.nextLong();
-//                if (id <= 0) {
-//                    break;
-//                }
-//                Order order = orderService.getById(id);
-//                if (order != null) {
-//                    System.out.println(order.getFormattedOutput());
-//                } else {
-//                    System.out.println("Order with this ID does not exist");
-//                }
-//            }
-        } finally {
-            ConnectionManager.getInstance().tearDown();
-        }
+        bookService.delete(createdBook.getId());
     }
 }

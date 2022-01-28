@@ -32,6 +32,6 @@ public class BookServiceImpl implements BookService {
     }
 
     public boolean delete (Long id){
-        return true;
+        return bookDao.delete(id);
     }
 }

@@ -26,7 +26,7 @@ public class ConnectionManager {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-                LOG.error("Connection opened");
+                LOG.info("Connection opened");
             } catch (SQLException e) {
                 LOG.error(e);
             }
@@ -38,10 +38,10 @@ public class ConnectionManager {
         if (connection != null) {
             try {
                 connection.close();
-                LOG.error("Connection closed");
+                LOG.info("Connection closed");
                 connection = null;
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOG.error(e);
             }
         }
     }

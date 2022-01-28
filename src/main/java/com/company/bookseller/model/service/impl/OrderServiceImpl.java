@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean delete(Long id) {
-        return true;
+        return orderDao.delete(id);
     }
 
     @Override

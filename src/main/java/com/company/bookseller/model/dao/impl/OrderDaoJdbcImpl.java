@@ -10,6 +10,7 @@ import com.company.bookseller.model.dao.connection.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -18,12 +19,10 @@ import java.util.List;
 public class OrderDaoJdbcImpl implements OrderDao {
     private static final String CREATE_ORDER =
             "INSERT INTO orders  (status_id, quantity, user_id, book_id, total_price)"
-                    + "VALUES ((SELECT id FROM statuses WHERE status = ?), ?,"
-                    + "(SELECT id FROM books WHERE books.id = ? AND books.deleted = false),"
-                    + "(SELECT id FROM users WHERE users.id = ? AND users.deleted = false),"
-                    + "(SELECT price FROM books WHERE title = ? AND author = ? AND books.deleted = false))";
+                    + "VALUES ((SELECT id FROM statuses WHERE status = ?), ?, ?, ?, ?)";
     private static final String UPDATE_ORDER =
-            "UPDATE orders SET status_id = ?, quantity = ?, user_id = ?, book_id =?, total_price = ?"
+            "UPDATE orders SET status_id = (SELECT id FROM statuses WHERE status = ?), "
+                    + "quantity = ?, user_id = ?, book_id =?, total_price = ?"
                     + "WHERE id = ? AND deleted = false";
     private static final String DELETE_ORDER = "UPDATE orders SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String ORDERS_ALL =
@@ -85,19 +84,23 @@ public class OrderDaoJdbcImpl implements OrderDao {
     public Order create(Order order) {
         try {
             Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(CREATE_ORDER);
-            statement.setLong(1, order.getId());
-            statement.setString(2, String.valueOf(order.getStatus()));
-            statement.setInt(3, order.getQuantity());
-            statement.setLong(4, order.getUser().getId());
-            statement.setLong(5, order.getBook().getId());
-            statement.setBigDecimal(6, order.getTotalPrice());
+            PreparedStatement statement = connection.prepareStatement(CREATE_ORDER, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, String.valueOf(order.getStatus()));
+            statement.setInt(2, order.getQuantity());
+            statement.setLong(3, order.getUser().getId());
+            statement.setLong(4, order.getBook().getId());
+            statement.setBigDecimal(5, order.getTotalPrice());
             statement.executeUpdate();
+
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                order.setId(keys.getLong(1));
+                return order;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Order created");
-        return order;
+        throw new RuntimeException("S novym godom!");//FIXME
 
     }
 
@@ -106,17 +109,16 @@ public class OrderDaoJdbcImpl implements OrderDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER);
-            statement.setLong(1, order.getId());
-            statement.setString(2, String.valueOf(order.getStatus()));
-            statement.setInt(3, order.getQuantity());
-            statement.setLong(4, order.getUser().getId());
-            statement.setLong(5, order.getBook().getId());
-            statement.setBigDecimal(6, order.getTotalPrice());
+            statement.setString(1, String.valueOf(order.getStatus()));
+            statement.setInt(2, order.getQuantity());
+            statement.setLong(3, order.getUser().getId());
+            statement.setLong(4, order.getBook().getId());
+            statement.setBigDecimal(5, order.getTotalPrice());
+            statement.setLong(6, order.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Order updated");
         return order;
     }
 
@@ -125,11 +127,11 @@ public class OrderDaoJdbcImpl implements OrderDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(DELETE_ORDER);
+            statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Order deleted");
         return true;
     }
 
@@ -153,12 +155,12 @@ public class OrderDaoJdbcImpl implements OrderDao {
         return getOrder(userId, GET_BY_USER_ID);
     }
 
-    private List<Order> getOrder(long userId, String sql) {
+    private List<Order> getOrder(long itemId, String sql) {
         List<Order> orders = new ArrayList<>();
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, userId);
+            statement.setLong(1, itemId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 orders.add(processOrder(resultSet));

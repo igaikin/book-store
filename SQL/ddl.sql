@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS covers
 
 CREATE TABLE IF NOT EXISTS books
 (
-    id              BIGSERIAL PRIMARY KEY,
+    id              BIGSERIAL PRIMARY KEY,--ISBN - validation
     author          VARCHAR(100) NOT NULL,
     title           VARCHAR(100) NOT NULL,
     cover_id        BIGSERIAL REFERENCES covers NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS users
     first_name VARCHAR(50),
     last_name  VARCHAR(50),
     role_id    BIGSERIAL REFERENCES roles NOT NULL,
-    email      VARCHAR(50)             NOT NULL,
+    email      VARCHAR(50)             NOT NULL,--add validation
     password   VARCHAR(50)             NOT NULL,
     deleted    BOOLEAN                 NOT NULL DEFAULT false
 );
