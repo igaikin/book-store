@@ -89,6 +89,7 @@ public class BookDaoJdbcImpl implements BookDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Book created");
         return book;
     }
 
@@ -106,6 +107,7 @@ public class BookDaoJdbcImpl implements BookDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Book updated");
         return book;
     }
 
@@ -118,6 +120,7 @@ public class BookDaoJdbcImpl implements BookDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Book deleted");
         return true;
     }
 }

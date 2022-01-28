@@ -88,7 +88,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement statement = connection.prepareStatement(CREATE_ORDER);
             statement.setLong(1, order.getId());
             statement.setString(2, String.valueOf(order.getStatus()));
-            statement.setInt(3,order.getQuantity());
+            statement.setInt(3, order.getQuantity());
             statement.setLong(4, order.getUser().getId());
             statement.setLong(5, order.getBook().getId());
             statement.setBigDecimal(6, order.getTotalPrice());
@@ -96,7 +96,9 @@ public class OrderDaoJdbcImpl implements OrderDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Order created");
         return order;
+
     }
 
     @Override
@@ -106,7 +108,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER);
             statement.setLong(1, order.getId());
             statement.setString(2, String.valueOf(order.getStatus()));
-            statement.setInt(3,order.getQuantity());
+            statement.setInt(3, order.getQuantity());
             statement.setLong(4, order.getUser().getId());
             statement.setLong(5, order.getBook().getId());
             statement.setBigDecimal(6, order.getTotalPrice());
@@ -114,6 +116,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Order updated");
         return order;
     }
 
@@ -126,6 +129,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Order deleted");
         return true;
     }
 

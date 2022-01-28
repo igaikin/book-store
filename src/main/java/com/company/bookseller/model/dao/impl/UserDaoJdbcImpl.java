@@ -85,6 +85,7 @@ public class UserDaoJdbcImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("User created");
         return user;
     }
 
@@ -103,6 +104,7 @@ public class UserDaoJdbcImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("User updated");
         return user;
     }
 
@@ -115,6 +117,7 @@ public class UserDaoJdbcImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("User deleted");
         return true;
     }
 }
