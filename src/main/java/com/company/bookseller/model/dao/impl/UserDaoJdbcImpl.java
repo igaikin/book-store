@@ -14,7 +14,8 @@ import java.util.List;
 
 public class UserDaoJdbcImpl implements UserDao {
     private static final String CREATE_USER =
-            "INSERT INTO users  (id, first_name, last_name, role_id, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+            "INSERT INTO users  (first_name, last_name, role_id, email, password)"
+                    + "VALUES (?, ?, (SELECT id FROM roles WHERE role = ?), ?, ?)";
     private static final String UPDATE_USER =
             "UPDATE users SET first_name = ?, last_name = ?, role_id = ?, email = ?, password = ?"
                     + "WHERE id = ? AND deleted = false";
