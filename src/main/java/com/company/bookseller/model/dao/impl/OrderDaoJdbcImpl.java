@@ -19,8 +19,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
     private static final String CREATE_ORDER =
             "INSERT INTO orders  (status_id, quantity, user_id, book_id, total_price)"
                     + "VALUES ((SELECT id FROM statuses WHERE status = ?), ?,"
-                    + "(SELECT id FROM books WHERE title = ? AND author = ? AND books.deleted = false),"
-                    + "(SELECT id FROM users WHERE email = ? AND users.deleted = false),"
+                    + "(SELECT id FROM books WHERE books.id = ? AND books.deleted = false),"
+                    + "(SELECT id FROM users WHERE users.id = ? AND users.deleted = false),"
                     + "(SELECT price FROM books WHERE title = ? AND author = ? AND books.deleted = false))";
     private static final String UPDATE_ORDER =
             "UPDATE orders SET status_id = ?, quantity = ?, user_id = ?, book_id =?, total_price = ?"
