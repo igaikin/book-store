@@ -10,3 +10,8 @@
 /.idea/sonarlint/*
 /.idea/*
 /target/*
+/logs
+*.log
+*.gz
+*.jar
+*.war
