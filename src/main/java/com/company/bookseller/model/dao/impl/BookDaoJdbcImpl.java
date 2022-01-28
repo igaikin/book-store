@@ -14,8 +14,8 @@ import java.util.List;
 
 public class BookDaoJdbcImpl implements BookDao {
     private static final String CREATE_BOOK =
-            "INSERT INTO books  (id, title, author, cover_id, number_of_pages, price) "
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
+            "INSERT INTO books  (id, title, author, cover_id, number_of_pages, price)"
+                    + "VALUES (?, ?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?)";
     private static final String UPDATE_BOOK =
             "UPDATE books SET author = ?, title = ?, cover_id = ?, number_of_pages =?, price = ?"
                     + "WHERE id = ? AND deleted = false";
