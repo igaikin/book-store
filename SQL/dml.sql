@@ -8,8 +8,7 @@ TRUNCATE users CASCADE;
  */
 INSERT INTO covers (cover)
 VALUES ('HARD'),
-       ('SOFT'),
-       ('NO_INFO');
+       ('SOFT');
 
 INSERT INTO books (author, title, cover_id, number_of_pages, price)
 VALUES ('Sandra Brown', 'The Switch', (SELECT id FROM covers WHERE cover = 'SOFT'), 512, 5.25),

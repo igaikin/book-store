@@ -28,8 +28,7 @@ public class Book {
 
     public enum Cover {
         HARD("Hardcover"),
-        SOFT("Paperback"),
-        NO_INFO("-No info-");
+        SOFT("Paperback");
 
         @Getter
         private final String name;
