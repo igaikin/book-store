@@ -14,11 +14,11 @@ import java.util.List;
 
 public class UserDaoJdbcImpl implements UserDao {
     private static final String CREATE_USER =
-            "INSERT INTO users  (first_name, last_name, role_id, email, password)"
+            "INSERT INTO users  (first_name, last_name, role_id, email, password) "
                     + "VALUES (?, ?, (SELECT id FROM roles WHERE role = ?), ?, ?)";
     private static final String UPDATE_USER =
-            "UPDATE users SET first_name = ?, last_name = ?, role_id = ?, email = ?, password = ?"
-                    + "WHERE id = ? AND deleted = false";
+            "UPDATE users SET first_name = ?, last_name = ?, role_id = (SELECT id FROM roles WHERE role = ?), "
+                    + "email = ?, password = ? WHERE id = ? AND deleted = false";
     private static final String DELETE_USER = "UPDATE users SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String USER_ALL = "SELECT u.id, u.first_name, u.last_name, r.role, u.email, u.password "
             + "FROM users u JOIN roles r ON u.role_id = r.id ";
@@ -74,19 +74,22 @@ public class UserDaoJdbcImpl implements UserDao {
     public User create(User user) {
         try {
             Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(CREATE_USER);
-            statement.setLong(1, user.getId());
-            statement.setString(2, user.getFirstName());
-            statement.setString(3, user.getLastName());
-            statement.setString(4, String.valueOf(user.getRole()));
-            statement.setString(5, user.getEmail());
+            PreparedStatement statement = connection.prepareStatement(CREATE_USER, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, String.valueOf(user.getRole()));
+            statement.setString(4, user.getEmail());
             statement.setString(5, user.getPassword());
             statement.executeUpdate();
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                user.setId(keys.getLong(1));
+                return user;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("User created");
-        return user;
+        throw new RuntimeException("Couldn't create persont: " + user);
     }
 
     @Override
@@ -94,17 +97,16 @@ public class UserDaoJdbcImpl implements UserDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
-            statement.setLong(1, user.getId());
-            statement.setString(2, user.getFirstName());
-            statement.setString(3, user.getLastName());
-            statement.setString(4, String.valueOf(user.getRole()));
-            statement.setString(5, user.getEmail());
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, String.valueOf(user.getRole()));
+            statement.setString(4, user.getEmail());
             statement.setString(5, user.getPassword());
+            statement.setLong(6, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("User updated");
         return user;
     }
 
@@ -113,11 +115,11 @@ public class UserDaoJdbcImpl implements UserDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(DELETE_USER);
+            statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("User deleted");
         return true;
     }
 }
