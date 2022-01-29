@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 import static com.company.bookseller.model.beans.Book.Cover.HARD;
+import static com.company.bookseller.model.beans.User.Role.CUSTOMER;
 
 public class Contractor {
 
@@ -48,7 +49,7 @@ public class Contractor {
     public static void main(String[] args) {
         try {
             testBook();
-            //FIXME test user
+            testUser();
             testOrder();
         } finally {
             ConnectionManager.getInstance().tearDown();
@@ -112,5 +113,27 @@ public class Contractor {
         print(books);
 
         bookService.delete(createdBook.getId());
+    }
+
+    private static void testUser() {
+        User user = new User();
+        user.setFirstName("Ivan");
+        user.setLastName("Ivanov");
+        user.setRole(CUSTOMER);
+        user.setEmail("ivan@mail.ru");
+        user.setPassword("vankavstanka");
+        User createdUser = userService.create(user);
+
+        User userToRead = userService.get(createdUser.getId());
+        print(userToRead);
+
+        createdUser.setFirstName("XXXXXX");
+        createdUser.setLastName("XXXXXX");
+        userService.update(createdUser);
+
+        List<User> users = userService.getAll();
+        print(users);
+
+        userService.delete(createdUser.getId());
     }
 }
