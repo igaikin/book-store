@@ -14,7 +14,7 @@ import java.util.List;
 
 public class BookDaoJdbcImpl implements BookDao {
     private static final String CREATE_BOOK =
-            "INSERT INTO books  (title, author, cover_id, number_of_pages, price)"
+            "INSERT INTO books  (author, title, cover_id, number_of_pages, price)"
                     + "VALUES (?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?)";
     private static final String UPDATE_BOOK =
             "UPDATE books SET author = ?, title = ?, cover_id = (SELECT id FROM covers WHERE cover = ?), "
@@ -26,10 +26,10 @@ public class BookDaoJdbcImpl implements BookDao {
                     + "FROM books b JOIN covers c ON b.cover_id = c.id ";
     private static final String GET_ALL = BOOK_ALL + " WHERE b.deleted = false ORDER BY b.id";
     private static final String GET_BY_ID = BOOK_ALL + " WHERE b.id = ? AND deleted = false ORDER BY b.id";
-    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 //    private static final String GET_BY_ORDER_ID =
 //            "SELECT id, title, author, cover, order_id, number_of_pages, price, deleted FROM books
 //            WHERE order_id = ? AND deleted = false";
+    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
     private Book processBook(ResultSet resultSet) throws SQLException {
         Book book = new Book();
@@ -80,8 +80,8 @@ public class BookDaoJdbcImpl implements BookDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(CREATE_BOOK, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, book.getTitle());
-            statement.setString(2, book.getAuthor());
+            statement.setString(1, book.getAuthor());
+            statement.setString(2, book.getTitle());
             statement.setString(3, String.valueOf(book.getCover()));
             statement.setInt(4, book.getNumberOfPages());
             statement.setBigDecimal(5, book.getPrice());
