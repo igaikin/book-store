@@ -18,22 +18,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(Long id) {
-        User user = userDao.get(id);
-        return user;
+        return userDao.get(id);
     }
 
     public User create(User user) {
-        //validation
-//        User existing = userDao.getByEmail(user.getEmail());
-//        if (existing != null) {
-//            throw new RuntimeException("User with email: " + user.getEmail() + " already exists");
-//        }
-
+        User existing = userDao.getByEmail(user.getEmail());
+        if (existing != null) {
+            throw new RuntimeException("User with email: " + user.getEmail() + " already exists");
+        }
         return userDao.create(user);
     }
 
     public User update(User user) {
-        //validation for email FIXME
+        User existing = userDao.getByEmail(user.getEmail());
+        assert existing != null;
+        if (user.getId() != existing.getId()) {
+            throw new RuntimeException("User with Email: ********** " + user.getEmail() + " ********* does not exist");
+        }
         return userDao.update(user);
     }
 

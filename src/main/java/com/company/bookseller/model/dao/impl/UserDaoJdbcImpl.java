@@ -24,6 +24,7 @@ public class UserDaoJdbcImpl implements UserDao {
             + "FROM users u JOIN roles r ON u.role_id = r.id ";
     private static final String GET_ALL = USER_ALL + "WHERE u.deleted = false ORDER BY u.id";
     private static final String GET_BY_ID = USER_ALL + "WHERE u.id = ? AND u.deleted = false ORDER BY u.id";
+    private static final String GET_BY_EMAIL = USER_ALL + "WHERE u.email = ? AND u.deleted = false ORDER BY u.email";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
     private User processUser(ResultSet resultSet) throws SQLException {
@@ -60,6 +61,23 @@ public class UserDaoJdbcImpl implements UserDao {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(GET_BY_ID);
             statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = processUser(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        User user = null;
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(GET_BY_EMAIL);
+            statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 user = processUser(resultSet);
