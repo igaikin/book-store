@@ -24,10 +24,19 @@ public class BookServiceImpl implements BookService {
     }
 
     public Book create(Book book) {
+        Book existing = bookDao.getByIsbn(book.getIsbn());
+        if (existing != null) {
+            throw new RuntimeException("Book with ISBN: " + book.getIsbn() + " already exists");
+        }
         return bookDao.create(book);
     }
 
     public Book update(Book book) {
+        Book existing = bookDao.getByIsbn(book.getIsbn());
+        assert existing != null;
+        if (book.getId() != existing.getId()) {
+            throw new RuntimeException("Book with ISBN: ********** " + book.getIsbn() + " ********* does not exist");
+        }
         return bookDao.update(book);
     }
 

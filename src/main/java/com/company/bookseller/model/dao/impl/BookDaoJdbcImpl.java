@@ -23,9 +23,10 @@ public class BookDaoJdbcImpl implements BookDao {
     private static final String BOOK_ALL =
             "SELECT b.id, b.title, b.author, c.cover, b.number_of_pages, b.isbn, b.price, b.deleted "
                     + "FROM books b JOIN covers c ON b.cover_id = c.id ";
-    private static final String GET_ALL = BOOK_ALL + " WHERE b.deleted = false ORDER BY b.id";
-    private static final String GET_BY_ID = BOOK_ALL + " WHERE b.id = ? AND deleted = false ORDER BY b.id";
-//    private static final String GET_BY_ORDER_ID =
+    private static final String GET_ALL = BOOK_ALL + "WHERE b.deleted = false ORDER BY b.id";
+    private static final String GET_BY_ID = BOOK_ALL + "WHERE b.id = ? AND deleted = false ORDER BY b.id";
+    private static final String GET_BY_ISBN = BOOK_ALL + "WHERE b.isbn = ? AND b.deleted = false ORDER BY b.isbn";
+    //    private static final String GET_BY_ORDER_ID =
 //            "SELECT id, title, author, cover, order_id, number_of_pages, price, deleted FROM books
 //            WHERE order_id = ? AND deleted = false";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
@@ -65,6 +66,23 @@ public class BookDaoJdbcImpl implements BookDao {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(GET_BY_ID);
             statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                book = processBook(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return book;
+    }
+
+    @Override
+    public Book getByIsbn(Long isbn) {
+        Book book = null;
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(GET_BY_ISBN);
+            statement.setLong(1, isbn);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 book = processBook(resultSet);
