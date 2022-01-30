@@ -15,14 +15,14 @@ CREATE TABLE IF NOT EXISTS covers
 
 CREATE TABLE IF NOT EXISTS books
 (
-    id              BIGSERIAL PRIMARY KEY,--ISBN - validation
-    author          VARCHAR(100) NOT NULL,
-    title           VARCHAR(100) NOT NULL,
+    id              BIGSERIAL PRIMARY KEY,
+    author          VARCHAR(100)                NOT NULL,
+    title           VARCHAR(100)                NOT NULL,
     cover_id        BIGSERIAL REFERENCES covers NOT NULL,
     number_of_pages INT,
     price           DECIMAL(8, 2),
-    isbn            BIGSERIAL UNIQUE NOT NULL,
-    deleted         BOOLEAN      NOT NULL DEFAULT false
+    isbn            BIGSERIAL UNIQUE            NOT NULL,
+    deleted         BOOLEAN                     NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS roles
@@ -36,10 +36,10 @@ CREATE TABLE IF NOT EXISTS users
     id         BIGSERIAL PRIMARY KEY,
     first_name VARCHAR(50),
     last_name  VARCHAR(50),
-    role_id    BIGSERIAL REFERENCES roles NOT NULL,
-    email      VARCHAR(50)             NOT NULL,--add validation
-    password   VARCHAR(50)             NOT NULL,
-    deleted    BOOLEAN                 NOT NULL DEFAULT false
+    role_id    BIGSERIAL   REFERENCES roles NOT NULL,
+    email      VARCHAR(50) UNIQUE           NOT NULL,
+    password   VARCHAR(50)                  NOT NULL,
+    deleted    BOOLEAN                      NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS statuses
@@ -52,9 +52,9 @@ CREATE TABLE IF NOT EXISTS orders
 (
     id          BIGSERIAL PRIMARY KEY,
     status_id   BIGSERIAL REFERENCES statuses NOT NULL,
-    quantity    INT                  NOT NULL,
-    book_id     BIGSERIAL REFERENCES books NOT NULL,
-    user_id     BIGSERIAL REFERENCES users NOT NULL,
-    total_price DECIMAL(8, 2)        NOT NULL,
-    deleted     BOOLEAN              NOT NULL DEFAULT false
+    quantity    INT                           NOT NULL,
+    book_id     BIGSERIAL REFERENCES books    NOT NULL,
+    user_id     BIGSERIAL REFERENCES users    NOT NULL,
+    total_price DECIMAL(8, 2)                 NOT NULL,
+    deleted     BOOLEAN                       NOT NULL DEFAULT false
 );
