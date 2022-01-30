@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS books
     cover_id        BIGSERIAL REFERENCES covers NOT NULL,
     number_of_pages INT,
     price           DECIMAL(8, 2),
+    isbn            BIGSERIAL UNIQUE NOT NULL,
     deleted         BOOLEAN      NOT NULL DEFAULT false
 );
 

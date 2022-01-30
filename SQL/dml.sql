@@ -10,26 +10,26 @@ INSERT INTO covers (cover)
 VALUES ('HARD'),
        ('SOFT');
 
-INSERT INTO books (author, title, cover_id, number_of_pages, price)
-VALUES ('Sandra Brown', 'The Switch', (SELECT id FROM covers WHERE cover = 'SOFT'), 512, 5.25),
-       ('Sherryl Woods', 'Home in Carolina', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 5.10),
-       ('J. D. Robb', 'Glory in Death', (SELECT id FROM covers WHERE cover = 'SOFT'), 320, 5.98),
-       ('Nicholas Sparks', 'The Last Song', (SELECT id FROM covers WHERE cover = 'SOFT'), 480, 8.79),
-       ('Jayne Ann Krentz', 'Untouchable', (SELECT id FROM covers WHERE cover = 'SOFT'), 416, 8.40),
-       ('Nora Roberts', 'Hot Rocks', (SELECT id FROM covers WHERE cover = 'SOFT'), 320, 8.99),
-       ('Jeaniene Frost', 'This Side of the Grave', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 8.57),
-       ('Carolyn Brown', 'Christmas at Home', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 6.74),
-       ('Robert Orlando', 'The Divine Plan', (SELECT id FROM covers WHERE cover = 'HARD'), 288, 21.42),
-       ('Colleen Hoover', 'Maybe Someday', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 11.27),
-       ('Shelley Shepard Gray', 'An Amish Family Christmas', (SELECT id FROM covers WHERE cover = 'SOFT'), 368, 3.99),
-       ('Amanda Bouchet', 'Starbreaker', (SELECT id FROM covers WHERE cover = 'SOFT'), 448, 5.98),
-       ('Stephen King', 'Billy Summers', (SELECT id FROM covers WHERE cover = 'HARD'), 528, 15.00),
-       ('J. K. Rowling', 'The Christmas Pig', (SELECT id FROM covers WHERE cover = 'HARD'), 288, 18.31),
-       ('Rebecca Stead', 'Goodbye Stranger', (SELECT id FROM covers WHERE cover = 'HARD'), 304, 15.33),
-       ('Julia Quinn', 'The Viscount Who Loved Me', (SELECT id FROM covers WHERE cover = 'SOFT'), 400, 9.44),
-       ('George Orwell', '1984', (SELECT id FROM covers WHERE cover = 'SOFT'), 304, 13.49),
-       ('Stephen King', 'The Institute', (SELECT id FROM covers WHERE cover = 'HARD'), 576, 13.93),
-       ('Max Brallier', 'The Last Kids on Earth', (SELECT id FROM covers WHERE cover = 'HARD'), 240, 8.34);
+INSERT INTO books (author, title, cover_id, number_of_pages, isbn, price)
+VALUES ('Sandra Brown', 'The Switch', (SELECT id FROM covers WHERE cover = 'SOFT'), 512, 9781538712689, 5.25),
+       ('Sherryl Woods', 'Home in Carolina', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 9780778319023, 5.10),
+       ('J. D. Robb', 'Glory in Death', (SELECT id FROM covers WHERE cover = 'SOFT'), 320, 9780425150986, 5.98),
+       ('Nicholas Sparks', 'The Last Song', (SELECT id FROM covers WHERE cover = 'SOFT'), 480, 9780446570961, 8.99),
+       ('Jayne Ann Krentz', 'Untouchable', (SELECT id FROM covers WHERE cover = 'SOFT'), 416, 9780399585319, 5.98),
+       ('Nora Roberts', 'Hot Rocks', (SELECT id FROM covers WHERE cover = 'SOFT'), 320, 9780515147995, 8.99),
+       ('Jeaniene Frost', 'This Side of the Grave', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 9780061783180, 11.49),
+       ('Carolyn Brown', 'Christmas at Home', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 9781728229676, 6.74),
+       ('Robert Orlando', 'The Divine Plan', (SELECT id FROM covers WHERE cover = 'HARD'), 288, 9781610171540, 21.52),
+       ('Colleen Hoover', 'Maybe Someday', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, 9781476753164, 10.19),
+       ('Shelley Shepard Gray', 'An Amish Family Christmas', (SELECT id FROM covers WHERE cover = 'SOFT'), 368, 9780062743275, 3.99),
+       ('Amanda Bouchet', 'Starbreaker', (SELECT id FROM covers WHERE cover = 'SOFT'), 448, 9781492667162, 7.99),
+       ('Stephen King', 'Billy Summers', (SELECT id FROM covers WHERE cover = 'HARD'), 528, 9781982173616, 15.00),
+       ('J. K. Rowling', 'The Christmas Pig', (SELECT id FROM covers WHERE cover = 'HARD'), 288, 9781338790238, 14.99),
+       ('Rebecca Stead', 'Goodbye Stranger', (SELECT id FROM covers WHERE cover = 'HARD'), 304, 9780385743174, 15.33),
+       ('Julia Quinn', 'The Viscount Who Loved Me', (SELECT id FROM covers WHERE cover = 'SOFT'), 400, 9780062353641, 11.49),
+       ('George Orwell', '1984', (SELECT id FROM covers WHERE cover = 'SOFT'), 304, 9780452262935, 11.63),
+       ('Stephen King', 'The Institute', (SELECT id FROM covers WHERE cover = 'HARD'), 576, 9781982110581, 13.93),
+       ('Max Brallier', 'The Last Kids on Earth', (SELECT id FROM covers WHERE cover = 'HARD'), 240, 9780670016617, 8.34);
 
 INSERT INTO roles (role)
 VALUES ('CUSTOMER'),

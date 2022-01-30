@@ -99,6 +99,7 @@ public class Contractor {
         book.setTitle("The Jungle Book");
         book.setCover(HARD);
         book.setNumberOfPages(110);
+        book.setIsbn(9781387298907L);
         book.setPrice(BigDecimal.valueOf(23.86));
         Book createdBook = bookService.create(book);
 

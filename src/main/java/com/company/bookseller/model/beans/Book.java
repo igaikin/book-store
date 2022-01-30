@@ -12,6 +12,7 @@ public class Book {
     private String title;
     private Cover cover;
     private int numberOfPages;
+    private long isbn;
     private BigDecimal price;
 
     public String getFormattedOutput() {
@@ -21,9 +22,10 @@ public class Book {
                         + "Title           | %s%n"
                         + "Cover           | %s%n"
                         + "Number of Pages | %d%n"
+                        + "ISBN            | %d%n"
                         + "Price           | $%.2f%n"
                         + "%n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
-                getId(), getAuthor(), getTitle(), cover.name, getNumberOfPages(), getPrice());
+                getId(), getAuthor(), getTitle(), cover.name, getNumberOfPages(), getIsbn(), getPrice());
     }
 
     public enum Cover {

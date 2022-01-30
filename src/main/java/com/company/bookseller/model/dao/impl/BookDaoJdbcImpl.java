@@ -14,15 +14,14 @@ import java.util.List;
 
 public class BookDaoJdbcImpl implements BookDao {
     private static final String CREATE_BOOK =
-            "INSERT INTO books  (author, title, cover_id, number_of_pages, price)"
-                    + "VALUES (?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?)";
+            "INSERT INTO books  (author, title, cover_id, number_of_pages, isbn, price)"
+                    + "VALUES (?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?, ?)";
     private static final String UPDATE_BOOK =
             "UPDATE books SET author = ?, title = ?, cover_id = (SELECT id FROM covers WHERE cover = ?), "
-                    + "number_of_pages =?, price = ? "
-                    + "WHERE id = ? AND deleted = false";
+                    + "number_of_pages =?, isbn = ?, price = ? WHERE id = ? AND deleted = false";
     private static final String DELETE_BOOK = "UPDATE books SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String BOOK_ALL =
-            "SELECT b.id, b.title, b.author, c.cover, b.number_of_pages, b.price, b.deleted "
+            "SELECT b.id, b.title, b.author, c.cover, b.number_of_pages, b.isbn, b.price, b.deleted "
                     + "FROM books b JOIN covers c ON b.cover_id = c.id ";
     private static final String GET_ALL = BOOK_ALL + " WHERE b.deleted = false ORDER BY b.id";
     private static final String GET_BY_ID = BOOK_ALL + " WHERE b.id = ? AND deleted = false ORDER BY b.id";
@@ -38,6 +37,7 @@ public class BookDaoJdbcImpl implements BookDao {
         book.setTitle(resultSet.getString("title"));
         book.setCover(Book.Cover.valueOf(resultSet.getString("cover")));
         book.setNumberOfPages(resultSet.getInt("number_of_pages"));
+        book.setIsbn(resultSet.getLong("isbn"));
         book.setPrice(resultSet.getBigDecimal("price"));
         return book;
     }
@@ -84,7 +84,8 @@ public class BookDaoJdbcImpl implements BookDao {
             statement.setString(2, book.getTitle());
             statement.setString(3, String.valueOf(book.getCover()));
             statement.setInt(4, book.getNumberOfPages());
-            statement.setBigDecimal(5, book.getPrice());
+            statement.setLong(5, book.getIsbn());
+            statement.setBigDecimal(6, book.getPrice());
             statement.executeUpdate();
 
             ResultSet keys = statement.getGeneratedKeys();
@@ -106,8 +107,9 @@ public class BookDaoJdbcImpl implements BookDao {
             statement.setString(2, book.getTitle());
             statement.setString(3, String.valueOf(book.getCover()));
             statement.setInt(4, book.getNumberOfPages());
-            statement.setBigDecimal(5, book.getPrice());
-            statement.setLong(6, book.getId());
+            statement.setLong(5, book.getIsbn());
+            statement.setBigDecimal(6, book.getPrice());
+            statement.setLong(7, book.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
