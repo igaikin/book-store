@@ -4,26 +4,27 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 public class Order {
     private long id;
     private Status status;
-    private BigDecimal totalPrice;
-    private int quantity;
+    private LocalDateTime date;
     private User user;
-    private Book book;
+    private BigDecimal totalPrice;
+    private OrderItem orderItems;
 
     public String getFormattedOutput() {
-        return String.format("Book:%n"
+        return String.format("Order:%n"
                         + "ID          | %d%n"
+                        + "Date        | %s%n"
                         + "Status      | %s%n"
                         + "User        | %s%n"
-                        + "Book        | %s%n"
-                        + "Quantity    | %d%n"
-                        + "Price       | $%.2f%n"
+                        + "Books       | %s%n"
+                        + "Total price | $%.2f%n"
                         + "%n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
-                getId(), status.name, getUser(), getBook(), getQuantity(), getTotalPrice());
+                getId(), getDate(), status.name, getUser(), orderItems, getTotalPrice());
     }
 
     public enum Status {
