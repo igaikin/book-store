@@ -33,8 +33,7 @@ public class BookServiceImpl implements BookService {
 
     public Book update(Book book) {
         Book existing = bookDao.getByIsbn(book.getIsbn());
-        assert existing != null;
-        if (book.getId() != existing.getId()) {
+        if (existing == null) {
             throw new RuntimeException("Book with ISBN: ********** " + book.getIsbn() + " ********* does not exist");
         }
         return bookDao.update(book);
