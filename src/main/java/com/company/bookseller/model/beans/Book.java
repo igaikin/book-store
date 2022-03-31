@@ -15,19 +15,6 @@ public class Book {
     private long isbn;
     private BigDecimal price;
 
-    public String getFormattedOutput() {
-        return String.format("Book:%n"
-                        + "ID              | %d%n"
-                        + "Author          | %s%n"
-                        + "Title           | %s%n"
-                        + "Cover           | %s%n"
-                        + "Number of Pages | %d%n"
-                        + "ISBN            | %d%n"
-                        + "Price           | $%.2f%n"
-                        + "%n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
-                getId(), getAuthor(), getTitle(), cover.name, getNumberOfPages(), getIsbn(), getPrice());
-    }
-
     public enum Cover {
         HARD("Hardcover"),
         SOFT("Paperback");

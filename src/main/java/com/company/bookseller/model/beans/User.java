@@ -12,18 +12,6 @@ public class User {
     private String email;
     private String password;
 
-    public String getFormattedOutput() {
-        return String.format("User:%n"
-                        + "ID           | %d%n"
-                        + "First Name   | %s%n"
-                        + "Last Name    | %s%n"
-                        + "Access Rights| %s%n"
-                        + "E-mail       | %s%n"
-                        + "Password     | %s%n"
-                        + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
-                getId(), getFirstName(), getLastName(), role.name, getEmail(), getPassword());
-    }
-
     public enum Role {
         CUSTOMER("Customer"),
         MANAGER("Manager"),

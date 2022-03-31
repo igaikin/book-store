@@ -15,18 +15,6 @@ public class Order {
     private BigDecimal totalPrice;
     private OrderItem orderItems;
 
-    public String getFormattedOutput() {
-        return String.format("Order:%n"
-                        + "ID          | %d%n"
-                        + "Date        | %s%n"
-                        + "Status      | %s%n"
-                        + "User        | %s%n"
-                        + "Books       | %s%n"
-                        + "Total price | $%.2f%n"
-                        + "%n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
-                getId(), getDate(), status.name, getUser(), orderItems, getTotalPrice());
-    }
-
     public enum Status {
         PENDING("Pending"),
         DELIVERING("Delivering"),
