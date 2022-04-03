@@ -1,8 +1,7 @@
 package com.company.bookseller.model.dao.impl;
 
-import com.company.bookseller.model.beans.Order;
-import com.company.bookseller.model.beans.Order.Status;
-import com.company.bookseller.model.beans.User;
+import com.company.bookseller.model.entity.Order;
+import com.company.bookseller.model.entity.Order.Status;
 import com.company.bookseller.model.dao.OrderDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
@@ -22,16 +21,15 @@ public class OrderDaoJdbcImpl implements OrderDao {
                     + "VALUES (?, (SELECT id FROM statuses WHERE status = ?), ?, ?)";
     private static final String UPDATE_ORDER =
             "UPDATE orders SET date = ?, status_id = (SELECT id FROM statuses WHERE status = ?), user_id = ?, "
-                    + "total_price = ? WHERE id = ? AND deleted = false";
-    private static final String DELETE_ORDER = "UPDATE orders SET deleted = true WHERE id = ? AND  deleted = false";
+                    + "total_price = ? WHERE id = ?";
     private static final String ORDERS_ALL =
             "SELECT o.id, o.date, s.status, o.user_id, o.total_price "
                     + "FROM orders o JOIN statuses s ON o.status_id = s.id";
-    private static final String GET_ALL = ORDERS_ALL + " WHERE deleted = false ORDER BY o.id";
-    private static final String GET_BY_ID = ORDERS_ALL + " WHERE o.id = ? AND deleted = false ORDER BY o.id";
-    private static final String GET_BY_BOOK_ID =
+    private static final String GET_ALL = ORDERS_ALL + " ORDER BY o.id";
+    private static final String GET_BY_ID = ORDERS_ALL + " WHERE o.id = ? ORDER BY o.id";
+    private static final String GET_BY_BOOK_ID =//FIXME
             "SELECT o.id, o.status, o.total_price FROM orders o JOIN books b on o.id = b.order_id WHERE b.id = ?";
-    private static final String GET_BY_USER_ID =
+    private static final String GET_BY_USER_ID =//FIXME
             "SELECT o.id, o.status, o.total_price FROM orders o JOIN users u on o.id = u.order_id WHERE u.id = ?";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
@@ -40,7 +38,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         order.setId(resultSet.getLong("id"));
         order.setOrderTime(LocalDateTime.parse(resultSet.getString("date")));
         order.setStatus(Status.valueOf(resultSet.getString("status")));
-        order.setUser(getUser(resultSet));
+        order.setUserId(resultSet.getLong("user_id"));
         order.setTotalPrice(resultSet.getBigDecimal("total_price"));
         return order;
     }
@@ -86,7 +84,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement statement = connection.prepareStatement(CREATE_ORDER, Statement.RETURN_GENERATED_KEYS);
             statement.setTime(1, Time.valueOf(String.valueOf(order.getOrderTime())));
             statement.setString(2, String.valueOf(order.getStatus()));
-            statement.setLong(3, order.getUser().getId());
+            statement.setLong(3, order.getUserId());
             statement.setBigDecimal(4, order.getTotalPrice());
             statement.executeUpdate();
 
@@ -109,7 +107,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER);
             statement.setTime(1, Time.valueOf(String.valueOf(order.getOrderTime())));
             statement.setString(2, String.valueOf(order.getStatus()));
-            statement.setLong(3, order.getUser().getId());
+            statement.setLong(3, order.getUserId());
             statement.setBigDecimal(4, order.getTotalPrice());
             statement.setLong(5, order.getId());
             statement.executeUpdate();
@@ -121,37 +119,23 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public boolean delete(Long id) {
-        try {
-            Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(DELETE_ORDER);
-            statement.setLong(1, id);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return true;
+        throw new UnsupportedOperationException();
     }
 
-    private User getUser(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getLong("user_id"));
-        return user;
+    public List<Order> getByBookId(Long bookId) {
+        return getOrderByParam(bookId, GET_BY_BOOK_ID);
     }
 
-    public List<Order> getByBookId(long bookId) {
-        return getOrder(bookId, GET_BY_BOOK_ID);
+    public List<Order> getByUserId(Long userId) {
+        return getOrderByParam(userId, GET_BY_USER_ID);
     }
 
-    public List<Order> getByUserId(long userId) {
-        return getOrder(userId, GET_BY_USER_ID);
-    }
-
-    private List<Order> getOrder(long itemId, String sql) {
+    private List<Order> getOrderByParam(Long paramId, String sql) {
         List<Order> orders = new ArrayList<>();
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, itemId);
+            statement.setLong(1, paramId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 orders.add(processOrder(resultSet));

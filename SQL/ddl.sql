@@ -17,13 +17,13 @@ CREATE TABLE IF NOT EXISTS covers
 CREATE TABLE IF NOT EXISTS books
 (
     id              BIGSERIAL PRIMARY KEY,
-    author          VARCHAR(100)                NOT NULL,
-    title           VARCHAR(100)                NOT NULL,
-    cover_id        BIGSERIAL REFERENCES covers NOT NULL,
+    author          VARCHAR(100)             NOT NULL,
+    title           VARCHAR(100)             NOT NULL,
+    cover_id        BIGINT REFERENCES covers NOT NULL,
     number_of_pages INT,
     price           DECIMAL(8, 2),
-    isbn            BIGSERIAL UNIQUE            NOT NULL,
-    deleted         BOOLEAN                     NOT NULL DEFAULT false
+    isbn            CHAR(17) UNIQUE          NOT NULL,
+    deleted         BOOLEAN                  NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS roles
@@ -37,10 +37,10 @@ CREATE TABLE IF NOT EXISTS users
     id         BIGSERIAL PRIMARY KEY,
     first_name VARCHAR(50),
     last_name  VARCHAR(50),
-    role_id    BIGSERIAL REFERENCES roles NOT NULL,
-    email      VARCHAR(50) UNIQUE         NOT NULL,
-    password   VARCHAR(50)                NOT NULL,
-    deleted    BOOLEAN                    NOT NULL DEFAULT false
+    role_id    BIGINT REFERENCES roles NOT NULL,
+    email      VARCHAR(50) UNIQUE      NOT NULL,
+    password   VARCHAR(50)             NOT NULL,
+    deleted    BOOLEAN                 NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS statuses
@@ -51,20 +51,19 @@ CREATE TABLE IF NOT EXISTS statuses
 
 CREATE TABLE IF NOT EXISTS orders
 (
-    id              BIGSERIAL PRIMARY KEY,
-    status_id       BIGSERIAL REFERENCES statuses     NOT NULL,
-    date            TIMESTAMP                         NOT NULL,
-    order_item      BIGSERIAL                         NOT NULL,
-    user_id         BIGSERIAL REFERENCES users        NOT NULL,
-    total_price     DECIMAL(8, 2)                     NOT NULL,
-    deleted         BOOLEAN                           NOT NULL DEFAULT false
+    id          BIGSERIAL PRIMARY KEY,
+    status_id   BIGINT REFERENCES statuses NOT NULL,
+    date        TIMESTAMP                  NOT NULL,
+    user_id     BIGINT REFERENCES users    NOT NULL,
+    total_price DECIMAL(8, 2)              NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS order_items
 (
     id       BIGSERIAL PRIMARY KEY,
-    book_id  BIGSERIAL REFERENCES books  NOT NULL,
-    price    DECIMAL(8, 2)               NOT NULL,
-    quantity INT                         NOT NULL,
-    order_id BIGSERIAL REFERENCES orders NOT NULL
+    order_id BIGINT REFERENCES orders NOT NULL,
+    book_id  BIGINT REFERENCES books  NOT NULL,
+    price    DECIMAL(8, 2)            NOT NULL,
+    quantity INT                      NOT NULL,
+    deleted  BOOLEAN                  NOT NULL DEFAULT false
 );

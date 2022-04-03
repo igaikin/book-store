@@ -1,6 +1,6 @@
 package com.company.bookseller.model.dao.impl;
 
-import com.company.bookseller.model.beans.Book;
+import com.company.bookseller.model.entity.Book;
 import com.company.bookseller.model.dao.BookDao;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 
@@ -38,7 +38,7 @@ public class BookDaoJdbcImpl implements BookDao {
         book.setTitle(resultSet.getString("title"));
         book.setCover(Book.Cover.valueOf(resultSet.getString("cover")));
         book.setNumberOfPages(resultSet.getInt("number_of_pages"));
-        book.setIsbn(resultSet.getLong("isbn"));
+        book.setIsbn(resultSet.getString("isbn"));
         book.setPrice(resultSet.getBigDecimal("price"));
         return book;
     }
@@ -77,12 +77,12 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
-    public Book getByIsbn(Long isbn) {
+    public Book getByIsbn(String isbn) {
         Book book = null;
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(GET_BY_ISBN);
-            statement.setLong(1, isbn);
+            statement.setString(1, isbn);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 book = processBook(resultSet);
@@ -102,7 +102,7 @@ public class BookDaoJdbcImpl implements BookDao {
             statement.setString(2, book.getTitle());
             statement.setString(3, String.valueOf(book.getCover()));
             statement.setInt(4, book.getNumberOfPages());
-            statement.setLong(5, book.getIsbn());
+            statement.setString(5, book.getIsbn());
             statement.setBigDecimal(6, book.getPrice());
             statement.executeUpdate();
 
@@ -125,7 +125,7 @@ public class BookDaoJdbcImpl implements BookDao {
             statement.setString(2, book.getTitle());
             statement.setString(3, String.valueOf(book.getCover()));
             statement.setInt(4, book.getNumberOfPages());
-            statement.setLong(5, book.getIsbn());
+            statement.setString(5, book.getIsbn());
             statement.setBigDecimal(6, book.getPrice());
             statement.setLong(7, book.getId());
             statement.executeUpdate();

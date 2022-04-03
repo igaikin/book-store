@@ -1,6 +1,6 @@
 package com.company.bookseller.model.service;
 
-import com.company.bookseller.model.beans.Book;
+import com.company.bookseller.model.dto.BookDto;
 
-public interface BookService extends AbstractService<Book, Long> {
+public interface BookService extends AbstractService<BookDto, Long> {
 }

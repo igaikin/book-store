@@ -1,21 +1,22 @@
-package com.company.bookseller.model.beans;
+package com.company.bookseller.model.dto;
 
 import lombok.Data;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Data
-public class Order {
-    private long id;
-    private Status status;
-    private LocalDateTime orderTime = LocalDateTime.now();
-    private User user;
+public class OrderDto {
+    private Long id;
+    private StatusDto status;
+    private LocalDateTime orderTime;
+    private UserDto user;
     private BigDecimal totalPrice;
-    private OrderItem orderItems;
+    private Map<BookDto, Integer> items;
 
-    public enum Status {
+    public enum StatusDto {
         PENDING("Pending"),
         DELIVERING("Delivering"),
         DELIVERED("Delivered"),
@@ -24,7 +25,7 @@ public class Order {
         @Getter
         private final String name;
 
-        Status(String name) {
+        StatusDto(String name) {
             this.name = name;
         }
     }

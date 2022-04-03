@@ -1,11 +1,11 @@
-package com.company.bookseller.model.beans;
+package com.company.bookseller.model.entity;
 
 import lombok.Data;
 import lombok.Getter;
 
 @Data
 public class User {
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
     private Role role;

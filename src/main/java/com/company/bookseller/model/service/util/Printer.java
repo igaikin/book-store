@@ -1,8 +1,8 @@
 package com.company.bookseller.model.service.util;
 
-import com.company.bookseller.model.beans.Book;
-import com.company.bookseller.model.beans.Order;
-import com.company.bookseller.model.beans.User;
+import com.company.bookseller.model.entity.Book;
+import com.company.bookseller.model.entity.Order;
+import com.company.bookseller.model.entity.User;
 
 import java.util.List;
 

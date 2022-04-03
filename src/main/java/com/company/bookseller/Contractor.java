@@ -1,8 +1,8 @@
 package com.company.bookseller;
 
-import com.company.bookseller.model.beans.Book;
-import com.company.bookseller.model.beans.Order;
-import com.company.bookseller.model.beans.User;
+import com.company.bookseller.model.entity.Book;
+import com.company.bookseller.model.entity.Order;
+import com.company.bookseller.model.entity.User;
 import com.company.bookseller.model.dao.connection.ConnectionManager;
 import com.company.bookseller.model.service.BookService;
 import com.company.bookseller.model.service.OrderService;
@@ -16,14 +16,27 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
-import static com.company.bookseller.model.beans.Book.Cover.HARD;
-import static com.company.bookseller.model.beans.User.Role.CUSTOMER;
+import static com.company.bookseller.model.entity.Book.Cover.HARD;
+import static com.company.bookseller.model.entity.User.Role.CUSTOMER;
 
 public class Contractor {
 
     private static final BookService bookService = new BookServiceImpl();
     private static final UserService userService = new UserServiceImpl();
     private static final OrderService orderService = new OrderServiceImpl();
+
+    public static void main(String[] args) {
+        try {
+            List<Order> orders = orderService.getAll();
+            print(orders);
+
+//            testBook();
+//            testUser();
+//            testOrder();
+        } finally {
+            ConnectionManager.getInstance().tearDown();
+        }
+    }
 
     private static void print(Object o) {
         List l;
@@ -44,16 +57,6 @@ public class Contractor {
         }
         System.out.println(str);
 
-    }
-
-    public static void main(String[] args) {
-        try {
-            testBook();
-//            testUser();
-//            testOrder();
-        } finally {
-            ConnectionManager.getInstance().tearDown();
-        }
     }
 
     private static User getRandomUser() {
@@ -99,7 +102,7 @@ public class Contractor {
         book.setTitle("The Jungle Book");
         book.setCover(HARD);
         book.setNumberOfPages(110);
-        book.setIsbn(9781387298907L);
+        book.setIsbn("978-1-38-729890-7");
         book.setPrice(BigDecimal.valueOf(23.86));
         Book createdBook = bookService.create(book);
 

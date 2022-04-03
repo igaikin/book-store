@@ -1,4 +1,4 @@
-package com.company.bookseller.model.beans;
+package com.company.bookseller.model.entity;
 
 import lombok.Data;
 import lombok.Getter;
@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 
 @Data
 public class Book {
-    private long id;
+    private Long id;
     private String author;
     private String title;
     private Cover cover;
     private int numberOfPages;
-    private long isbn;
+    private String isbn;
     private BigDecimal price;
 
     public enum Cover {

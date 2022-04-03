@@ -1,6 +1,6 @@
 package com.company.bookseller.model.service.impl;
 
-import com.company.bookseller.model.beans.User;
+import com.company.bookseller.model.entity.User;
 import com.company.bookseller.model.dao.UserDao;
 import com.company.bookseller.model.dao.impl.UserDaoJdbcImpl;
 import com.company.bookseller.model.service.UserService;

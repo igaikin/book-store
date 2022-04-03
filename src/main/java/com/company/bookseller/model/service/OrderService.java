@@ -1,11 +1,12 @@
 package com.company.bookseller.model.service;
 
-import com.company.bookseller.model.beans.Order;
+import com.company.bookseller.model.dto.OrderDto;
+import com.company.bookseller.model.entity.Order;
 
 import java.util.List;
 
-public interface OrderService extends AbstractService<Order, Long> {
-    List<Order> getOrderByBookId(long bookId);
+public interface OrderService extends AbstractService<OrderDto, Long> {
+    List<OrderDto> getOrderByBookId(Long bookId);
 
-    List<Order> getOrderByUserId(long userId);
+    List<OrderDto> getOrderByUserId(Long userId);
 }
