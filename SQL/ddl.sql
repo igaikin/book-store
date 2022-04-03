@@ -51,18 +51,20 @@ CREATE TABLE IF NOT EXISTS statuses
 
 CREATE TABLE IF NOT EXISTS orders
 (
-    id          BIGSERIAL PRIMARY KEY,
-    status_id   BIGSERIAL REFERENCES statuses NOT NULL,
-    date        TIMESTAMP                     NOT NULL,
-    user_id     BIGSERIAL REFERENCES users    NOT NULL,
-    total_price DECIMAL(8, 2)                 NOT NULL,
-    deleted     BOOLEAN                       NOT NULL DEFAULT false
+    id              BIGSERIAL PRIMARY KEY,
+    status_id       BIGSERIAL REFERENCES statuses     NOT NULL,
+    date            TIMESTAMP                         NOT NULL,
+    order_item      BIGSERIAL                         NOT NULL,
+    user_id         BIGSERIAL REFERENCES users        NOT NULL,
+    total_price     DECIMAL(8, 2)                     NOT NULL,
+    deleted         BOOLEAN                           NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS order_items
 (
-    order_id BIGSERIAL CONSTRAINT orders NOT NULL,
+    id       BIGSERIAL PRIMARY KEY,
     book_id  BIGSERIAL REFERENCES books  NOT NULL,
     price    DECIMAL(8, 2)               NOT NULL,
-    quantity INT                         NOT NULL
+    quantity INT                         NOT NULL,
+    order_id BIGSERIAL REFERENCES orders NOT NULL
 );

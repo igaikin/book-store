@@ -58,15 +58,14 @@ VALUES ('PENDING'),
        ('CANCELLED');
 
 INSERT INTO orders (status_id, date, user_id, total_price)
-VALUES ((SELECT id FROM statuses WHERE status = 'PENDING'), 'YYYY-MM-DD HH:MM:SS',
+VALUES (((SELECT id FROM statuses WHERE status = 'PENDING'), 'YYYY-MM-DD HH:MM:SS',
         (SELECT id FROM users WHERE email = 'muamar@mail.lby' AND users.deleted = false), ?),
-
        ((SELECT id FROM statuses WHERE status = 'DELIVERED'), 'YYYY-MM-DD HH:MM:SS',
-        (SELECT id FROM users WHERE email = 'usatiy_nany@mail.by' AND users.deleted = false), ?);
+        (SELECT id FROM users WHERE email = 'usatiy_nany@mail.by' AND users.deleted = false), ?));
 
 INSERT INTO order_items (order_id, book_id, price, quantity)
-VALUES (((SELECT order_id FROM),
+VALUES (((SELECT order_id FROM orders),
          (SELECT id FROM books WHERE title = 'Glory in Death' AND author = 'J. D. Robb' AND books.deleted = false),
-         (SELECT price FROM books WHERE title = 'Glory in Death' AND author = 'J. D. Robb' AND books.deleted = false), ?)),
-       (((SELECT id FROM books WHERE title = 'The Last Kids on Earth' AND author = 'Max Brallier' AND books.deleted = false),
+         (SELECT price FROM books WHERE title = 'Glory in Death' AND author = 'J. D. Robb' AND books.deleted = false), ?),
+       ((SELECT id FROM books WHERE title = 'The Last Kids on Earth' AND author = 'Max Brallier' AND books.deleted = false),
          (SELECT price FROM books WHERE title = 'The Last Kids on Earth' AND author = 'Max Brallier' AND books.deleted = false), ?));
