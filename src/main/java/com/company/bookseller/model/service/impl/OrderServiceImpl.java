@@ -18,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
 
     private void processOrder(Order order) {
         order.setUser(userDao.get(order.getUser().getId()));
-        order.setBook(bookDao.get(order.getBook().getId()));
+        order.setOrderItems(orderDao.get(order.getOrderItems().getId()));
     }
 
     @Override

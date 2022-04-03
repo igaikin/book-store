@@ -49,8 +49,8 @@ public class Contractor {
     public static void main(String[] args) {
         try {
             testBook();
-            testUser();
-            testOrder();
+//            testUser();
+//            testOrder();
         } finally {
             ConnectionManager.getInstance().tearDown();
         }
@@ -68,30 +68,30 @@ public class Contractor {
         return books.get(random.nextInt(books.size()));
     }
 
-    private static void testOrder() {
-        Order order = new Order();
-        User user = getRandomUser();
-        order.setUser(user);
-        Book book = getRandomBook();
-        order.setBook(book);
-        int quantity = 99;
-        order.setQuantity(quantity);
-        order.setStatus(Order.Status.PENDING);
-        BigDecimal price = order.getBook().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()));
-        order.setTotalPrice(price);
-        Order createdOrder = orderService.create(order);
-
-        Order orderToRead = orderService.get(createdOrder.getId());
-        print(orderToRead);
-
-        createdOrder.setStatus(Order.Status.DELIVERED);
-        orderService.update(createdOrder);
-
-        List<Order> orders = orderService.getAll();
-        print(orders);
-
-        orderService.delete(createdOrder.getId());
-    }
+//    private static void testOrder() {
+//        Order order = new Order();
+//        User user = getRandomUser();
+//        order.setUser(user);
+//        Book book = getRandomBook();
+//        order.setBook(book);
+//        int quantity = 99;
+//        order.setQuantity(quantity);
+//        order.setStatus(Order.Status.PENDING);
+//        BigDecimal price = order.getBook().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()));
+//        order.setTotalPrice(price);
+//        Order createdOrder = orderService.create(order);
+//
+//        Order orderToRead = orderService.get(createdOrder.getId());
+//        print(orderToRead);
+//
+//        createdOrder.setStatus(Order.Status.DELIVERED);
+//        orderService.update(createdOrder);
+//
+//        List<Order> orders = orderService.getAll();
+//        print(orders);
+//
+//        orderService.delete(createdOrder.getId());
+//    }
 
     private static void testBook() {
         Book book = new Book();

@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         User existing = userDao.getByEmail(user.getEmail());
         assert existing != null;
         if (user.getId() != existing.getId()) {
-            throw new RuntimeException("User with Email: ********** " + user.getEmail() + " ********* does not exist");
+            throw new RuntimeException("User with Email: " + user.getEmail() + " does not exist");
         }
         return userDao.update(user);
     }

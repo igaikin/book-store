@@ -1,6 +1,5 @@
 package com.company.bookseller.model.dao.impl;
 
-import com.company.bookseller.model.beans.Book;
 import com.company.bookseller.model.beans.Order;
 import com.company.bookseller.model.beans.Order.Status;
 import com.company.bookseller.model.beans.User;
@@ -12,20 +11,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoJdbcImpl implements OrderDao {
     private static final String CREATE_ORDER =
-            "INSERT INTO orders  (status_id, quantity, user_id, book_id, total_price)"
-                    + "VALUES ((SELECT id FROM statuses WHERE status = ?), ?, ?, ?, ?)";
+            "INSERT INTO orders  (date, status_id, user_id, total_price)"
+                    + "VALUES (?, (SELECT id FROM statuses WHERE status = ?), ?, ?)";
     private static final String UPDATE_ORDER =
-            "UPDATE orders SET status_id = (SELECT id FROM statuses WHERE status = ?), "
-                    + "quantity = ?, user_id = ?, book_id =?, total_price = ?"
-                    + "WHERE id = ? AND deleted = false";
+            "UPDATE orders SET date = ?, status_id = (SELECT id FROM statuses WHERE status = ?), user_id = ?, "
+                    + "total_price = ? WHERE id = ? AND deleted = false";
     private static final String DELETE_ORDER = "UPDATE orders SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String ORDERS_ALL =
-            "SELECT o.id, s.status, o.quantity, o.user_id, o.book_id, o.total_price "
+            "SELECT o.id, o.date, s.status, o.user_id, o.total_price "
                     + "FROM orders o JOIN statuses s ON o.status_id = s.id";
     private static final String GET_ALL = ORDERS_ALL + " WHERE deleted = false ORDER BY o.id";
     private static final String GET_BY_ID = ORDERS_ALL + " WHERE o.id = ? AND deleted = false ORDER BY o.id";
@@ -38,13 +38,13 @@ public class OrderDaoJdbcImpl implements OrderDao {
     private Order processOrder(ResultSet resultSet) throws SQLException {
         Order order = new Order();
         order.setId(resultSet.getLong("id"));
+        order.setOrderTime(LocalDateTime.parse(resultSet.getString("date")));
         order.setStatus(Status.valueOf(resultSet.getString("status")));
-        order.setQuantity(resultSet.getInt("quantity"));
         order.setUser(getUser(resultSet));
-        order.setBook(getBook(resultSet));
         order.setTotalPrice(resultSet.getBigDecimal("total_price"));
         return order;
     }
+
 
     @Override
     public List<Order> getAll() {
@@ -84,11 +84,10 @@ public class OrderDaoJdbcImpl implements OrderDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(CREATE_ORDER, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, String.valueOf(order.getStatus()));
-            statement.setInt(2, order.getQuantity());
+            statement.setTime(1, Time.valueOf(String.valueOf(order.getOrderTime())));
+            statement.setString(2, String.valueOf(order.getStatus()));
             statement.setLong(3, order.getUser().getId());
-            statement.setLong(4, order.getBook().getId());
-            statement.setBigDecimal(5, order.getTotalPrice());
+            statement.setBigDecimal(4, order.getTotalPrice());
             statement.executeUpdate();
 
             ResultSet keys = statement.getGeneratedKeys();
@@ -108,12 +107,11 @@ public class OrderDaoJdbcImpl implements OrderDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER);
-            statement.setString(1, String.valueOf(order.getStatus()));
-            statement.setInt(2, order.getQuantity());
+            statement.setTime(1, Time.valueOf(String.valueOf(order.getOrderTime())));
+            statement.setString(2, String.valueOf(order.getStatus()));
             statement.setLong(3, order.getUser().getId());
-            statement.setLong(4, order.getBook().getId());
-            statement.setBigDecimal(5, order.getTotalPrice());
-            statement.setLong(6, order.getId());
+            statement.setBigDecimal(4, order.getTotalPrice());
+            statement.setLong(5, order.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,12 +130,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
             e.printStackTrace();
         }
         return true;
-    }
-
-    private Book getBook(ResultSet resultSet) throws SQLException {
-        Book book = new Book();
-        book.setId(resultSet.getLong("book_id"));
-        return book;
     }
 
     private User getUser(ResultSet resultSet) throws SQLException {

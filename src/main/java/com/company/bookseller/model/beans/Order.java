@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class Order {
     private long id;
     private Status status;
-    private LocalDateTime date;
+    private LocalDateTime orderTime = LocalDateTime.now();
     private User user;
     private BigDecimal totalPrice;
     private OrderItem orderItems;
