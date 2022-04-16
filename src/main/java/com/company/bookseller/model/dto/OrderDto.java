@@ -11,7 +11,7 @@ import java.util.Map;
 public class OrderDto {
     private Long id;
     private StatusDto status;
-    private LocalDateTime orderTime;
+    private LocalDateTime orderDateTime;
     private UserDto user;
     private BigDecimal totalPrice;
     private Map<BookDto, Integer> items;

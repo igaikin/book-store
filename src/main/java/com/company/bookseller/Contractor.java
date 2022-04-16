@@ -1,5 +1,8 @@
 package com.company.bookseller;
 
+import com.company.bookseller.model.dto.BookDto;
+import com.company.bookseller.model.dto.OrderDto;
+import com.company.bookseller.model.dto.UserDto;
 import com.company.bookseller.model.entity.Book;
 import com.company.bookseller.model.entity.Order;
 import com.company.bookseller.model.entity.User;
@@ -27,7 +30,7 @@ public class Contractor {
 
     public static void main(String[] args) {
         try {
-            List<Order> orders = orderService.getAll();
+            List<OrderDto> orders = orderService.getAll();
             print(orders);
 
 //            testBook();
@@ -59,14 +62,14 @@ public class Contractor {
 
     }
 
-    private static User getRandomUser() {
-        List<User> users = userService.getAll();
+    private static UserDto getRandomUser() {
+        List<UserDto> users = userService.getAll();
         Random random = new Random();
         return users.get(random.nextInt(users.size()));
     }
 
-    private static Book getRandomBook() {
-        List<Book> books = bookService.getAll();
+    private static BookDto getRandomBook() {
+        List<BookDto> books = bookService.getAll();
         Random random = new Random();
         return books.get(random.nextInt(books.size()));
     }
@@ -104,16 +107,16 @@ public class Contractor {
         book.setNumberOfPages(110);
         book.setIsbn("978-1-38-729890-7");
         book.setPrice(BigDecimal.valueOf(23.86));
-        Book createdBook = bookService.create(book);
+        BookDto createdBook = bookService.create(new BookDto());
 
-        Book bookToRead = bookService.get(createdBook.getId());
+        BookDto bookToRead = bookService.get(createdBook.getId());
         print(bookToRead);
 
         createdBook.setAuthor("XXXXXX");
         createdBook.setTitle("XXXXXX");
         bookService.update(createdBook);
 
-        List<Book> books = bookService.getAll();
+        List<BookDto> books = bookService.getAll();
         print(books);
 
         bookService.delete(createdBook.getId());
@@ -126,16 +129,16 @@ public class Contractor {
         user.setRole(CUSTOMER);
         user.setEmail("ivan@mail.ru");
         user.setPassword("vankavstanka");
-        User createdUser = userService.create(user);
+        UserDto createdUser = userService.create(new UserDto());
 
-        User userToRead = userService.get(createdUser.getId());
+        UserDto userToRead = userService.get(createdUser.getId());
         print(userToRead);
 
         createdUser.setFirstName("XXXXXX");
         createdUser.setLastName("XXXXXX");
         userService.update(createdUser);
 
-        List<User> users = userService.getAll();
+        List<UserDto> users = userService.getAll();
         print(users);
 
         userService.delete(createdUser.getId());

@@ -33,13 +33,13 @@ public class BookDaoJdbcImpl implements BookDao {
 
     private Book processBook(ResultSet resultSet) throws SQLException {
         Book book = new Book();
-        book.setId(resultSet.getLong("id"));
         book.setAuthor(resultSet.getString("author"));
         book.setTitle(resultSet.getString("title"));
         book.setCover(Book.Cover.valueOf(resultSet.getString("cover")));
         book.setNumberOfPages(resultSet.getInt("number_of_pages"));
         book.setIsbn(resultSet.getString("isbn"));
         book.setPrice(resultSet.getBigDecimal("price"));
+        book.setId(resultSet.getLong("id"));
         return book;
     }
 

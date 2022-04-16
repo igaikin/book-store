@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class Order {
     private Long id;
     private Status status;
-    private LocalDateTime orderTime;
+    private LocalDateTime orderDateTime;
     private Long userId;
     private BigDecimal totalPrice;
 
