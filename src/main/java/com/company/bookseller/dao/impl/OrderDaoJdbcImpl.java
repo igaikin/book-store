@@ -27,8 +27,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             + "FROM orders o JOIN statuses s ON o.status_id = s.id";
     private static final String GET_ALL = ORDERS_ALL + " ORDER BY o.id";
     private static final String GET_BY_ID = ORDERS_ALL + " WHERE o.id = ? ORDER BY o.id";
-    private static final String GET_BY_BOOK_ID = ORDERS_ALL + "";//FIXME
-    private static final String GET_BY_USER_ID = ORDERS_ALL + "";//FIXME
+    private static final String GET_BY_USER_ID = ORDERS_ALL + " WHERE o.user_id = ?";
 
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
@@ -41,7 +40,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
         order.setTotalPrice(resultSet.getBigDecimal("total_price"));
         return order;
     }
-
 
     @Override
     public List<Order> getAll() {
@@ -96,7 +94,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
             e.printStackTrace();
         }
         throw new RuntimeException("Couldn't create object: " + order);
-
     }
 
     @Override
@@ -119,10 +116,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public boolean delete(Long id) {
         throw new UnsupportedOperationException();
-    }
-
-    public List<Order> getByBookId(Long bookId) {
-        return getOrderByParam(bookId, GET_BY_BOOK_ID);
     }
 
     public List<Order> getByUserId(Long userId) {
