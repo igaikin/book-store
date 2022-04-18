@@ -128,14 +128,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> getOrderByUserId(Long userId) {//FIXME
+    public List<OrderDto> getOrderByUserId(Long userId) {
         List<Order> userOrders = orderDao.getByUserId(userId);
         List<OrderDto> orders = new ArrayList<>();
-//        for (UserOrder userOrder : orders) {
-//            Order order = orderDao.get((order.getUserId());
-//            OrderDto orderDto = orderToDto(order);
-//            orders.add(orderDto);
-//        }
+        for (Order order : userOrders) {
+            OrderDto orderDto = orderToDto(order);
+            orders.add(orderDto);
+        }
         return orders;
     }
 }
