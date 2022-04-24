@@ -1,10 +1,9 @@
 package com.company.bookseller.dao.impl;
 
-import com.company.bookseller.dao.entity.Order;
-import com.company.bookseller.dao.entity.Order.Status;
 import com.company.bookseller.dao.OrderDao;
 import com.company.bookseller.dao.connection.ConnectionManager;
-import com.company.bookseller.service.dto.OrderDto;
+import com.company.bookseller.dao.entity.Order;
+import com.company.bookseller.dao.entity.Order.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +26,9 @@ public class OrderDaoJdbcImpl implements OrderDao {
             + "FROM orders o JOIN statuses s ON o.status_id = s.id";
     private static final String GET_ALL = ORDERS_ALL + " ORDER BY o.id";
     private static final String GET_BY_ID = ORDERS_ALL + " WHERE o.id = ? ORDER BY o.id";
-    private static final String GET_BY_USER_ID = ORDERS_ALL + " WHERE o.user_id = ?";
+    private static final String GET_BY_USER_ID = ORDERS_ALL + " WHERE user_id = ?";
+    private static final String DELETE_ORDER = "UPDATE orders SET status_id = (SELECT id FROM statuses WHERE status = 4)"
+            + " WHERE id = ?";
 
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
@@ -115,7 +116,15 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public boolean delete(Long id) {
-        throw new UnsupportedOperationException();
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(DELETE_ORDER);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     public List<Order> getByUserId(Long userId) {
