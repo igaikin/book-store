@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
     private static final String GET_ALL = ORDERS_ALL + " ORDER BY o.id";
     private static final String GET_BY_ID = ORDERS_ALL + " WHERE o.id = ? ORDER BY o.id";
     private static final String GET_BY_USER_ID = ORDERS_ALL + " WHERE user_id = ?";
-    private static final String DELETE_ORDER = "UPDATE orders SET status_id = (SELECT id FROM statuses WHERE status = 4)"
+    private static final String DELETE_ORDER = "UPDATE orders SET status_id = (SELECT id FROM statuses WHERE status = 'CANCELLED')"
             + " WHERE id = ?";
 
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
@@ -35,7 +36,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
     private Order processOrder(ResultSet resultSet) throws SQLException {
         Order order = new Order();
         order.setId(resultSet.getLong("id"));
-        order.setOrderDateTime(LocalDateTime.parse(resultSet.getString("date")));
+        order.setOrderDateTime(resultSet.getTimestamp("date").toLocalDateTime());
         order.setStatus(Status.valueOf(resultSet.getString("status")));
         order.setUserId(resultSet.getLong("user_id"));
         order.setTotalPrice(resultSet.getBigDecimal("total_price"));
@@ -80,7 +81,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(CREATE_ORDER, Statement.RETURN_GENERATED_KEYS);
-            statement.setTime(1, Time.valueOf(String.valueOf(order.getOrderDateTime())));
+            statement.setTimestamp(1, Timestamp.valueOf(order.getOrderDateTime()));
             statement.setString(2, String.valueOf(order.getStatus()));
             statement.setLong(3, order.getUserId());
             statement.setBigDecimal(4, order.getTotalPrice());
@@ -102,7 +103,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER);
-            statement.setTime(1, Time.valueOf(String.valueOf(order.getOrderDateTime())));
+            statement.setTimestamp(1, Timestamp.valueOf(order.getOrderDateTime()));
             statement.setString(2, String.valueOf(order.getStatus()));
             statement.setLong(3, order.getUserId());
             statement.setBigDecimal(4, order.getTotalPrice());

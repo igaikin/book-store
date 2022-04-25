@@ -22,8 +22,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
     public static final String GET_BY_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
             + "order_items oi WHERE oi.deleted = false AND oi.id = ?";
     private static final String CREATE_ITEM = "INSERT INTO order_items (order_id, book_id, price, quantity) "
-            + "VALUES ((SELECT id FROM orders WHERE id = ?), (SELECT id FROM books WHERE id = ?), "
-            + "(SELECT price from books WHERE id = ?), ?)";
+            + "VALUES (?, ?, ?, ?)";
     private static final String UPDATE_ITEM = "UPDATE order_items SET order_id = ?, book_id = ?, price = ?, quantity "
             + "= ? AND deleted = false";
     private static final String DELETE_ITEM = "UPDATE order_items SET deleted = true WHERE id = ? AND  deleted = false";

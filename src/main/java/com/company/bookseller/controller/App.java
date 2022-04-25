@@ -10,10 +10,13 @@ import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.impl.BookServiceImpl;
 import com.company.bookseller.service.impl.OrderServiceImpl;
 import com.company.bookseller.service.impl.UserServiceImpl;
-import com.company.bookseller.service.util.Printer;
+//import com.company.bookseller.service.util.Printer;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class App {
@@ -28,34 +31,12 @@ public class App {
 //            List<OrderDto> orders = orderService.getAll();
 //            print(orders);
 
-            testBook();
+//            testBook();
 //            testUser();
-//            testOrder();
+            testOrder();
         } finally {
             ConnectionManager.getInstance().tearDown();
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    private static void print(Object o) {
-        List<?> l;
-        if (!(o instanceof List<?>)) {
-            l = List.of(o);
-        } else {
-            l = (List<?>) o;
-        }
-        String str = "";
-        if (l.get(0) instanceof BookDto) {
-            str = Printer.getBookFormattedTable((List<BookDto>) l);
-        }
-        if (l.get(0) instanceof OrderDto) {
-            str = Printer.getOrderFormattedTable((List<OrderDto>) l);
-        }
-        if (l.get(0) instanceof UserDto) {
-            str = Printer.getUserFormattedTable((List<UserDto>) l);
-        }
-        System.out.println(str);
-
     }
 
     private static UserDto getRandomUser() {
@@ -70,30 +51,40 @@ public class App {
         return books.get(random.nextInt(books.size()));
     }
 
-//    private static void testOrder() {
-//        Order order = new Order();
-//        User user = getRandomUser();
-//        order.setUser(user);
-//        Book book = getRandomBook();
-//        order.setBook(book);
-//        int quantity = 99;
-//        order.setQuantity(quantity);
-//        order.setStatus(Order.Status.PENDING);
-//        BigDecimal price = order.getBook().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()));
-//        order.setTotalPrice(price);
-//        Order createdOrder = orderService.create(order);
-//
-//        Order orderToRead = orderService.get(createdOrder.getId());
-//        print(orderToRead);
-//
-//        createdOrder.setStatus(Order.Status.DELIVERED);
-//        orderService.update(createdOrder);
-//
-//        List<Order> orders = orderService.getAll();
-//        print(orders);
-//
-//        orderService.delete(createdOrder.getId());
-//    }
+    private static void testOrder() {
+        OrderDto order = new OrderDto();
+        UserDto user = getRandomUser();
+        order.setUser(user);
+        BookDto book = getRandomBook();
+        Map<BookDto, Integer> items = new HashMap<>();
+        order.setItems(items);
+        items.put(book, 99);
+        order.setStatus(OrderDto.StatusDto.PENDING);
+        BigDecimal price = book.getPrice().multiply(BigDecimal.valueOf(99));
+        order.setTotalPrice(price);
+        order.setOrderDateTime(LocalDateTime.now());
+        OrderDto createdOrder = orderService.create(order);
+
+        OrderDto orderToRead = orderService.get(createdOrder.getId());
+        print(orderToRead);
+
+        createdOrder.setStatus(OrderDto.StatusDto.DELIVERED);
+        orderService.update(createdOrder);
+
+        List<OrderDto> orders = orderService.getAll();
+        System.out.println(SEPARATOR);
+        orders.forEach(App::print);
+
+        orderService.delete(createdOrder.getId());
+    }
+
+    private static void print(OrderDto orderToRead) {
+        System.out.printf("id: %d Status=%s, User=%s%n", orderToRead.getId(), orderToRead.getStatus(), orderToRead.getUser().getId());
+        orderToRead.getItems().forEach((b, q) -> {
+            System.out.printf("  x%d -> %s%n", q, b.getTitle());
+        });
+        System.out.println();
+    }
 
     private static void testBook() {
         BookDto bookDto = new BookDto();
@@ -106,26 +97,26 @@ public class App {
         BookDto createdBook = bookService.create(bookDto);
 
         System.out.println("\t\tCREATE\n" + SEPARATOR);
-        print(createdBook);
+        System.out.println(createdBook);
 
         BookDto bookToRead = bookService.get(createdBook.getId());
         System.out.println("\t\tGET\n" + SEPARATOR);
-        print(bookToRead);
+        System.out.println(bookToRead);
 
         createdBook.setAuthor("XXXXXX");
         createdBook.setTitle("XXXXXX");
         bookService.update(createdBook);
         System.out.println("\t\tUPDATE\n" + SEPARATOR);
-        print(bookService.get(createdBook.getId()));
+        System.out.println(bookService.get(createdBook.getId()));
 
         List<BookDto> books = bookService.getAll();
         System.out.println("\t\tGET ALL\n" + SEPARATOR);
-        print(books);
+        books.forEach(System.out::println);
 
         bookService.delete(createdBook.getId());
 
         System.out.println("\t\tAFTER DELETE\n" + SEPARATOR);
-        print(bookService.getAll());
+        bookService.getAll().forEach(System.out::println);
     }
 
     private static void testUser() {
@@ -138,14 +129,14 @@ public class App {
         UserDto createdUser = userService.create(userDto);
 
         UserDto userToRead = userService.get(createdUser.getId());
-        print(userToRead);
+        System.out.println(userToRead);
 
         createdUser.setFirstName("XXXXXX");
         createdUser.setLastName("XXXXXX");
         userService.update(createdUser);
 
         List<UserDto> users = userService.getAll();
-        print(users);
+        users.forEach(System.out::println);
 
         userService.delete(createdUser.getId());
     }

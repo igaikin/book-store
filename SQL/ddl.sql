@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS books
     cover_id        BIGINT REFERENCES covers NOT NULL,
     number_of_pages INT,
     price           DECIMAL(8, 2),
-    isbn            CHAR(17) UNIQUE          NOT NULL,
+    isbn            CHAR(17)                 NOT NULL,
     deleted         BOOLEAN                  NOT NULL DEFAULT false
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS users
     first_name VARCHAR(50),
     last_name  VARCHAR(50),
     role_id    BIGINT REFERENCES roles NOT NULL,
-    email      VARCHAR(50) UNIQUE      NOT NULL,
+    email      VARCHAR(50)             NOT NULL,
     password   VARCHAR(50)             NOT NULL,
     deleted    BOOLEAN                 NOT NULL DEFAULT false
 );
