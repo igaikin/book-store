@@ -11,7 +11,7 @@ public class Book {
     private String author;
     private String title;
     private Cover cover;
-    private int numberOfPages;
+    private int pages;
     private String isbn;
     private BigDecimal price;
 

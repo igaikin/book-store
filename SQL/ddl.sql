@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS books
     author          VARCHAR(100)             NOT NULL,
     title           VARCHAR(100)             NOT NULL,
     cover_id        BIGINT REFERENCES covers NOT NULL,
-    number_of_pages INT,
+    pages INT,
     price           DECIMAL(8, 2),
     isbn            CHAR(17)                 NOT NULL,
     deleted         BOOLEAN                  NOT NULL DEFAULT false

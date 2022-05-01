@@ -10,7 +10,7 @@ INSERT INTO covers (cover)
 VALUES ('HARD'),
        ('SOFT');
 
-INSERT INTO books (author, title, cover_id, number_of_pages, isbn, price)
+INSERT INTO books (author, title, cover_id, pages, isbn, price)
 VALUES ('Sandra Brown', 'The Switch', (SELECT id FROM covers WHERE cover = 'SOFT'), 512, '978-1-53-871268-9', 5.25),
        ('Sherryl Woods', 'Home in Carolina', (SELECT id FROM covers WHERE cover = 'SOFT'), 384, '978-0-77-831902-3',
         5.10),
