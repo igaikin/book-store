@@ -11,28 +11,40 @@
 <head>
     <title>Users</title>
     <link href="style.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<h1>Users</h1>
-<table>
-    <tr>
-        <td>Count</td>
-        <td>ID</td>
-        <td>First Name</td>
-        <td>Last Name</td>
-        <td>Email</td>
-        <td>Role</td>
-    </tr>
-    <c:forEach items="${users}" var="user" varStatus="counter">
+<header>
+    <h1>Users</h1>
+    <nav>
+        <a href="http://localhost:8090/bookstore.com/books"> Books </a>
+        <a href="http://localhost:8090/bookstore.com/orders"> Orders </a>
+    </nav>
+</header>
+<div class="main">
+    <table>
         <tr>
-            <td>${counter.count}</td>
-            <td>${user.id}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.email}</td>
-            <td>${user.role.name}</td>
+            <td>Count</td>
+            <td>ID</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Email</td>
+            <td>Role</td>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach items="${users}" var="user" varStatus="counter">
+            <tr>
+                <td>${counter.count}</td>
+                <td>${user.id}</td>
+                <td>${user.firstName}</td>
+                <td>${user.lastName}</td>
+                <td>${user.email}</td>
+                <td>${user.role.name}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+<footer class="footer">
+    "©CopyRight Gaikin, 2022"
+</footer>
 </body>
 </html>
