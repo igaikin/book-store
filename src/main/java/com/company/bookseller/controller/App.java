@@ -1,18 +1,21 @@
 package com.company.bookseller.controller;
 
-import com.company.bookseller.service.dto.BookDto;
-import com.company.bookseller.service.dto.OrderDto;
-import com.company.bookseller.service.dto.UserDto;
 import com.company.bookseller.dao.connection.ConnectionManager;
 import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.OrderService;
 import com.company.bookseller.service.UserService;
+import com.company.bookseller.service.dto.BookDto;
+import com.company.bookseller.service.dto.OrderDto;
+import com.company.bookseller.service.dto.UserDto;
 import com.company.bookseller.service.impl.BookServiceImpl;
 import com.company.bookseller.service.impl.OrderServiceImpl;
 import com.company.bookseller.service.impl.UserServiceImpl;
-//import com.company.bookseller.service.util.Printer;
-
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -28,12 +31,37 @@ public class App {
 
     public static void main(String[] args) {
         try {
+            ServerSocket serverSocket = new ServerSocket(5555);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                InputStream in = socket.getInputStream();
+                char prev = 0;
+                int content;
+                while ((content = in.read()) != -1) {
+                    char current = (char) content;
+                    if (prev == '\n' && current == '\r') {
+                        break;
+                    }
+                    System.out.print(current);
+                    prev = current;
+                }
+                UserDto userDto = userService.get(3L);
+                OutputStream os = socket.getOutputStream();
+                OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
+                out.write("HTTP/1.1 200 Ok\n\n<h1>HELLO404</h1>");
+                out.write("<div>" + userDto.toString() + "</div>");
+                out.flush();
+                out.close();
+                in.close();
+            }
+
 //            List<OrderDto> orders = orderService.getAll();
 //            print(orders);
-
 //            testBook();
 //            testUser();
-            testOrder();
+//            testOrder();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             ConnectionManager.getInstance().tearDown();
         }
@@ -91,7 +119,7 @@ public class App {
         bookDto.setAuthor("Rudyard Kipling");
         bookDto.setTitle("The Jungle Book");
         bookDto.setCover(BookDto.Cover.HARD);
-        bookDto.setNumberOfPages(110);
+        bookDto.setPages(110);
         bookDto.setIsbn("978-1-38-729890-7");
         bookDto.setPrice(BigDecimal.valueOf(23.86));
         BookDto createdBook = bookService.create(bookDto);
