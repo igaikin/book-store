@@ -10,43 +10,34 @@
 <head>
     <title>User</title>
     <link href="style.css" rel="stylesheet" type="text/css"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<header>
-    <h1>User</h1>
-</header>
-<div class="main">
-    <table>
-        <tr>
-            <th>Field</th>
-            <th>Value</th>
-        </tr>
-
-        <tr>
-            <td>ID</td>
-            <td>${user.id}</td>
-        </tr>
-        <tr>
-            <td>First Name</td>
-            <td>${user.firstName}</td>
-        </tr>
-        <tr>
-            <td>Last Name</td>
-            <td>${user.lastName}</td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td>${user.email}</td>
-        </tr>
-        <tr>
-            <td>Role</td>
-            <td>${user.role.name}</td>
-        </tr>
-    </table>
-</div>
-<footer class="footer">
-    "©CopyRight Gaikin, 2022"
-</footer>
+<h1>User</h1>
+<table>
+    <tr>
+        <th>Field</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>ID</td>
+        <td>${user.id}</td>
+    </tr>
+    <tr>
+        <td>First Name</td>
+        <td>${user.firstName}</td>
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td>${user.lastName}</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>${user.email}</td>
+    </tr>
+    <tr>
+        <td>Role</td>
+        <td>${user.role.name}</td>
+    </tr>
+</table>
 </body>
 </html>
