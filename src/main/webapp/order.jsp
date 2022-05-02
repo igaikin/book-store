@@ -10,33 +10,46 @@
 <head>
     <title>Order</title>
     <link href="style.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Order</h1>
-<table>
-    <tr>
-        <th>Field</th>
-        <th>Value</th>
-    </tr>
-    <tr>
-        <td>ID</td>
-        <td>${order.id}</td>
-    </tr>
-    <tr>
-        <td>Status</td>
-        <td>${order.status.name}</td>
-    </tr>
-    <tr>
-        <td>Date/Time</td>
-        <td>${order.orderDateTime}</td>
-    </tr>
-    <tr>
-        <td>User</td>
-        <td>ID = ${order.user.id}; Name = ${order.user.firstName} ${order.user.lastName}</td>
-    </tr>
-    <tr><td>Price</td><td>$${order.totalPrice}</td></tr>
-
-
-</table>
+<header>
+    <h1>Order</h1>
+</header>
+<div class="main">
+    <table>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <hr>
+        <tr>
+            <td>ID</td>
+            <td>${order.id}</td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>${order.status.name}</td>
+        </tr>
+        <tr>
+            <td>Date/Time</td>
+            <td>${order.orderDateTime}</td>
+        </tr>
+        <tr>
+            <td>User</td>
+            <td>ID = ${order.user.id}; Name = ${order.user.firstName} ${order.user.lastName}</td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>$${order.totalPrice}</td>
+        </tr>
+    </table>
+</div>
+<footer class="footer">
+    ©CopyRight Gaikin, 2022
+</footer>
 </body>
 </html>
