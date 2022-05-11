@@ -11,8 +11,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BookDaoJdbcImpl implements BookDao {
+    private static Logger LOG = LogManager.getLogger(BookDaoJdbcImpl.class);
     private static final String CREATE_BOOK =
             "INSERT INTO books (author, title, cover_id, pages, isbn, price)"
                     + "VALUES (?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?, ?)";

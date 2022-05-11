@@ -1,0 +1,35 @@
+h1 {
+    font-family: 'Tapestry', cursive;
+    font-size: 70px;
+}
+
+nav {
+    font-style: revert;
+    font-size: 40px;
+}
+
+TABLE {
+    /*width: 600px;   Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    border: 2px solid black;
+}
+
+TD, TH {
+    padding: 5px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+}
+
+TH {
+    border: 2px solid black;
+    background: #90e3ee; /* Цвет фона */
+}
+
+.footer {
+
+    background-color: #a4c9c9;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 20px;
+}
