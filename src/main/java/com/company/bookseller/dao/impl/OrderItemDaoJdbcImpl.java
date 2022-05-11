@@ -3,7 +3,6 @@ package com.company.bookseller.dao.impl;
 import com.company.bookseller.dao.OrderItemDao;
 import com.company.bookseller.dao.connection.ConnectionManager;
 import com.company.bookseller.dao.entity.OrderItem;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,20 +10,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class OrderItemDaoJdbcImpl implements OrderItemDao {
-    public static final String GET_ALL = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
-            + "order_items oi WHERE oi.deleted = false";
-    public static final String GET_BY_ORDER_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
-            + "order_items oi WHERE oi.deleted = false AND oi.order_id = ?";
-    public static final String GET_BY_BOOK_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
-            + "order_items oi WHERE oi.deleted = false AND oi.book_id = ?";
-    public static final String GET_BY_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
-            + "order_items oi WHERE oi.deleted = false AND oi.id = ?";
-    private static final String CREATE_ITEM = "INSERT INTO order_items (order_id, book_id, price, quantity) "
-            + "VALUES (?, ?, ?, ?)";
-    private static final String UPDATE_ITEM = "UPDATE order_items SET order_id = ?, book_id = ?, price = ?, quantity "
-            + "= ? AND deleted = false";
+    private static final Logger LOG = LogManager.getLogger(OrderItemDaoJdbcImpl.class);
+    public static final String GET_ALL = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM " + "order_items oi WHERE oi.deleted = false";
+    public static final String GET_BY_ORDER_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM " + "order_items oi WHERE oi.deleted = false AND oi.order_id = ?";
+    public static final String GET_BY_BOOK_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM " + "order_items oi WHERE oi.deleted = false AND oi.book_id = ?";
+    public static final String GET_BY_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM " + "order_items oi WHERE oi.deleted = false AND oi.id = ?";
+    private static final String CREATE_ITEM = "INSERT INTO order_items (order_id, book_id, price, quantity) " + "VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_ITEM = "UPDATE order_items SET order_id = ?, book_id = ?, price = ?, quantity " + "= ? AND deleted = false";
     private static final String DELETE_ITEM = "UPDATE order_items SET deleted = true WHERE id = ? AND  deleted = false";
     private final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
@@ -49,7 +45,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 items.add(processItem(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return items;
     }
@@ -66,7 +62,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 item = processItem(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return item;
     }
@@ -83,7 +79,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 items.add(processItem(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return items;
     }
@@ -100,7 +96,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 items.add(processItem(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return items;
     }
@@ -109,8 +105,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
     public OrderItem create(OrderItem item) {
         try {
             Connection connection = connectionManager.getConnection();
-            PreparedStatement statement =
-                    connection.prepareStatement(CREATE_ITEM, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = connection.prepareStatement(CREATE_ITEM, Statement.RETURN_GENERATED_KEYS);
             statement.setLong(1, item.getOrderId());
             statement.setLong(2, item.getBookId());
             statement.setBigDecimal(3, item.getPrice());
@@ -123,7 +118,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 return item;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         throw new RuntimeException("Couldn't create object: " + item);
     }
@@ -139,7 +134,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
             statement.setInt(4, item.getQuantity());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return item;
     }
@@ -152,7 +147,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return true;
     }

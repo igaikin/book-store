@@ -2,6 +2,7 @@ package com.company.bookseller.service.impl;
 
 import com.company.bookseller.dao.OrderDao;
 import com.company.bookseller.dao.OrderItemDao;
+import com.company.bookseller.dao.connection.ConnectionManager;
 import com.company.bookseller.dao.impl.OrderDaoJdbcImpl;
 import com.company.bookseller.dao.impl.OrderItemDaoJdbcImpl;
 import com.company.bookseller.service.dto.BookDto;
@@ -19,9 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class OrderServiceImpl implements OrderService {
-
+    private static final Logger LOG = LogManager.getLogger(OrderServiceImpl.class);
     private final OrderDao orderDao = new OrderDaoJdbcImpl();
     private final OrderItemDao orderItemDao = new OrderItemDaoJdbcImpl();
     private final BookService bookService = new BookServiceImpl();

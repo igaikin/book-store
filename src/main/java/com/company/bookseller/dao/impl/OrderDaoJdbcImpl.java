@@ -15,8 +15,11 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class OrderDaoJdbcImpl implements OrderDao {
+    private static final Logger LOG = LogManager.getLogger(OrderDaoJdbcImpl.class);
     private static final String CREATE_ORDER =
             "INSERT INTO orders  (date, status_id, user_id, total_price)"
                     + "VALUES (?, (SELECT id FROM statuses WHERE status = ?), ?, ?)";
@@ -54,7 +57,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 orders.add(processOrder(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return orders;
     }
@@ -71,7 +74,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 order = processOrder(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return order;
     }
@@ -93,7 +96,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 return order;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         throw new RuntimeException("Couldn't create object: " + order);
     }
@@ -110,7 +113,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             statement.setLong(5, order.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return order;
     }
@@ -123,7 +126,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return true;
     }
@@ -143,7 +146,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 orders.add(processOrder(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return orders;
     }

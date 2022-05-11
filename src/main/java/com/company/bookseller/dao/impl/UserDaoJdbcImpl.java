@@ -11,8 +11,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UserDaoJdbcImpl implements UserDao {
+    private static final Logger LOG = LogManager.getLogger(UserDaoJdbcImpl.class);
     private static final String CREATE_USER =
             "INSERT INTO users  (first_name, last_name, role_id, email, password) "
                     + "VALUES (?, ?, (SELECT id FROM roles WHERE role = ?), ?, ?)";
@@ -49,7 +52,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 users.add(processUser(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return users;
     }
@@ -66,7 +69,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 user = processUser(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return user;
     }
@@ -83,7 +86,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 user = processUser(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return user;
     }
@@ -105,7 +108,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 return user;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         throw new RuntimeException("Couldn't create person: " + user);
     }
@@ -123,7 +126,7 @@ public class UserDaoJdbcImpl implements UserDao {
             statement.setLong(6, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return user;
     }
@@ -136,7 +139,7 @@ public class UserDaoJdbcImpl implements UserDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return true;
     }

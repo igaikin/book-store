@@ -1,6 +1,7 @@
 package com.company.bookseller.service.impl;
 
 import com.company.bookseller.dao.UserDao;
+import com.company.bookseller.dao.connection.ConnectionManager;
 import com.company.bookseller.dao.entity.User;
 import com.company.bookseller.dao.impl.UserDaoJdbcImpl;
 import com.company.bookseller.service.UserService;
@@ -8,9 +9,11 @@ import com.company.bookseller.service.dto.UserDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UserServiceImpl implements UserService {
-
+    private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
     private final UserDao userDao = new UserDaoJdbcImpl();
 
     private User userToEntity(UserDto userDto) {

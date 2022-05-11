@@ -56,7 +56,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 books.add(processBook(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return books;
     }
@@ -73,7 +73,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 book = processBook(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return book;
     }
@@ -90,7 +90,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 book = processBook(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return book;
     }
@@ -114,7 +114,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 books.add(processBook(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return books;
     }
@@ -138,7 +138,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 return book;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         throw new RuntimeException("Couldn't create object: " + book);
     }
@@ -157,7 +157,7 @@ public class BookDaoJdbcImpl implements BookDao {
             statement.setLong(7, book.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return book;
     }
@@ -170,7 +170,7 @@ public class BookDaoJdbcImpl implements BookDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return true;
     }

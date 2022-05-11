@@ -1,6 +1,7 @@
 package com.company.bookseller.service.impl;
 
 import com.company.bookseller.dao.BookDao;
+import com.company.bookseller.dao.connection.ConnectionManager;
 import com.company.bookseller.dao.impl.BookDaoJdbcImpl;
 import com.company.bookseller.service.dto.BookDto;
 import com.company.bookseller.dao.entity.Book;
@@ -8,8 +9,11 @@ import com.company.bookseller.service.BookService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BookServiceImpl implements BookService {
+    private static final Logger LOG = LogManager.getLogger(BookServiceImpl.class);
     private final BookDao bookDao = new BookDaoJdbcImpl();
 
     private Book bookToEntity(BookDto bookDto) {
