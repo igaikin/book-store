@@ -17,7 +17,7 @@
         <a href="http://localhost:8090/bookstore.com/controller?command=orders"> Orders </a>
     </nav>
 </header>
-<div class="main">
+<div class="error">
     SERVER OUT
 </div>
 <footer class="footer">

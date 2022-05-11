@@ -33,3 +33,8 @@ TH {
     width: 100%;
     height: 20px;
 }
+
+.error {
+    font-family: 'Tapestry', cursive;
+    font-size: 150px;
+}
