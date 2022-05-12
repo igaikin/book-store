@@ -13,7 +13,8 @@
     <h1>Add Book</h1>
 </header>
 <div class="add">
-    <form action="addBook.jsp" method="post">
+    <form action="controller" method="post">
+        <input type="hidden" name="command" value="addBook"/>
         <table>
             <tr>
                 <td> Author:</td>
@@ -26,10 +27,10 @@
             <tr>
                 <td> Cover:</td>
                 <td><input type="radio" id="cover1"
-                           name="cover" value="hardcover">
+                           name="cover" value="HARD">
                     <label for="cover1">Hardcover</label>
                     <input type="radio" id="cover2"
-                           name="cover" value="paperback">
+                           name="cover" value="SOFT">
                     <label for="cover2">Paperback</label>
                 </td>
             </tr>
@@ -43,7 +44,7 @@
             </tr>
             <tr>
                 <td> Price:</td>
-                <td><input type="number" min="0.00" max="10000.00" step="0.01" name="price"></td>
+                <td><input type="number" min="0.00" max="1000.00" step="0.01" name="price"></td>
             </tr>
         </table>
         <button><input type="submit" name="submit" value="add"></button>

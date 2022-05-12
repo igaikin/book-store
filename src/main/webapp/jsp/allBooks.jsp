@@ -43,7 +43,7 @@
     </c:forEach><br/>
 </table>
 </br>
-<a href="http://localhost:8090/bookstore.com/controller?command=addbook"> Add Book </a>
+<a href="http://localhost:8090/bookstore.com/controller?command=addBookForm"> Add Book </a>
 </br>
 <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
