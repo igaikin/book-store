@@ -18,7 +18,9 @@
     </nav>
 </header>
 <div class="error">
-        PAGE NOT FOUND )))))
+        Error!!!!
+    <br/>
+    ${message}
 </div>
 </br>
 <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
