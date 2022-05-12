@@ -2,18 +2,16 @@ package com.company.bookseller.service.impl;
 
 import com.company.bookseller.dao.OrderDao;
 import com.company.bookseller.dao.OrderItemDao;
-import com.company.bookseller.dao.connection.ConnectionManager;
-import com.company.bookseller.dao.impl.OrderDaoJdbcImpl;
-import com.company.bookseller.dao.impl.OrderItemDaoJdbcImpl;
-import com.company.bookseller.service.dto.BookDto;
-import com.company.bookseller.service.dto.OrderDto;
-import com.company.bookseller.service.dto.UserDto;
 import com.company.bookseller.dao.entity.Order;
 import com.company.bookseller.dao.entity.OrderItem;
+import com.company.bookseller.dao.impl.OrderDaoJdbcImpl;
+import com.company.bookseller.dao.impl.OrderItemDaoJdbcImpl;
 import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.OrderService;
 import com.company.bookseller.service.UserService;
-
+import com.company.bookseller.service.dto.BookDto;
+import com.company.bookseller.service.dto.OrderDto;
+import com.company.bookseller.service.dto.UserDto;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
