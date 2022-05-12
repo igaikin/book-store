@@ -19,6 +19,8 @@
 </header>
 <div class="error">
     SERVER OUT
+    </br>
+    <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
 <footer class="footer">
     &copy;CopyRight Gaikin, 2022

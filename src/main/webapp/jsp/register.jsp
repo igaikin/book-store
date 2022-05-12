@@ -47,8 +47,8 @@
         </table>
         <button><input type="submit" name="submit" value="Register"></button>
     </form>
-
-
+    </br>
+    <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
 <footer class="footer">
     &copy;CopyRight Gaikin, 2022
