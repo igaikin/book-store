@@ -13,7 +13,8 @@
     <h1>Registration</h1>
 </header>
 <div class="add">
-    <form action="register.jsp" method="post">
+    <form action="controller" method="post">
+        <input type="hidden" name="command" value="register"/>
         <table>
             <tr>
                 <td> First Name:</td>
@@ -26,13 +27,13 @@
             <tr>
                 <td> Role:</td>
                 <td><input type="radio" id="role1"
-                           name="role" value="customer" checked>
+                           name="role" value="CUSTOMER" checked>
                     <label for="role1">Customer</label>
                     <input type="radio" id="role2"
-                           name="role" value="manager">
+                           name="role" value="MANAGER">
                     <label for="role2">Manager</label>
                     <input type="radio" id="role3"
-                           name="role" value="administrator">
+                           name="role" value="ADMIN">
                     <label for="role3">Administrator</label>
                 </td>
             </tr>

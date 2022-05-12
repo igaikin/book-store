@@ -12,13 +12,14 @@ public class RegisterCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        UserDto registerUser = new UserDto();
-        registerUser.setFirstName(req.getParameter("firstName"));
-        registerUser.setLastName(req.getParameter("lastName"));
-        registerUser.setRole(UserDto.Role.valueOf(req.getParameter("role")));
-        registerUser.setEmail(req.getParameter("email"));
-        registerUser.setPassword(req.getParameter("password"));
-        USER_SERVICE.create(registerUser);
-        return //FIXME;
+        UserDto user = new UserDto();
+        user.setFirstName(req.getParameter("firstName"));
+        user.setLastName(req.getParameter("lastName"));
+        user.setRole(UserDto.Role.valueOf(req.getParameter("role")));
+        user.setEmail(req.getParameter("email"));
+        user.setPassword(req.getParameter("password"));
+        UserDto registerUser = USER_SERVICE.create(user);
+        req.setAttribute("user", registerUser);
+        return "jsp/profile.jsp";
     }
 }

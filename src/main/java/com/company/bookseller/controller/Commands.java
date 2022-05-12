@@ -4,6 +4,7 @@ import com.company.bookseller.controller.impl.ErrorCommand;
 import com.company.bookseller.controller.impl.add.AddBookCommand;
 import com.company.bookseller.controller.impl.add.AddBookFormCommand;
 import com.company.bookseller.controller.impl.add.RegisterCommand;
+import com.company.bookseller.controller.impl.add.RegisterUserFormCommand;
 import com.company.bookseller.controller.impl.get.GetBookCommand;
 import com.company.bookseller.controller.impl.get.GetBooksCommand;
 import com.company.bookseller.controller.impl.get.GetOrderCommand;
@@ -13,6 +14,7 @@ import com.company.bookseller.controller.impl.get.GetUsersCommand;
 
 public enum Commands {
     REGISTER(new RegisterCommand()),
+    REGISTERUSERFORM(new RegisterUserFormCommand()),
     PROFILE(new GetProfileCommand()),
     USERS(new GetUsersCommand()),
     ADDBOOK(new AddBookCommand()),

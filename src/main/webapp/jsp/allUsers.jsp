@@ -39,7 +39,7 @@
         </c:forEach><br/>
     </table>
     </br>
-    <a href="http://localhost:8090/bookstore.com/controller?command=register"> Registration </a>
+    <a href="http://localhost:8090/bookstore.com/controller?command=registerUserForm"> Registration </a>
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>

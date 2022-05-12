@@ -11,7 +11,7 @@ public class GetProfileCommand implements Command {
     private static final UserService USER_SERVICE = new UserServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp  ) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String id = req.getParameter("id");
         UserDto user = USER_SERVICE.get(Long.valueOf(id));
         if (user == null) {
