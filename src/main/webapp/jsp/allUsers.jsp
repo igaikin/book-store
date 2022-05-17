@@ -34,11 +34,12 @@
                 <td>${user.id}</td>
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
-                <td><a href="controller?command=profile&id=${user.id}">${user.email}</a></td>
+                <td>${user.email}</td>
                 <td>${user.role.name}</td>
                 <td>
-                    <a href="http://localhost:8090/bookstore.com/controller?command=editProfileForm&id=${user.id}">Edit</a>
-                    <a href="http://localhost:8090/bookstore.com/controller?command=deleteUser&id=${User.id}">Delete</a>
+                    <a href="controller?command=profile&id=${user.id}"> Details </a>
+                    <a href="http://localhost:8090/bookstore.com/controller?command=editProfileForm&id=${user.id}"> Edit </a>
+                    <a href="http://localhost:8090/bookstore.com/controller?command=deleteUser&id=${User.id}"> Delete </a>
                 </td>
             </tr>
         </c:forEach><br/>

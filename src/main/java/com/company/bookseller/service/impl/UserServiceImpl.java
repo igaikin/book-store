@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto update(UserDto userDto) {
         User existing = userDao.getByEmail(userDto.getEmail());
-        if (existing == null) {
+        if (existing != null && existing.getId() != userDto.getId()) {
             throw new RuntimeException("User with email: " + userDto.getEmail() + " does not exist");
         }
         User updated = userDao.update(userToEntity(userDto));

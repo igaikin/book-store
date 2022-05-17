@@ -65,7 +65,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto update(BookDto bookDto) {
         Book existing = bookDao.getByIsbn(bookDto.getIsbn());
-        if (existing == null) {
+        if (existing != null && existing.getId() != bookDto.getId()) {
             throw new RuntimeException("Book with ISBN: ********** " + bookDto.getIsbn() + " ********* does not exist");
         }
         Book updated = bookDao.update(bookToEntity(bookDto));

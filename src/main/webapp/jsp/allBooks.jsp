@@ -34,15 +34,16 @@
         <tr>
             <td>${counter.count}</td>
             <td>${book.id}</td>
-            <td><a href="controller?command=book&id=${book.id}">${book.isbn}</a></td>
+            <td>${book.isbn}</td>
             <td>${book.author}</td>
             <td>${book.title}</td>
             <td>${book.cover.name}</td>
             <td>${book.pages}</td>
             <td>${book.price}</td>
             <td>
-                <a href="http://localhost:8090/bookstore.com/controller?command=editBookForm&id=${book.id}">Edit</a>
-                <a href="http://localhost:8090/bookstore.com/controller?command=deletebook&id=${book.id}">Delete</a>
+                <a href="http://localhost:8090/bookstore.com/controller?command=book&id=${book.id}"> Details </a>
+                <a href="http://localhost:8090/bookstore.com/controller?command=editBookForm&id=${book.id}"> Edit </a>
+                <a href="http://localhost:8090/bookstore.com/controller?command=deletebook&id=${book.id}"> Delete </a>
             </td>
         </tr>
     </c:forEach><br/>
