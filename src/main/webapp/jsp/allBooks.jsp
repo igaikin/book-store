@@ -28,6 +28,7 @@
         <th>Cover</th>
         <th>Pages</th>
         <th>Price</th>
+        <th>Action</th>
     </tr>
     <c:forEach items="${books}" var="book" varStatus="counter">
         <tr>
@@ -39,6 +40,10 @@
             <td>${book.cover.name}</td>
             <td>${book.pages}</td>
             <td>${book.price}</td>
+            <td>
+                <a href="http://localhost:8090/bookstore.com/controller?command=editBookForm&id=${book.id}">Edit</a>
+                <a href="http://localhost:8090/bookstore.com/controller?command=deletebook&id=${book.id}">Delete</a>
+            </td>
         </tr>
     </c:forEach><br/>
 </table>
