@@ -31,10 +31,10 @@
             <tr>
                 <td> Cover:</td>
                 <td>
-                    <input type="radio" name="cover" value="Paperback"
+                    <input type="radio" name="cover" value="SOFT"
                            <c:if test="${book.cover=='SOFT'}">checked</c:if>> Paperback
                     <br/>
-                    <input type="radio" name="cover" value="Hardcover"
+                    <input type="radio" name="cover" value="HARD"
                            <c:if test="${book.cover=='HARD'}">checked</c:if>> Hardcover
                 </td>
             </tr>
