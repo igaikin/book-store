@@ -41,6 +41,8 @@
         </tr>
     </table>
     </br>
+    <a href="http://localhost:8090/bookstore.com/controller?command=editProfileForm&id=${user.id}">Edit profile</a>
+    </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
 <footer class="footer">

@@ -15,10 +15,14 @@ import com.company.bookseller.controller.impl.get.GetProfileCommand;
 import com.company.bookseller.controller.impl.get.GetUsersCommand;
 import com.company.bookseller.controller.impl.update.EditBookCommand;
 import com.company.bookseller.controller.impl.update.EditBookFormCommand;
+import com.company.bookseller.controller.impl.update.EditProfileCommand;
+import com.company.bookseller.controller.impl.update.EditProfileFormCommand;
 
 public enum Commands {
     REGISTER(new RegisterCommand()),
     REGISTERUSERFORM(new RegisterUserFormCommand()),
+    EDITPROFILE(new EditProfileCommand()),
+    EDITPROFILEFORM(new EditProfileFormCommand()),
     PROFILE(new GetProfileCommand()),
     USERS(new GetUsersCommand()),
     DELETEUSER(new DeleteUserCommand()),
