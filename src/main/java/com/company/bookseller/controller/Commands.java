@@ -26,15 +26,19 @@ public enum Commands {
     PROFILE(new GetProfileCommand()),
     USERS(new GetUsersCommand()),
     DELETEUSER(new DeleteUserCommand()),
+
+
     ADDBOOK(new AddBookCommand()),
+    ADDBOOKFORM(new AddBookFormCommand()),
     EDITBOOK(new EditBookCommand()),
     EDITBOOKFORM(new EditBookFormCommand()),
     BOOK(new GetBookCommand()),
-    DELETEBOOK(new DeleteBookCommand()),
     BOOKS(new GetBooksCommand()),
+    DELETEBOOK(new DeleteBookCommand()),
+
+
     ORDER(new GetOrderCommand()),
     ORDERS(new GetOrdersCommand()),
-    ADDBOOKFORM(new AddBookFormCommand()),
     ERROR(new ErrorCommand());
 
     Commands(Command command) {
