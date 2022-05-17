@@ -46,7 +46,8 @@
                 <td><input type="text" name="password"></td>
             </tr>
         </table>
-        <button><input type="submit" name="submit" value="Register"></button>
+        <br/>
+        <td colspan="2"><input type="submit" name="submit" value="Registration"></td>
     </form>
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>

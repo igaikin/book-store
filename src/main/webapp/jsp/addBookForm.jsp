@@ -47,7 +47,8 @@
                 <td><input type="number" min="0.00" max="1000.00" step="0.01" name="price"></td>
             </tr>
         </table>
-        <button><input type="submit" name="submit" value="add"></button>
+        <br/>
+        <td colspan="2"><input type="submit" name="submit" value="Add"></td>
     </form>
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>

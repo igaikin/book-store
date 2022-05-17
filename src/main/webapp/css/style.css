@@ -28,8 +28,8 @@ TH {
 
     background-color: #a4c9c9;
     position: absolute;
-    left: 0px;
-    bottom: 0px;
+    left: 0;
+    bottom: 0;
     width: 100%;
     height: 20px;
 }
