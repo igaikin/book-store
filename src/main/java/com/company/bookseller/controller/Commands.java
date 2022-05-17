@@ -5,6 +5,7 @@ import com.company.bookseller.controller.impl.add.AddBookCommand;
 import com.company.bookseller.controller.impl.add.AddBookFormCommand;
 import com.company.bookseller.controller.impl.add.RegisterCommand;
 import com.company.bookseller.controller.impl.add.RegisterUserFormCommand;
+import com.company.bookseller.controller.impl.delete.DeleteBookCommand;
 import com.company.bookseller.controller.impl.get.GetBookCommand;
 import com.company.bookseller.controller.impl.get.GetBooksCommand;
 import com.company.bookseller.controller.impl.get.GetOrderCommand;
@@ -23,6 +24,7 @@ public enum Commands {
     EDITBOOK(new EditBookCommand()),
     EDITBOOKFORM(new EditBookFormCommand()),
     BOOK(new GetBookCommand()),
+    DELETEBOOK(new DeleteBookCommand()),
     BOOKS(new GetBooksCommand()),
     ORDER(new GetOrderCommand()),
     ORDERS(new GetOrdersCommand()),
