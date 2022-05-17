@@ -47,6 +47,7 @@
             <td>$${book.price}</td>
         </tr>
     </table>
+<a href="http://localhost:8090/bookstore.com/controller?command=editBookForm&id=${book.id}">Edit book</a>
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main page </a>
 </div>

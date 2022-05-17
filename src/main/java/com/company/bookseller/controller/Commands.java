@@ -11,6 +11,8 @@ import com.company.bookseller.controller.impl.get.GetOrderCommand;
 import com.company.bookseller.controller.impl.get.GetOrdersCommand;
 import com.company.bookseller.controller.impl.get.GetProfileCommand;
 import com.company.bookseller.controller.impl.get.GetUsersCommand;
+import com.company.bookseller.controller.impl.update.EditBookCommand;
+import com.company.bookseller.controller.impl.update.EditBookFormCommand;
 
 public enum Commands {
     REGISTER(new RegisterCommand()),
@@ -18,6 +20,8 @@ public enum Commands {
     PROFILE(new GetProfileCommand()),
     USERS(new GetUsersCommand()),
     ADDBOOK(new AddBookCommand()),
+    EDITBOOK(new EditBookCommand()),
+    EDITBOOKFORM(new EditBookFormCommand()),
     BOOK(new GetBookCommand()),
     BOOKS(new GetBooksCommand()),
     ORDER(new GetOrderCommand()),
