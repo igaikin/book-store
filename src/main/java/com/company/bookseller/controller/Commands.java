@@ -25,7 +25,6 @@ public enum Commands {
     ADDBOOKFORM(new AddBookFormCommand()),
     ERROR(new ErrorCommand());
 
-
     Commands(Command command) {
         this.command = command;
     }

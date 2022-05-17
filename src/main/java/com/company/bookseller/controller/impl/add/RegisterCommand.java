@@ -5,13 +5,12 @@ import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.UserDto;
 import com.company.bookseller.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 public class RegisterCommand implements Command {
     private static final UserService USER_SERVICE = new UserServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
         UserDto user = new UserDto();
         user.setFirstName(req.getParameter("firstName"));
         user.setLastName(req.getParameter("lastName"));

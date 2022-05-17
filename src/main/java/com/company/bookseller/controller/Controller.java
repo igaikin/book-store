@@ -37,11 +37,10 @@ public class Controller extends HttpServlet {
     private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String action = req.getParameter("command");
-        CommandFactory factory = CommandFactory.getInstance();
-        Command command = factory.getCommand(action);
+        Command command = CommandFactory.getInstance().getCommand(action);
         String page;
         try {
-            page = command.execute(req, resp);
+            page = command.execute(req);
         } catch (Exception e) {
             LOG.error(e);
             req.setAttribute("message", "PAGE NOT FOUND");

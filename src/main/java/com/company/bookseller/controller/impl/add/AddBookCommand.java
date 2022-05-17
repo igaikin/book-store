@@ -5,14 +5,13 @@ import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.dto.BookDto;
 import com.company.bookseller.service.impl.BookServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 
 public class AddBookCommand implements Command {
-    private final BookService BOOK_SERVICE = new BookServiceImpl();
+    private static final BookService BOOK_SERVICE = new BookServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
         BookDto book = new BookDto();
         book.setAuthor(req.getParameter("author"));
         book.setTitle(req.getParameter("title"));
