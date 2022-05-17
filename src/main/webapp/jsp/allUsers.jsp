@@ -26,6 +26,7 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Action</th>
         </tr>
         <c:forEach items="${users}" var="user" varStatus="counter">
             <tr>
@@ -35,6 +36,10 @@
                 <td>${user.lastName}</td>
                 <td><a href="controller?command=profile&id=${user.id}">${user.email}</a></td>
                 <td>${user.role.name}</td>
+                <td>
+                    <a href="http://localhost:8090/bookstore.com/controller?command=editProfileForm&id=${user.id}">Edit</a>
+                    <a href="http://localhost:8090/bookstore.com/controller?command=deleteUser&id=${User.id}">Delete</a>
+                </td>
             </tr>
         </c:forEach><br/>
     </table>
