@@ -5,8 +5,11 @@ import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.dto.BookDto;
 import com.company.bookseller.service.impl.BookServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DeleteBookCommand implements Command {
+    private static final Logger LOG = LogManager.getLogger(DeleteBookCommand.class);
     private static final BookService BOOK_SERVICE = new BookServiceImpl();
 
     @Override
@@ -18,7 +21,7 @@ public class DeleteBookCommand implements Command {
             return "jsp/error.jsp";
         }
         BOOK_SERVICE.delete(Long.valueOf(id));
+        LOG.info("Book deleted");
         return "jsp/allBooks.jsp";
     }
 }
-
