@@ -51,6 +51,8 @@
         </c:forEach><br/>
     </table>
     </br>
+    <a href="http://localhost:8090/bookstore.com/controller?command=createOrderForm"> Create order </a>
+    </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
 <footer class="footer">

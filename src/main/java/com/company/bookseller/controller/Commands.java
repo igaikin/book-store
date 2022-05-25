@@ -3,6 +3,8 @@ package com.company.bookseller.controller;
 import com.company.bookseller.controller.impl.ErrorCommand;
 import com.company.bookseller.controller.impl.add.AddBookCommand;
 import com.company.bookseller.controller.impl.add.AddBookFormCommand;
+import com.company.bookseller.controller.impl.add.CreateOrderCommand;
+import com.company.bookseller.controller.impl.add.CreateOrderFormCommand;
 import com.company.bookseller.controller.impl.add.RegisterCommand;
 import com.company.bookseller.controller.impl.add.RegisterUserFormCommand;
 import com.company.bookseller.controller.impl.delete.DeleteBookCommand;
@@ -38,6 +40,8 @@ public enum Commands {
     DELETEBOOK(new DeleteBookCommand()),
 
 
+    CREATEORDER(new CreateOrderCommand()),
+    CREATEORDERFORM(new CreateOrderFormCommand()),
     ORDER(new GetOrderCommand()),
     ORDERS(new GetOrdersCommand()),
     DELETEORDER(new DeleteOrderCommand()),
