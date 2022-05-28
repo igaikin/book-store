@@ -24,8 +24,6 @@
 </div>
 </br>
 <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
-<footer class="footer">
-    &copy;CopyRight Gaikin, 2022
-</footer>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

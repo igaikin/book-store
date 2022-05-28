@@ -1,4 +1,4 @@
-package com.company.bookseller.controller.impl.update;
+package com.company.bookseller.controller.impl.book;
 
 import com.company.bookseller.controller.Command;
 import com.company.bookseller.service.BookService;

@@ -1,5 +1,5 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Users</title>
@@ -37,9 +37,21 @@
                 <td>${user.email}</td>
                 <td>${user.role.name}</td>
                 <td>
-                    <a href="controller?command=profile&id=${user.id}"> Details </a>
-                    <a href="http://localhost:8090/bookstore.com/controller?command=editProfileForm&id=${user.id}"> Edit </a>
-                    <a href="http://localhost:8090/bookstore.com/controller?command=deleteUser&id=${User.id}"> Delete </a>
+                    <form action="controller" method="get">
+                        <input type="hidden" name="command" value="profile">
+                        <input type="hidden" name="id" value="${user.id}">
+                        <input type="submit" value="Details">
+                    </form>
+                    <form action="controller" method="get">
+                        <input type="hidden" name="command" value="editProfileForm">
+                        <input type="hidden" name="id" value="${user.id}">
+                        <input type="submit" value="Edit">
+                    </form>
+                    <form action="controller" method="post">
+                        <input type="hidden" name="command" value="deleteuser">
+                        <input type="hidden" name="id" value="${user.id}">
+                        <input type="submit" value="Delete">
+                    </form>
                 </td>
             </tr>
         </c:forEach><br/>
@@ -49,8 +61,6 @@
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
-<footer class="footer">
-    &copy;CopyRight Gaikin, 2022
-</footer>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

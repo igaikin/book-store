@@ -1,25 +1,28 @@
 package com.company.bookseller.controller;
 
+import com.company.bookseller.controller.impl.AddToCartCommand;
 import com.company.bookseller.controller.impl.ErrorCommand;
-import com.company.bookseller.controller.impl.add.AddBookCommand;
-import com.company.bookseller.controller.impl.add.AddBookFormCommand;
-import com.company.bookseller.controller.impl.add.CreateOrderCommand;
-import com.company.bookseller.controller.impl.add.CreateOrderFormCommand;
-import com.company.bookseller.controller.impl.add.RegisterCommand;
-import com.company.bookseller.controller.impl.add.RegisterUserFormCommand;
-import com.company.bookseller.controller.impl.delete.DeleteBookCommand;
-import com.company.bookseller.controller.impl.delete.DeleteOrderCommand;
-import com.company.bookseller.controller.impl.delete.DeleteUserCommand;
-import com.company.bookseller.controller.impl.get.GetBookCommand;
-import com.company.bookseller.controller.impl.get.GetBooksCommand;
-import com.company.bookseller.controller.impl.get.GetOrderCommand;
-import com.company.bookseller.controller.impl.get.GetOrdersCommand;
-import com.company.bookseller.controller.impl.get.GetProfileCommand;
-import com.company.bookseller.controller.impl.get.GetUsersCommand;
-import com.company.bookseller.controller.impl.update.EditBookCommand;
-import com.company.bookseller.controller.impl.update.EditBookFormCommand;
-import com.company.bookseller.controller.impl.update.EditProfileCommand;
-import com.company.bookseller.controller.impl.update.EditProfileFormCommand;
+import com.company.bookseller.controller.impl.LoginCommand;
+import com.company.bookseller.controller.impl.LoginPageCommand;
+import com.company.bookseller.controller.impl.book.AddBookCommand;
+import com.company.bookseller.controller.impl.book.AddBookFormCommand;
+import com.company.bookseller.controller.impl.book.DeleteBookCommand;
+import com.company.bookseller.controller.impl.book.EditBookCommand;
+import com.company.bookseller.controller.impl.book.EditBookFormCommand;
+import com.company.bookseller.controller.impl.book.GetBookCommand;
+import com.company.bookseller.controller.impl.book.GetBooksCommand;
+import com.company.bookseller.controller.impl.order.CreateOrderCommand;
+import com.company.bookseller.controller.impl.order.CreateOrderFormCommand;
+import com.company.bookseller.controller.impl.order.DeleteOrderCommand;
+import com.company.bookseller.controller.impl.order.GetOrderCommand;
+import com.company.bookseller.controller.impl.order.GetOrdersCommand;
+import com.company.bookseller.controller.impl.user.DeleteUserCommand;
+import com.company.bookseller.controller.impl.user.EditProfileCommand;
+import com.company.bookseller.controller.impl.user.EditProfileFormCommand;
+import com.company.bookseller.controller.impl.user.GetProfileCommand;
+import com.company.bookseller.controller.impl.user.GetUsersCommand;
+import com.company.bookseller.controller.impl.user.RegisterCommand;
+import com.company.bookseller.controller.impl.user.RegisterUserFormCommand;
 
 public enum Commands {
     REGISTER(new RegisterCommand()),
@@ -31,7 +34,7 @@ public enum Commands {
     DELETEUSER(new DeleteUserCommand()),
 
 
-    ADDBOOK(new AddBookCommand()),
+    ADD_BOOK(new AddBookCommand()),
     ADDBOOKFORM(new AddBookFormCommand()),
     EDITBOOK(new EditBookCommand()),
     EDITBOOKFORM(new EditBookFormCommand()),
@@ -45,7 +48,12 @@ public enum Commands {
     ORDER(new GetOrderCommand()),
     ORDERS(new GetOrdersCommand()),
     DELETEORDER(new DeleteOrderCommand()),
-    ERROR(new ErrorCommand());
+
+
+    ERROR(new ErrorCommand()),
+    ADD_TO_CART(new AddToCartCommand()),
+    LOGIN(new LoginCommand()),
+    LOGIN_PAGE(new LoginPageCommand());
 
     Commands(Command command) {
         this.command = command;

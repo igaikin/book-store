@@ -1,12 +1,10 @@
 package com.company.bookseller.service.impl;
 
 import com.company.bookseller.dao.UserDao;
-import com.company.bookseller.dao.connection.ConnectionManager;
 import com.company.bookseller.dao.entity.User;
 import com.company.bookseller.dao.impl.UserDaoJdbcImpl;
 import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.UserDto;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
@@ -48,7 +46,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto get(Long id) {
-        return userToDto(userDao.get(id));
+        User user = userDao.get(id);
+        if (user == null) {
+            throw new RuntimeException("There is no user with id: " + id);
+        }
+        return userToDto(user);
     }
 
     @Override
@@ -75,5 +77,14 @@ public class UserServiceImpl implements UserService {
         if (!userDao.delete(id)) {
             throw new RuntimeException("User with [id=" + id + "]");
         }
+    }
+
+    @Override
+    public UserDto getByEmail(String email) {
+        User user = userDao.getByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("There is no user with email: " + email);
+        }
+        return userToDto(user);
     }
 }

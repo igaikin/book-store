@@ -1,12 +1,10 @@
 package com.company.bookseller.service.impl;
 
 import com.company.bookseller.dao.BookDao;
-import com.company.bookseller.dao.connection.ConnectionManager;
-import com.company.bookseller.dao.impl.BookDaoJdbcImpl;
-import com.company.bookseller.service.dto.BookDto;
 import com.company.bookseller.dao.entity.Book;
+import com.company.bookseller.dao.impl.BookDaoJdbcImpl;
 import com.company.bookseller.service.BookService;
-
+import com.company.bookseller.service.dto.BookDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
@@ -49,7 +47,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto get(Long id) {
-        return bookToDto(bookDao.get(id));
+        Book book = bookDao.get(id);
+        if (book == null) {
+            throw new RuntimeException("There is no user with id: " + id);
+        }
+        return bookToDto(book);
     }
 
     @Override

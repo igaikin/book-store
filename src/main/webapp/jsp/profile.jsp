@@ -1,4 +1,3 @@
-<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -45,8 +44,6 @@
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
-<footer class="footer">
-    &copy;CopyRight Gaikin, 2022
-</footer>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

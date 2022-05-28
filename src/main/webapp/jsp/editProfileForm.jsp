@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Edit Profile</title>
@@ -54,8 +54,6 @@
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
-<footer class="footer">
-    &copy;CopyRight Gaikin, 2022
-</footer>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

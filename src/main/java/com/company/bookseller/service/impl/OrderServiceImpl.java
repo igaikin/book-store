@@ -129,12 +129,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getOrderByUserId(Long userId) {
-        List<Order> userOrders = orderDao.getByUserId(userId);
-        List<OrderDto> orders = new ArrayList<>();
-        for (Order order : userOrders) {
-            OrderDto orderDto = orderToDto(order);
-            orders.add(orderDto);
-        }
-        return orders;
+        return orderDao.getByUserId(userId)
+                .stream()
+                .map(this::orderToDto)
+                .toList();
     }
 }

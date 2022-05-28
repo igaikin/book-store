@@ -1,5 +1,5 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Books</title>
@@ -12,10 +12,11 @@
 <body>
 <header>
     <h1>Books</h1>
-    <nav>
-        <a href="http://localhost:8090/bookstore.com/controller?command=orders"> Orders </a>
-        <a href="http://localhost:8090/bookstore.com/controller?command=users"> Users </a>
-    </nav>
+    <%--    <nav>--%>
+    <%--        <a href="http://localhost:8090/bookstore.com/controller?command=orders"> Orders </a>--%>
+    <%--        <a href="http://localhost:8090/bookstore.com/controller?command=users"> Users </a>--%>
+    <%--    </nav>--%>
+    <jsp:include page="header.jsp"/>
 </header>
 <br class="main">
 <table>
@@ -41,9 +42,27 @@
             <td>${book.pages}</td>
             <td>${book.price}</td>
             <td>
-                <a href="http://localhost:8090/bookstore.com/controller?command=book&id=${book.id}"> Details </a>
-                <a href="http://localhost:8090/bookstore.com/controller?command=editBookForm&id=${book.id}"> Edit </a>
-                <a href="http://localhost:8090/bookstore.com/controller?command=deletebook&id=${book.id}"> Delete </a>
+                <form action="controller" method="get">
+                    <input type="hidden" name="command" value="book">
+                    <input type="hidden" name="id" value="${book.id}">
+                    <input type="submit" value="Details">
+                </form>
+                <form action="controller" method="get">
+                    <input type="hidden" name="command" value="editBookForm">
+                    <input type="hidden" name="id" value="${book.id}">
+                    <input type="submit" value="Edit">
+                </form>
+                <form action="controller" method="post">
+                    <input type="hidden" name="command" value="deletebook">
+                    <input type="hidden" name="id" value="${book.id}">
+                    <input type="submit" value="Delete">
+                </form>
+                <form action="controller" method="post">
+                    <input type="hidden" name="command" value="add_to_cart">
+                    <input type="hidden" name="book_id" value="${book.id}">
+                    <input type="hidden" name="from" value="jsp/allBooks.jsp">
+                    <input type="submit" value="Add to Cart">
+                </form>
             </td>
         </tr>
     </c:forEach><br/>
@@ -53,8 +72,6 @@
 </br>
 <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
-<footer class="footer">
-    &copy;CopyRight Gaikin, 2022
-</footer>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

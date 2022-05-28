@@ -14,7 +14,7 @@
 </header>
 <div class="add">
     <form action="controller" method="post">
-        <input type="hidden" name="command" value="addBook"/>
+        <input type="hidden" name="command" value="add_book"/>
         <table>
             <tr>
                 <td> Author:</td>
@@ -53,8 +53,6 @@
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
-<footer class="footer">
-    &copy;CopyRight Gaikin, 2022
-</footer>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

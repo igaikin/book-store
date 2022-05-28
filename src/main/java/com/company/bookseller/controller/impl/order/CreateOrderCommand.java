@@ -1,4 +1,4 @@
-package com.company.bookseller.controller.impl.add;
+package com.company.bookseller.controller.impl.order;
 
 import com.company.bookseller.controller.Command;
 import com.company.bookseller.service.BookService;
@@ -31,7 +31,7 @@ public class CreateOrderCommand implements Command {
         order.setStatus(OrderDto.StatusDto.valueOf(req.getParameter("status")));
         String id = req.getParameter("id");
         UserDto user = USER_SERVICE.get(Long.valueOf(id));
-        order.setUser(req.getParameter("user"));
+//        order.setUser(req.getParameter("user"));
         order.setOrderDateTime(LocalDateTime.parse(req.getParameter("orderDateTime")));
         List<BookDto> items = new ArrayList<>();
         BookDto book = BOOK_SERVICE.get(Long.valueOf(id));

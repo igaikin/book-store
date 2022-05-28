@@ -1,4 +1,4 @@
-package com.company.bookseller.controller.impl.get;
+package com.company.bookseller.controller.impl.order;
 
 import com.company.bookseller.controller.Command;
 import com.company.bookseller.service.OrderService;

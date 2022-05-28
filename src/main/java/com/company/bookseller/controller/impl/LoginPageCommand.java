@@ -1,12 +1,11 @@
-package com.company.bookseller.controller.impl.add;
+package com.company.bookseller.controller.impl;
 
 import com.company.bookseller.controller.Command;
 import jakarta.servlet.http.HttpServletRequest;
 
-public class RegisterUserFormCommand implements Command {
-
+public class LoginPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
-        return "jsp/registerUserForm.jsp";
+        return "jsp/login.jsp";
     }
 }

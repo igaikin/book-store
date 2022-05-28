@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Create Order</title>
@@ -19,32 +19,7 @@
         <table>
             <tr>
                 <td> Status</td>
-                <td><input type="radio" id="status1"
-                           name="status" value="PENDING" checked>
-                    <label for="status1">Pending</label>
-                    <input type="radio" id="status2"
-                           name="status" value="DELIVERING">
-                    <label for="status2">Delivering</label>
-                    <input type="radio" id="status3"
-                           name="status" value="DELIVERED">
-                    <label for="status3">Delivered</label>
-                    <input type="radio" id="status4"
-                           name="status" value="CANCELLED">
-                    <label for="status4">Cancelled</label>
-                </td>
-            </tr>
-            <tr>
-                <td> Date/Time</td>
-                <td><input type="datetime-local" name="orderDateTime"></td>
-            </tr>
-            <tr>
-                <td> User</td>
-                <td><input type="text" name="user"></td>
-            </tr>
-            <tr>
-                <td> Pages:</td>
-                <td><input type="number" name="pages"></td>
-            </tr>
+
             <tr>
                 <td> Books</td>
                 <td>
@@ -85,8 +60,6 @@
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
-<footer class="footer">
-    &copy;CopyRight Gaikin, 2022
-</footer>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>
