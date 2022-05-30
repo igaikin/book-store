@@ -48,12 +48,12 @@
                     <input type="submit" value="Details">
                 </form>
                 <form action="controller" method="get">
-                    <input type="hidden" name="command" value="editBookForm">
+                    <input type="hidden" name="command" value="edit_book_form">
                     <input type="hidden" name="id" value="${book.id}">
                     <input type="submit" value="Edit">
                 </form>
                 <form action="controller" method="post">
-                    <input type="hidden" name="command" value="deletebook">
+                    <input type="hidden" name="command" value="delete_book">
                     <input type="hidden" name="id" value="${book.id}">
                     <input type="submit" value="Delete">
                 </form>
@@ -68,7 +68,7 @@
     </c:forEach><br/>
 </table>
 </br>
-<a href="http://localhost:8090/bookstore.com/controller?command=addBookForm"> Add Book </a>
+<a href="http://localhost:8090/bookstore.com/controller?command=add_book_form"> Add Book </a>
 </br>
 <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>

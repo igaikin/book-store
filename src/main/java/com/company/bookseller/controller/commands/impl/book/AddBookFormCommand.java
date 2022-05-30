@@ -1,6 +1,6 @@
-package com.company.bookseller.controller.impl.book;
+package com.company.bookseller.controller.commands.impl.book;
 
-import com.company.bookseller.controller.Command;
+import com.company.bookseller.controller.commands.Command;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class AddBookFormCommand implements Command {

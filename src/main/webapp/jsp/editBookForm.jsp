@@ -15,7 +15,7 @@
 </header>
 <div class="edit">
     <form action="controller" method="post">
-        <input type="hidden" name="command" value="editBook"/>
+        <input type="hidden" name="command" value="edit_book"/>
         <table>
             <tr>
                 <td> ID:</td>

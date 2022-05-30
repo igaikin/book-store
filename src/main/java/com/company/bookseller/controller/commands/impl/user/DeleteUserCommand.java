@@ -1,7 +1,7 @@
-package com.company.bookseller.controller.impl.user;
+package com.company.bookseller.controller.commands.impl.user;
 
-import com.company.bookseller.controller.Command;
-import com.company.bookseller.controller.CommandFactory;
+import com.company.bookseller.controller.commands.Command;
+import com.company.bookseller.controller.commands.CommandFactory;
 import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.UserDto;
 import com.company.bookseller.service.impl.UserServiceImpl;

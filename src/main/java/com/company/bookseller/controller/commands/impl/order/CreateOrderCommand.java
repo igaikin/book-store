@@ -1,6 +1,6 @@
-package com.company.bookseller.controller.impl.order;
+package com.company.bookseller.controller.commands.impl.order;
 
-import com.company.bookseller.controller.Command;
+import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.OrderService;
 import com.company.bookseller.service.UserService;

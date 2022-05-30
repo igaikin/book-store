@@ -1,6 +1,6 @@
-package com.company.bookseller.controller.impl.order;
+package com.company.bookseller.controller.commands.impl.order;
 
-import com.company.bookseller.controller.Command;
+import com.company.bookseller.controller.commands.Command;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class CreateOrderFormCommand implements Command {

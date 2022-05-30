@@ -43,12 +43,12 @@
                         <input type="submit" value="Details">
                     </form>
                     <form action="controller" method="get">
-                        <input type="hidden" name="command" value="editProfileForm">
+                        <input type="hidden" name="command" value="edit_profile_form">
                         <input type="hidden" name="id" value="${user.id}">
                         <input type="submit" value="Edit">
                     </form>
                     <form action="controller" method="post">
-                        <input type="hidden" name="command" value="deleteuser">
+                        <input type="hidden" name="command" value="delete_user">
                         <input type="hidden" name="id" value="${user.id}">
                         <input type="submit" value="Delete">
                     </form>
@@ -57,7 +57,7 @@
         </c:forEach><br/>
     </table>
     </br>
-    <a href="http://localhost:8090/bookstore.com/controller?command=registerUserForm"> Registration </a>
+    <a href="http://localhost:8090/bookstore.com/controller?command=register_user_form"> Registration </a>
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>

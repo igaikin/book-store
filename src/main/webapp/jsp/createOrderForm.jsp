@@ -15,7 +15,7 @@
 </header>
 <div class="add">
     <form action="controller" method="post">
-        <input type="hidden" name="command" value="createOrder"/>
+        <input type="hidden" name="command" value="create_order"/>
         <table>
             <tr>
                 <td> Status</td>

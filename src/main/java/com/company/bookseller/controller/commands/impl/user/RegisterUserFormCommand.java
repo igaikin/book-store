@@ -1,6 +1,6 @@
-package com.company.bookseller.controller.impl.user;
+package com.company.bookseller.controller.commands.impl.user;
 
-import com.company.bookseller.controller.Command;
+import com.company.bookseller.controller.commands.Command;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class RegisterUserFormCommand implements Command {

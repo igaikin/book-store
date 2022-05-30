@@ -1,6 +1,6 @@
-package com.company.bookseller.controller.impl;
+package com.company.bookseller.controller.commands.impl;
 
-import com.company.bookseller.controller.Command;
+import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.UserDto;
 import com.company.bookseller.service.impl.UserServiceImpl;
@@ -27,7 +27,7 @@ public class LoginCommand implements Command {
         } catch (Exception e) {
             LOG.error(e);
         }
-        LOG.info("Invalid login atempt, email{}, password{}", email, password);
+        LOG.info("Invalid login attempt, email{}, password{}", email, password);
         req.setAttribute("message", "Invalid credentials, please try again");
         return "jsp/login.jsp";
     }

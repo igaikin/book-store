@@ -1,4 +1,4 @@
-package com.company.bookseller.controller;
+package com.company.bookseller.controller.commands;
 
 public class CommandFactory {
     public static CommandFactory getInstance() {
