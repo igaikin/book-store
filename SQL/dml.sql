@@ -51,15 +51,22 @@ VALUES ('CUSTOMER'),
        ('ADMIN');
 
 INSERT INTO users (first_name, last_name, role_id, email, password)
-VALUES ('Muammar', 'Gaddafi', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'muamar@mail.lby', '12345'),
-       ('Osama', 'bin Ladenen', (SELECT id FROM roles WHERE role = 'MANAGER'), 'samij_raziskivaemij@mail.pak',
-        '100500'),
-       ('Adolf', 'Hitler', (SELECT id FROM roles WHERE role = 'ADMIN'), 'pochti_zahvatil_europ@mail.de', 'First'),
-       ('Saddam', 'Hussein', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'saddam_popolam@mail.irq', 'Second'),
-       ('Bashar', 'al-Assad', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'malenkij_gnom@mail.syr', '44444444'),
-       ('Idi', 'Amin', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'malchik_chernokizhij@mail.ug', '33333333'),
-       ('Joseph', 'Stalin', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'ya_samiy_krutoj@mail.ussr', '22222222'),
-       ('Alesandro', 'Shoushenko', (SELECT id FROM roles WHERE role = 'MANAGER'), 'usatiy_nany@mail.by', '11111111');
+VALUES ('Vladimir', 'Putin', (SELECT id FROM roles WHERE role = 'ADMIN'), 'zloi_karlik@mail.ru',
+        'd033e22ae348aeb5660fc2140aec35850c4da997'),
+       ('Bashar', 'al-Assad', (SELECT id FROM roles WHERE role = 'MANAGER'), 'malenkij_gnom@mail.syr',
+        '1a8565a9dc72048ba03b4156be3e569f22771f23'),
+       ('Alesandro', 'Shoushenko', (SELECT id FROM roles WHERE role = 'MANAGER'), 'usatiy_nany@mail.by',
+        '1a8565a9dc72048ba03b4156be3e569f22771f23'),
+       ('Osama', 'bin Ladenen', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'samij_raziskivaemij@mail.pak',
+        '12dea96fec20593566ab75692c9949596833adc9'),
+       ('Muammar', 'Gaddafi', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'muamar@mail.lby',
+        '12dea96fec20593566ab75692c9949596833adc9'),
+       ('Saddam', 'Hussein', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'saddam_popolam@mail.irq',
+        '12dea96fec20593566ab75692c9949596833adc9'),
+       ('Idi', 'Amin', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'malchik_chernokizhij@mail.ug',
+        '12dea96fec20593566ab75692c9949596833adc9'),
+       ('Joseph', 'Stalin', (SELECT id FROM roles WHERE role = 'CUSTOMER'), 'ya_samiy_krutoj@mail.ussr',
+        '12dea96fec20593566ab75692c9949596833adc9');
 
 INSERT INTO statuses (status)
 VALUES ('PENDING'),
