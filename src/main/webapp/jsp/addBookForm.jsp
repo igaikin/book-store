@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Add Book</title>
@@ -9,10 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>Add Book</h1>
-</header>
-<div class="add">
+<jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
+<h2>Add Book</h2>
+<div class="main">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="add_book"/>
         <table>
@@ -50,6 +51,7 @@
         <br/>
         <td colspan="2"><input type="submit" name="submit" value="Add"></td>
     </form>
+    <c:if test="${message != null}">${message}</c:if>
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>

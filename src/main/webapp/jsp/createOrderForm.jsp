@@ -10,10 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>Create Order</h1>
-</header>
-<div class="add">
+<jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
+<h2>Create Order</h2>
+<div class="main">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="create_order"/>
         <table>

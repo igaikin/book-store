@@ -46,11 +46,12 @@
       data-page-coloring-types="{&quot;light&quot;:[&quot;clean&quot;,&quot;clean&quot;],&quot;colored&quot;:[&quot;clean&quot;,&quot;clean&quot;,&quot;clean&quot;],&quot;dark&quot;:[&quot;clean&quot;,&quot;clean&quot;,&quot;clean&quot;]}"
       data-page-category="404">
 <jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
 <section class="u-align-center u-clearfix u-block-f8c9-9" custom-posts-hash="T"
          data-section-properties="{&quot;margin&quot;:&quot;both&quot;,&quot;stretch&quot;:true}" data-id="f8c9"
          data-style="page-404-1" id="sec-0bc4">
-    <div class="u-clearfix u-sheet u-valign-middle u-block-f8c9-2">
-        <h1 class="u-text u-text-default u-block-f8c9-11">404</h1>
+    <div class="u-clearfix u-sheet u-valign-middle u-block-f8c9-2 main">
+        <h1 class="u-text u-text-default u-block-f8c9-11">${pageContext.response.status}</h1>
         <p class="u-text u-text-default u-text-not-found-message u-block-f8c9-10">
             ${message}
         </p>

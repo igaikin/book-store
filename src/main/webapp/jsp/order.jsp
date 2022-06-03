@@ -9,9 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>Order</h1>
-</header>
+<jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
+<h2>Order</h2>
 <div class="main">
     <table>
         <tr>

@@ -10,13 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>Orders</h1>
-    <nav>
-        <a href="http://localhost:8090/bookstore.com/controller?command=books"> Books </a>
-        <a href="http://localhost:8090/bookstore.com/controller?command=users"> Users </a>
-    </nav>
-</header>
+<jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
+<h2>Orders</h2>
 <div class="main">
     <table>
         <tr>

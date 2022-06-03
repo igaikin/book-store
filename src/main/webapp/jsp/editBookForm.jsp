@@ -10,10 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>Edit Book</h1>
-</header>
-<div class="edit">
+<jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
+<h2>Edit Book</h2>
+<div class="main">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="edit_book"/>
         <table>

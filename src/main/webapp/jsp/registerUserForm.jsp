@@ -9,10 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>Registration</h1>
-</header>
-<div class="add">
+<jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
+<h2>Registration</h2>
+<div class="" main>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="register"/>
         <table>

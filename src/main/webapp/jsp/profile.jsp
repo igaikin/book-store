@@ -9,9 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>User</h1>
-</header>
+<jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
+<h2>Profile</h2>
 <div class="main">
     <table>
         <tr>
@@ -40,7 +40,7 @@
         </tr>
     </table>
     </br>
-    <a href="http://localhost:8090/bookstore.com/controller?command=edit_profile_form&id=${user.id}">Edit profile</a>
+    <a href="controller?command=edit_profile_form&id=${user.id}">Edit profile</a>
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
