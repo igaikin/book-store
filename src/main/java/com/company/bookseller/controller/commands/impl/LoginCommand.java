@@ -18,8 +18,8 @@ public class LoginCommand implements Command {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         try {
-            UserDto user = USER_SERVICE.getByEmail(email);
-            if (user.getPassword().equals(password)) {
+            if (USER_SERVICE.login(email, password)) {
+                UserDto user = USER_SERVICE.getByEmail(email);
                 HttpSession session = req.getSession();
                 session.setAttribute("userGlobal", user);
                 return "index.jsp";

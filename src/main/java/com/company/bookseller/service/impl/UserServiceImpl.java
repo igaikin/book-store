@@ -5,6 +5,7 @@ import com.company.bookseller.dao.entity.User;
 import com.company.bookseller.dao.impl.UserDaoJdbcImpl;
 import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.UserDto;
+import com.company.bookseller.service.util.PasswordUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
@@ -54,11 +55,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean login(String email, String password) {
+        UserDto user = getByEmail(email);
+        String encryptedInput = PasswordUtil.encryptPassword(password);
+        return user.getPassword().equals(encryptedInput);
+    }
+
+    @Override
     public UserDto create(UserDto userDto) {
         User existing = userDao.getByEmail(userDto.getEmail());
         if (existing != null) {
             throw new RuntimeException("User with email: " + userDto.getEmail() + " already exists");
         }
+        String encryptedPassword = PasswordUtil.encryptPassword(userDto.getPassword());
+        userDto.setPassword(encryptedPassword);
         User created = userDao.create(userToEntity(userDto));
         return get(created.getId());
     }
@@ -69,6 +79,10 @@ public class UserServiceImpl implements UserService {
         if (existing != null && existing.getId() != userDto.getId()) {
             throw new RuntimeException("User with email: " + userDto.getEmail() + " does not exist");
         }
+//        if (userDto.getPassword() = userDto.) {
+//            String encryptedPassword = PasswordUtil.encryptPassword(userDto.getPassword());
+//            userDto.setPassword(encryptedPassword);
+//        }
         User updated = userDao.update(userToEntity(userDto));
         return get(updated.getId());
     }

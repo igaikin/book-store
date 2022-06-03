@@ -11,8 +11,8 @@ import com.company.bookseller.controller.commands.impl.book.EditBookCommand;
 import com.company.bookseller.controller.commands.impl.book.EditBookFormCommand;
 import com.company.bookseller.controller.commands.impl.book.GetBookCommand;
 import com.company.bookseller.controller.commands.impl.book.GetBooksCommand;
-import com.company.bookseller.controller.commands.impl.order.CreateOrderCommand;
-import com.company.bookseller.controller.commands.impl.order.CreateOrderFormCommand;
+//import com.company.bookseller.controller.commands.impl.order.CreateOrderCommand;
+//import com.company.bookseller.controller.commands.impl.order.CreateOrderFormCommand;
 import com.company.bookseller.controller.commands.impl.order.DeleteOrderCommand;
 import com.company.bookseller.controller.commands.impl.order.GetOrderCommand;
 import com.company.bookseller.controller.commands.impl.order.GetOrdersCommand;
@@ -53,7 +53,8 @@ public enum Commands {
     ERROR(new ErrorCommand()),
     ADD_TO_CART(new AddToCartCommand()),
     LOGIN(new LoginCommand()),
-    LOGIN_PAGE(new LoginPageCommand());
+    LOGIN_PAGE(new LoginPageCommand()),
+    LOGOUT(new LogoutCommand());
 
     Commands(Command command) {
         this.command = command;
