@@ -16,45 +16,31 @@
 <div class="main">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="edit_book"/>
-        <table>
-            <tr>
-                <td> ID:</td>
-                <td><input readonly="readonly" type="text" name="id" value="${book.id}"/></td>
-            </tr>
-            <td> Author:</td>
-            <td><input type="text" name="author" value="${book.author}"/></td>
-            </tr>
-            <tr>
-                <td> Title:</td>
-                <td><input type="text" name="title" value="${book.title}"></td>
-            </tr>
-            <tr>
-                <td> Cover:</td>
-                <td>
-                    <input type="radio" name="cover" value="SOFT"
-                           <c:if test="${book.cover=='SOFT'}">checked</c:if>> Paperback
-                    <br/>
-                    <input type="radio" name="cover" value="HARD"
-                           <c:if test="${book.cover=='HARD'}">checked</c:if>> Hardcover
-                </td>
-            </tr>
-            <tr>
-                <td> Pages:</td>
-                <td><input type="number" name="pages" value="${book.pages}"></td>
-            </tr>
-            <tr>
-                <td> ISBN:</td>
-                <td><input type="text" name="isbn" value="${book.isbn}"></td>
-            </tr>
-            <tr>
-                <td> Price:</td>
-                <td><input type="number" min="0.00" max="1000.00" step="0.01" name="price" value="${book.price}"></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" name="submit" value="Save"></td>
-                <%--                <a href="http://localhost:8090/bookstore.com/controller?command=editbook&id=${book.id}">Save</a>--%>
-            </tr>
-        </table>
+        <label for="id">ID: </label>
+        <input readonly="readonly" id="id" type="text" name="id" value="${book.id}">
+        <br/>
+        <label for="author">Author: </label>
+        <input id="author" type="text" name="author" value="${book.author}">
+        <br/>
+        <label for="title">Title: </label>
+        <input id="title" type="text" name="title" value="${book.title}">
+        <br/>
+        <label for="cover">Cover: </label>
+        <input id="cover" type="radio" name="role" value="SOFT"
+               <c:if test="${book.cover=='SOFT'}">checked</c:if>> Paperback
+        <input type="radio" name="role" value="HARD"
+               <c:if test="${book.cover=='HARD'}">checked</c:if>> Hardcover
+        <br/>
+        <label for="pages">Pages: </label>
+        <input id="pages" type="number" name="pages" value="${book.pages}">
+        <br/>
+        <label for="isbn">ISBN: </label>
+        <input id="isbn" type="text" name="isbn" value="${book.isbn}">
+        <br/>
+        <label for="price">Price: $</label>
+        <input id="price" type="number" min="0.00" max="1000.00" step="0.01" name="price" value="${book.price}">
+        <br/>
+        <input type="submit" value="Save">
     </form>
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>

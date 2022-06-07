@@ -15,41 +15,28 @@
 <h2>Edit Profile</h2>
 <div class="main">
     <form action="controller" method="post">
-        <input type="hidden" name="command" value="edit_profile"/>
-        <table>
-            <tr>
-                <td> ID:</td>
-                <td><input readonly="readonly" type="text" name="id" value="${user.id}"/></td>
-            </tr>
-            <tr>
-                <td> First Name:</td>
-                <td><input type="text" name="firstName" value="${user.firstName}"/></td>
-            </tr>
-            <tr>
-                <td> Last Name:</td>
-                <td><input type="text" name="lastName" value="${user.lastName}"/></td>
-            </tr>
-            <tr>
-                <td> Email:</td>
-                <td><input type="text" name="email" value="${user.email}"/></td>
-            </tr>
-            <tr>
-                <td> Role:</td>
-                <td>
-                    <input type="radio" name="role" value="CUSTOMER"
-                           <c:if test="${user.role=='CUSTOMER'}">checked</c:if>> Customer
-                    <br/>
-                    <input type="radio" name="role" value="MANAGER"
-                           <c:if test="${user.role=='MANAGER'}">checked</c:if>> Manager
-                    <br/>
-                    <input type="radio" name="role" value="ADMIN"
-                           <c:if test="${user.role=='ADMIN'}">checked</c:if>> Administrator
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" name="submit" value="Save Profile"></td>
-            </tr>
-        </table>
+        <input type="hidden" name="command" value="edit_profile">
+        <label for="id">ID: </label>
+        <input readonly="readonly" id="id" type="text" name="id" value="${user.id}">
+        <br/>
+        <label for="firstName">First Name: </label>
+        <input id="firstName" type="text" name="firstName" value="${user.firstName}">
+        <br/>
+        <label for="lastName">Last Name: </label>
+        <input id="lastName" type="text" name="lastName" value="${user.lastName}">
+        <br/>
+        <label for="email">Email: </label>
+        <input id="email" type="email" name="email" value="${user.email}">
+        <br/>
+        <label for="role">Role: </label>
+        <input id="role" type="radio" name="role" value="CUSTOMER"
+               <c:if test="${user.role=='CUSTOMER'}">checked</c:if>> Customer
+        <input type="radio" name="role" value="MANAGER"
+               <c:if test="${user.role=='MANAGER'}">checked</c:if>> Manager
+        <input type="radio" name="role" value="ADMIN"
+               <c:if test="${user.role=='ADMIN'}">checked</c:if>> Administrator
+        <br/>
+        <input type="submit" value="Save Profile">
     </form>
     </br>
     <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
