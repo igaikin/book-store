@@ -10,9 +10,10 @@ public class LogoutCommand implements Command {
     public String execute(HttpServletRequest req) {
         HttpSession session = req.getSession();
         if ((session != null) && session.getAttribute("userGlobal") != null) {
-            //session.removeAttribute("userGlobal");
-            req.getSession(false).removeAttribute("userGlobal");
+//            session.removeAttribute("userGlobal");
+//            req.getSession(false).removeAttribute("userGlobal");
+            session.invalidate();
         }
-        return null;
+        return "index.jsp";
     }
 }
