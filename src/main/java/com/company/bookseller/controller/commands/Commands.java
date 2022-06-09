@@ -15,7 +15,7 @@ import com.company.bookseller.controller.commands.impl.book.GetBooksCommand;
 //import com.company.bookseller.controller.commands.impl.order.CreateOrderCommand;
 //import com.company.bookseller.controller.commands.impl.order.CreateOrderFormCommand;
 import com.company.bookseller.controller.commands.impl.order.DeleteOrderCommand;
-import com.company.bookseller.controller.commands.impl.order.GetCartCommand;
+//import com.company.bookseller.controller.commands.impl.order.GetCartCommand;
 import com.company.bookseller.controller.commands.impl.order.GetOrderCommand;
 import com.company.bookseller.controller.commands.impl.order.GetOrdersCommand;
 import com.company.bookseller.controller.commands.impl.user.DeleteUserCommand;
@@ -46,11 +46,10 @@ public enum Commands {
 
 
 //    CREATE_ORDER(new CreateOrderCommand()),
-//    CREATE_ORDER_FORM(new CreateOrderFormCommand()),
     ORDER(new GetOrderCommand()),
     ORDERS(new GetOrdersCommand()),
     DELETE_ORDER(new DeleteOrderCommand()),
-    CART(new GetCartCommand()),
+//    CART(new GetCartCommand()),
 
 
     ERROR(new ErrorCommand()),
