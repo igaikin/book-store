@@ -27,7 +27,7 @@
                 </li>
             </c:if>
             <li>
-                <a href="controller?command=logout">Logout</a>
+                <a href="controller?command=logout&page=${requestScope.['javax.servlet.forward.request_uri']}">Logout </a>
             </li>
         </c:if>
     </ul>

@@ -8,12 +8,12 @@ public class LogoutCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        HttpSession session = req.getSession();
-        if ((session != null) && session.getAttribute("userGlobal") != null) {
-//            session.removeAttribute("userGlobal");
-//            req.getSession(false).removeAttribute("userGlobal");
+        HttpSession session = req.getSession(false);
+        if (session != null) {
             session.invalidate();
         }
-        return "index.jsp";
+        String page = "index.jsp";
+        req.getSession().setAttribute("page", page);
+        return page;
     }
 }
