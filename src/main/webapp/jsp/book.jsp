@@ -55,8 +55,7 @@
             <input type="submit" value="Edit">
         </form>
     </c:if>
-    </br>
-    <a href="http://localhost:8090/bookstore.com"> Back to main page </a>
+    <c:if test="${message != null}">${message}</c:if>
 </div>
 <jsp:include page="footer.jsp"/>
 </body>

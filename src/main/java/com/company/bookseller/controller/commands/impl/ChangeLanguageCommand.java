@@ -1,11 +1,11 @@
-package com.company.bookseller.controller.commands.impl.user;
+package com.company.bookseller.controller.commands.impl;
 
 import com.company.bookseller.controller.commands.Command;
 import jakarta.servlet.http.HttpServletRequest;
 
-public class RegisterUserFormCommand implements Command {
+public class ChangeLanguageCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
-        return "jsp/registerUserForm.jsp";
+        return null;
     }
 }

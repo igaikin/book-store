@@ -3,12 +3,15 @@ package com.company.bookseller.controller.commands.impl.order;
 import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.OrderService;
 import com.company.bookseller.service.dto.OrderDto;
-import com.company.bookseller.service.impl.OrderServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class GetOrdersCommand implements Command {
-    private static final OrderService ORDER_SERVICE = new OrderServiceImpl();
+    private final OrderService orderService;
+
+    public GetOrdersCommand(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @Override
     public String execute(HttpServletRequest req) {
@@ -16,7 +19,7 @@ public class GetOrdersCommand implements Command {
 //        Long id = ((UserDto) req.getSession(false).getAttribute("userGlobal")).getId();
 //        List<OrderDto> userOrders = ORDER_SERVICE.getOrderByUserId(id);
 
-        List<OrderDto> orders = ORDER_SERVICE.getAll();
+        List<OrderDto> orders = orderService.getAll();
         req.setAttribute("orders", orders);
         return "jsp/allOrders.jsp";
     }

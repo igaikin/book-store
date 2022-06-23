@@ -52,8 +52,6 @@
         <td colspan="2"><input type="submit" name="submit" value="Add"></td>
     </form>
     <c:if test="${message != null}">${message}</c:if>
-    </br>
-    <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
 </div>
 <jsp:include page="footer.jsp"/>
 </body>

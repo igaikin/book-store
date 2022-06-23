@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<html>--%>
 <%--<head>--%>
 <%--    <title>Page Not Found</title>--%>
@@ -38,6 +39,11 @@
     <script class="u-script" type="text/javascript" src="np://app.desktop.nicepage.com/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="np://app.desktop.nicepage.com/nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 4.11.3, nicepage.com">
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
 </head>
 <body class="u-body" data-style="page-404-template-1" data-posts=""
       data-global-section-properties="{&quot;code&quot;:&quot;PAGE_404&quot;,&quot;colorings&quot;:{&quot;light&quot;:[&quot;clean&quot;,&quot;clean&quot;],&quot;colored&quot;:[&quot;clean&quot;,&quot;clean&quot;,&quot;clean&quot;],&quot;dark&quot;:[&quot;clean&quot;,&quot;clean&quot;,&quot;clean&quot;]},&quot;isPreset&quot;:true}"
@@ -60,9 +66,10 @@
         </br>
         </br>
 
-        <a href="http://localhost:8090/bookstore.com"
+        <a href="/bookstore.com"
            class="u-active-white u-black u-border-2 u-border-active-black u-border-black u-border-hover-black u-btn u-button-style u-hover-white u-text-active-black u-text-body-alt-color u-text-hover-black u-block-f8c9-6">Go
             to homepage</a>
+        <c:if test="${message != null}">${message}</c:if>
     </div>
     <jsp:include page="footer.jsp"/>
     <style data-mode="XL">@media (min-width: 1200px) {

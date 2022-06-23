@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Registration</title>
@@ -12,7 +13,7 @@
 <jsp:include page="header.jsp"/>
 <jsp:include page="navbar.jsp"/>
 <h2>Registration</h2>
-<div class="" main>
+<div class="main">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="register"/>
         <table>
@@ -49,8 +50,7 @@
         <br/>
         <td colspan="2"><input type="submit" name="submit" value="Registration"></td>
     </form>
-    </br>
-    <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
+    <c:if test="${message != null}">${message}</c:if>
 </div>
 <jsp:include page="footer.jsp"/>
 </body>

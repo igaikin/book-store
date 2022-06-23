@@ -14,8 +14,11 @@ public class UserRoleUtil {
                     "LOGIN_PAGE",
                     "ADD_TO_CART",
                     "ERROR",
+                    "CREATE_ORDER",
                     "BOOK",
-                    "BOOKS" -> false;
+                    "BOOKS",
+                    "CHANGE_LANGUAGE",
+                    "CART" -> false;
 
             default -> true;
         };
@@ -67,25 +70,30 @@ public class UserRoleUtil {
     }
 }
 //    REGISTER
-//    REGISTER_USER_FORM
-//    EDIT_PROFILE
-//    EDIT_PROFILE_FORM
-//    PROFILE
-//    USERS
-//    DELETE_USER
-//    ADD_BOOK
-//    ADD_BOOK_FORM
-//    EDIT_BOOK
-//    EDIT_BOOK_FORM
-//    BOOK
-//    BOOKS
-//    DELETE_BOOK
-//    CREATE_ORDER
-//    CREATE_ORDER_FORM
-//    ORDER
-//    ORDERS
-//    DELETE_ORDER
-//    ERROR
-//    ADD_TO_CART
-//    LOGIN
-//    LOGIN_PAGE
+//REGISTER_USER_FORM
+//EDIT_PROFILE
+//EDIT_PROFILE_FORM
+//PROFILE
+//USERS
+//DELETE_USER
+//
+//ADD_BOOK
+//ADD_BOOK_FORM
+//EDIT_BOOK
+//EDIT_BOOK_FORM
+//BOOK
+//BOOKS
+//DELETE_BOOK
+//
+//CREATE_ORDER
+//ORDER
+//ORDERS
+//DELETE_ORDER
+//ADD_TO_CART
+//CART
+//
+//ERROR
+//CHANGE_LANGUAGE
+//LOGIN
+//LOGIN_PAGE
+//LOGOUT

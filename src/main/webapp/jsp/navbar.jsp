@@ -3,7 +3,13 @@
 <nav>
     <ul id="nav">
         <li>
+            <a href="/bookstore.com">Home</a>
+        </li>
+        <li>
             <a href="controller?command=books">Catalogue</a>
+        </li>
+        <li>
+            <a href="controller?command=cart">Cart</a>
         </li>
         <c:if test="${userGlobal == null}">
             <li>
@@ -27,9 +33,14 @@
                 </li>
             </c:if>
             <li>
-                <a href="controller?command=logout&page=${requestScope.['javax.servlet.forward.request_uri']}">Logout </a>
+                <a href="controller?command=logout&page=${requestScope['javax.servlet.forward.request_uri']}">Logout </a>
             </li>
         </c:if>
+        <select>
+            <option value="lang">Language</option>
+            <option value="lang">En</option>
+            <option value="lang">De</option>
+        </select>
     </ul>
 </nav>
 

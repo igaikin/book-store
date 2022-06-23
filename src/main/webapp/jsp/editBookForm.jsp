@@ -42,8 +42,7 @@
         <br/>
         <input type="submit" value="Save">
     </form>
-    </br>
-    <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
+    <c:if test="${message != null}">${message}</c:if>
 </div>
 <jsp:include page="footer.jsp"/>
 </body>

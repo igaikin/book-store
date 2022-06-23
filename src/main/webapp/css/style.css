@@ -25,7 +25,6 @@ th {
 }
 
 .main {
-    background: url(../images/fon_knizhnie_polki.jpg) no-repeat center;
     width: auto;
     height: auto;
     margin: 0;
@@ -38,7 +37,9 @@ th {
     min-height: calc(100% - 20px);
 }
 
-/*html, body {*/
-/*    height: 100%;*/
-/*}*/
+header {
+    display: block;
+    background: url('../images/fon_knizhnie_polki.jpg') no-repeat center;
+    background-size: cover;
+}
 

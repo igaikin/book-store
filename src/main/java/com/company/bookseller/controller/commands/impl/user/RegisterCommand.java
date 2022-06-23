@@ -3,11 +3,14 @@ package com.company.bookseller.controller.commands.impl.user;
 import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.UserDto;
-import com.company.bookseller.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class RegisterCommand implements Command {
-    private static final UserService USER_SERVICE = new UserServiceImpl();
+    private final UserService userService;
+
+    public RegisterCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest req) {
@@ -17,7 +20,7 @@ public class RegisterCommand implements Command {
         user.setRole(UserDto.Role.valueOf(req.getParameter("role")));
         user.setEmail(req.getParameter("email"));
         user.setPassword(req.getParameter("password"));
-        UserDto registerUser = USER_SERVICE.create(user);
+        UserDto registerUser = userService.create(user);
         req.setAttribute("user", registerUser);
         return "jsp/profile.jsp";
     }

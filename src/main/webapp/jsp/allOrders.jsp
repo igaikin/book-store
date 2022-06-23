@@ -46,10 +46,7 @@
             </tr>
         </c:forEach><br/>
     </table>
-    </br>
-    <a href="http://localhost:8090/bookstore.com/controller?command=create_order_form"> Create order </a>
-    </br>
-    <a href="http://localhost:8090/bookstore.com"> Back to main Page </a>
+    <c:if test="${message != null}">${message}</c:if>
 </div>
 <jsp:include page="footer.jsp"/>
 </body>
