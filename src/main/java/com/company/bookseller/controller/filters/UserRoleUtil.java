@@ -30,11 +30,23 @@ public class UserRoleUtil {
         }
         command = command.toUpperCase();
         return switch (command) {
-            case "ADD_BOOK",
+            case "CHANGE_LANGUAGE",
+                    "PROFILE",
+                    "EDIT_PROFILE",
+                    "EDIT_PROFILE_FORM",
+                    "USERS",
+                    "DELETE_USER",
+                    "ADD_BOOK",
                     "ADD_BOOK_FORM",
                     "EDIT_BOOK",
+                    "EDIT_BOOK_FORM",
                     "DELETE_BOOK",
-                    "EDIT_BOOK_FORM" -> true;
+                    "BOOK",
+                    "BOOKS",
+                    "ERROR",
+                    "LOGIN",
+                    "LOGIN_PAGE",
+                    "LOGOUT" -> true;
             default -> false;
         };
     }
@@ -45,7 +57,20 @@ public class UserRoleUtil {
         }
         command = command.toUpperCase();
         return switch (command) {
-            case "ORDERS",
+            case "CHANGE_LANGUAGE",
+                    "PROFILE",
+                    "EDIT_PROFILE",
+                    "EDIT_PROFILE_FORM",
+                    "USERS",
+                    "BOOK",
+                    "BOOKS",
+                    "ERROR",
+                    "LOGIN",
+                    "LOGIN_PAGE",
+                    "LOGOUT",
+                    "CREATE_ORDER",
+                    "ORDER",
+                    "ORDERS",
                     "DELETE_ORDER" -> true;
             default -> false;
         };
@@ -57,43 +82,89 @@ public class UserRoleUtil {
         }
         command = command.toUpperCase();
         return switch (command) {
-            case "EDIT_PROFILE_FORM",
+            case "CHANGE_LANGUAGE",
+                    "EDIT_PROFILE",
+                    "EDIT_PROFILE_FORM",
                     "PROFILE",
                     "BOOK",
+                    "BOOKS",
+                    "ERROR",
+                    "LOGIN",
+                    "LOGIN_PAGE",
+                    "LOGOUT",
+                    "ADD_TO_CART",
+                    "CART",
+                    "CREATE_ORDER",
                     "ORDER",
                     "ORDERS",
-                    "DELETE_ORDER",
-                    "ERROR",
-                    "ADD_TO_CART" -> true;
+                    "DELETE_ORDER" -> true;
             default -> false;
         };
     }
 }
-//    REGISTER
-//REGISTER_USER_FORM
-//EDIT_PROFILE
-//EDIT_PROFILE_FORM
-//PROFILE
-//USERS
-//DELETE_USER
-//
-//ADD_BOOK
-//ADD_BOOK_FORM
-//EDIT_BOOK
-//EDIT_BOOK_FORM
-//BOOK
-//BOOKS
-//DELETE_BOOK
-//
-//CREATE_ORDER
-//ORDER
-//ORDERS
-//DELETE_ORDER
-//ADD_TO_CART
-//CART
-//
-//ERROR
-//CHANGE_LANGUAGE
-//LOGIN
-//LOGIN_PAGE
-//LOGOUT
+//*****************************************GUEST
+//"REGISTER"
+//"REGISTER_USER_FORM"
+//"CHANGE_LANGUAGE"
+//"BOOK"
+//"BOOKS"
+//"ERROR"
+//"LOGIN"
+//"LOGIN_PAGE"
+
+
+//*****************************************USER
+//"CHANGE_LANGUAGE",
+//"EDIT_PROFILE",
+//"EDIT_PROFILE_FORM",
+//"PROFILE",
+//"BOOK",
+//"BOOKS",
+//"ERROR",
+//"LOGIN",
+//"LOGIN_PAGE",
+//"LOGOUT",
+//"ADD_TO_CART",
+//"CART",
+//"CREATE_ORDER",
+//"ORDER",
+//"ORDERS",
+//"DELETE_ORDER"
+
+
+//******************************************MANAGER
+//"CHANGE_LANGUAGE",
+//"PROFILE",
+//"EDIT_PROFILE",
+//"EDIT_PROFILE_FORM",
+//"USERS",
+//"BOOK",
+//"BOOKS",
+//"ERROR",
+//"LOGIN",
+//"LOGIN_PAGE",
+//"LOGOUT",
+//"CREATE_ORDER",
+//"ORDER",
+//"ORDERS",
+//"DELETE_ORDER"
+
+
+//******************************************ADMIN
+//"CHANGE_LANGUAGE",
+//"PROFILE",
+//"EDIT_PROFILE",
+//"EDIT_PROFILE_FORM",
+//"USERS",
+//"DELETE_USER",
+//"ADD_BOOK",
+//"ADD_BOOK_FORM",
+//"EDIT_BOOK",
+//"EDIT_BOOK_FORM",
+//"DELETE_BOOK",
+//"BOOK",
+//"BOOKS",
+//"ERROR",
+//"LOGIN",
+//"LOGIN_PAGE",
+//"LOGOUT"
