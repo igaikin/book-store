@@ -4,15 +4,12 @@ import com.company.bookseller.dao.OrderDao;
 import com.company.bookseller.dao.connection.ConnectionManager;
 import com.company.bookseller.dao.entity.Order;
 import com.company.bookseller.dao.entity.Order.Status;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
