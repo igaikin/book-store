@@ -1,10 +1,12 @@
 package com.company.bookseller.dao;
 
-import com.company.bookseller.dao.entity.OrderItem;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import com.company.bookseller.dao.impl.BookDaoJdbcImpl;
+import com.company.bookseller.dao.impl.OrderDaoJdbcImpl;
+import com.company.bookseller.dao.impl.OrderItemDaoJdbcImpl;
+import com.company.bookseller.dao.impl.UserDaoJdbcImpl;
+import java.util.HashMap;
+import java.util.Map;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DaoFactory {
     public static DaoFactory getInstance() {
         return DaoFactory.Holder.INSTANCE;
@@ -14,25 +16,18 @@ public class DaoFactory {
         static final DaoFactory INSTANCE = new DaoFactory();
     }
 
-    public Object getDao(String daoName) {
-        return DaoRegister.valueOf(daoName).getDao();
-    }
-}
+    private final Map<Class<?>, Object> map;
 
-enum DaoRegister {
-    BOOK_DAO(BookDao.class),
-    USER_DAO(UserDao.class),
-    ORDER_DAO(OrderDao.class),
-    ORDER_ITEM_DAO(OrderItem.class);
-
-
-    private final Object dao;
-
-    DaoRegister(Object dao) {
-        this.dao = dao;
+    private DaoFactory() {
+        map = new HashMap<>();
+        map.put(BookDao.class, new BookDaoJdbcImpl());
+        map.put(UserDao.class, new UserDaoJdbcImpl());
+        map.put(OrderItemDao.class, new OrderItemDaoJdbcImpl());
+        map.put(OrderDao.class, new OrderDaoJdbcImpl());
     }
 
-    public Object getDao() {
-        return dao;
+    @SuppressWarnings("Unchecked")
+    public <T> T getDao(Class<T> daoName) {
+        return (T) map.get(daoName);
     }
 }
