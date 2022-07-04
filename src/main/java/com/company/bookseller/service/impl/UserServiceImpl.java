@@ -2,7 +2,6 @@ package com.company.bookseller.service.impl;
 
 import com.company.bookseller.dao.UserDao;
 import com.company.bookseller.dao.entity.User;
-import com.company.bookseller.dao.impl.UserDaoJdbcImpl;
 import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.UserDto;
 import com.company.bookseller.service.util.PasswordUtil;
@@ -13,7 +12,11 @@ import org.apache.logging.log4j.Logger;
 
 public class UserServiceImpl implements UserService {
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
-    private final UserDao userDao = new UserDaoJdbcImpl();
+    private final UserDao userDao;
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     private User userToEntity(UserDto userDto) {
         User user = new User();

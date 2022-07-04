@@ -34,15 +34,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandFactory {
-    private static final BookService BOOK_SERVICE = ((BookService) ServiceFactory.getInstance().getService(
-            "BOOK_SERVICE"));
-    private static final UserService USER_SERVICE = ((UserService) ServiceFactory.getInstance().getService(
-            "USER_SERVICE"));
-    private static final CartService CART_SERVICE = ((CartService) ServiceFactory.getInstance().getService(
-            "CART_SERVICE"));
-    private static final OrderService ORDER_SERVICE = ((OrderService) ServiceFactory.getInstance().getService(
-            "ORDER_SERVICE"));
-
     public static CommandFactory getInstance() {
         return CommandFactory.Holder.INSTANCE;
     }
@@ -51,47 +42,50 @@ public class CommandFactory {
         static final CommandFactory INSTANCE = new CommandFactory();
     }
 
+    private final Map<String, Command> register;
+
     private CommandFactory() {
-        Map<String, Command> register = new HashMap<>();
-        register.put("REGISTER", new RegisterCommand(USER_SERVICE));
+        register = new HashMap<>();
+        register.put("REGISTER", new RegisterCommand(ServiceFactory.getInstance().getService(UserService.class)));
         register.put("REGISTER_USER_FORM", new RegisterUserFormCommand());
-        register.put("EDIT_PROFILE", new EditProfileCommand(USER_SERVICE));
-        register.put("EDIT_PROFILE_FORM", new EditProfileFormCommand(USER_SERVICE));
-        register.put("PROFILE", new GetProfileCommand(USER_SERVICE));
-        register.put("USERS", new GetUsersCommand(USER_SERVICE));
-        register.put("DELETE_USER", new DeleteUserCommand(USER_SERVICE));
+        register.put("EDIT_PROFILE", new EditProfileCommand(ServiceFactory.getInstance().getService(UserService.class)));
+        register.put("EDIT_PROFILE_FORM", new EditProfileFormCommand(ServiceFactory.getInstance().getService(UserService.class)));
+        register.put("PROFILE", new GetProfileCommand(ServiceFactory.getInstance().getService(UserService.class)));
+        register.put("USERS", new GetUsersCommand(ServiceFactory.getInstance().getService(UserService.class)));
+        register.put("DELETE_USER", new DeleteUserCommand(ServiceFactory.getInstance().getService(UserService.class)));
 
 
-        register.put("ADD_BOOK", new AddBookCommand(BOOK_SERVICE));
+        register.put("ADD_BOOK", new AddBookCommand(ServiceFactory.getInstance().getService(BookService.class)));
         register.put("ADD_BOOK_FORM", new AddBookFormCommand());
-        register.put("EDIT_BOOK", new EditBookCommand(BOOK_SERVICE));
-        register.put("EDIT_BOOK_FORM", new EditBookFormCommand(BOOK_SERVICE));
-        register.put("BOOK", new GetBookCommand(BOOK_SERVICE));
-        register.put("BOOKS", new GetBooksCommand(BOOK_SERVICE));
-        register.put("DELETE_BOOK", new DeleteBookCommand(BOOK_SERVICE));
+        register.put("EDIT_BOOK", new EditBookCommand(ServiceFactory.getInstance().getService(BookService.class)));
+        register.put("EDIT_BOOK_FORM", new EditBookFormCommand(ServiceFactory.getInstance().getService(BookService.class)));
+        register.put("BOOK", new GetBookCommand(ServiceFactory.getInstance().getService(BookService.class)));
+        register.put("BOOKS", new GetBooksCommand(ServiceFactory.getInstance().getService(BookService.class)));
+        register.put("DELETE_BOOK", new DeleteBookCommand(ServiceFactory.getInstance().getService(BookService.class)));
 
 
-        register.put("CREATE_ORDER", new CreateOrderCommand(BOOK_SERVICE, CART_SERVICE, ORDER_SERVICE));
-        register.put("ORDER", new GetOrderCommand(ORDER_SERVICE));
-        register.put("ORDERS", new GetOrdersCommand(ORDER_SERVICE));
-        register.put("DELETE_ORDER", new DeleteOrderCommand(ORDER_SERVICE));
+        register.put("CREATE_ORDER", new CreateOrderCommand(ServiceFactory.getInstance().getService(BookService.class),
+                ServiceFactory.getInstance().getService(CartService.class),
+                ServiceFactory.getInstance().getService(OrderService.class)));
+        register.put("ORDER", new GetOrderCommand(ServiceFactory.getInstance().getService(OrderService.class)));
+        register.put("ORDERS", new GetOrdersCommand(ServiceFactory.getInstance().getService(OrderService.class)));
+        register.put("DELETE_ORDER", new DeleteOrderCommand(ServiceFactory.getInstance().getService(OrderService.class)));
         register.put("ADD_TO_CART", new AddToCartCommand());
-        register.put("CART", new CartCommand(BOOK_SERVICE, CART_SERVICE));
+        register.put("CART", new CartCommand(ServiceFactory.getInstance().getService(BookService.class),
+                ServiceFactory.getInstance().getService(CartService.class)));
 
 
         register.put("ERROR", new ErrorCommand());
         register.put("CHANGE_LANGUAGE", new ChangeLanguageCommand());
-        register.put("LOGIN", new LoginCommand(USER_SERVICE));
+        register.put("LOGIN", new LoginCommand(ServiceFactory.getInstance().getService(UserService.class)));
         register.put("LOGIN_PAGE", new LoginPageCommand());
         register.put("LOGOUT", new LogoutCommand());
     }
 
     public Command getCommand(String action) {
-        Command command = CommandFactory.getInstance().getCommand("ERROR");
-        if (action == null) {
-            return command;
+        if (action != null) {
+            return register.get(action);
         }
-        command = CommandFactory.getInstance().getCommand(action);
-        return command;
+        return register.get("ERROR");
     }
 }

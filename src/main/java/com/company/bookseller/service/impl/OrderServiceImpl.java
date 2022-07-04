@@ -1,13 +1,14 @@
 package com.company.bookseller.service.impl;
 
+import com.company.bookseller.dao.DaoFactory;
 import com.company.bookseller.dao.OrderDao;
 import com.company.bookseller.dao.OrderItemDao;
+import com.company.bookseller.dao.UserDao;
 import com.company.bookseller.dao.entity.Order;
 import com.company.bookseller.dao.entity.OrderItem;
-import com.company.bookseller.dao.impl.OrderDaoJdbcImpl;
-import com.company.bookseller.dao.impl.OrderItemDaoJdbcImpl;
 import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.OrderService;
+import com.company.bookseller.service.ServiceFactory;
 import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.BookDto;
 import com.company.bookseller.service.dto.OrderDto;
@@ -23,10 +24,11 @@ import org.apache.logging.log4j.Logger;
 
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOG = LogManager.getLogger(OrderServiceImpl.class);
-    private final OrderDao orderDao = new OrderDaoJdbcImpl();
-    private final OrderItemDao orderItemDao = new OrderItemDaoJdbcImpl();
-    private final BookService bookService = new BookServiceImpl();
-    private final UserService userService = new UserServiceImpl();
+    private final OrderDao orderDao;
+
+    public OrderServiceImpl(OrderDao orderDao) {
+        this.orderDao = orderDao;
+    }
 
     @Override
     public List<OrderDto> getAll() {
@@ -47,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
         Order createdOrder = orderDao.create(order);
         List<OrderItem> orderItems = orderItemToEntity(orderDto.getItems(), createdOrder.getId());
         for (OrderItem orderItem : orderItems) {
-            orderItemDao.create(orderItem);
+            DaoFactory.getInstance().getDao(OrderItemDao.class).create(orderItem);
         }
         return get(createdOrder.getId());
     }
@@ -55,16 +57,16 @@ public class OrderServiceImpl implements OrderService {
     private OrderDto orderToDto(Order order) {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(order.getId());
-        UserDto userDto = userService.get(order.getUserId());
+        UserDto userDto = ServiceFactory.getInstance().getService(UserService.class).get(order.getUserId());
         orderDto.setUser(userDto);
         orderDto.setStatus(OrderDto.StatusDto.valueOf(order.getStatus().toString()));
         orderDto.setTotalPrice(order.getTotalPrice());
         orderDto.setOrderDateTime(order.getOrderDateTime());
 
         Map<BookDto, Integer> orderItemsDto = new HashMap<>();
-        List<OrderItem> orderItems = orderItemDao.getByOrderId(order.getId());
+        List<OrderItem> orderItems = DaoFactory.getInstance().getDao(OrderItemDao.class).getByOrderId(order.getId());
         for (OrderItem orderItem : orderItems) {
-            BookDto bookDto = bookService.get(orderItem.getBookId());
+            BookDto bookDto = ServiceFactory.getInstance().getService(BookService.class).get(orderItem.getBookId());
             BigDecimal oldPrice = orderItem.getPrice();
             bookDto.setPrice(oldPrice);
             Integer quantity = orderItem.getQuantity();
@@ -99,12 +101,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto update(OrderDto orderDto) {
-        orderDao.update(orderToEntity(orderDto));
-        List<OrderItem> oldItems = orderItemDao.getByOrderId(orderDto.getId());
-        oldItems.forEach(orderItem -> orderItemDao.delete(orderItem.getId()));
+        DaoFactory.getInstance().getDao(OrderDao.class).update(orderToEntity(orderDto));
+        List<OrderItem> oldItems = DaoFactory.getInstance().getDao(OrderItemDao.class).getByOrderId(orderDto.getId());
+        oldItems.forEach(orderItem -> DaoFactory.getInstance().getDao(OrderItemDao.class).delete(orderItem.getId()));
 
         List<OrderItem> newItems = orderItemToEntity(orderDto.getItems(), orderDto.getId());
-        newItems.forEach(orderItem -> orderItemDao.create(orderItem));
+        newItems.forEach(orderItem -> DaoFactory.getInstance().getDao(OrderItemDao.class).create(orderItem));
         return get(orderDto.getId());
     }
 
@@ -117,10 +119,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getOrderByBookId(Long bookId) {
-        List<OrderItem> orderItems = orderItemDao.getByBookId(bookId);
+        List<OrderItem> orderItems = DaoFactory.getInstance().getDao(OrderItemDao.class).getByBookId(bookId);
         List<OrderDto> orders = new ArrayList<>();
         for (OrderItem orderItem : orderItems) {
-            Order order = orderDao.get(orderItem.getOrderId());
+            Order order = DaoFactory.getInstance().getDao(OrderDao.class).get(orderItem.getOrderId());
             OrderDto orderDto = orderToDto(order);
             orders.add(orderDto);
         }
@@ -129,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getOrderByUserId(Long userId) {
-        return orderDao.getByUserId(userId)
+        return DaoFactory.getInstance().getDao(OrderDao.class).getByUserId(userId)
                 .stream()
                 .map(this::orderToDto)
                 .toList();

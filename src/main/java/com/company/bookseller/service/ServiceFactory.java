@@ -2,10 +2,15 @@ package com.company.bookseller.service;
 
 import com.company.bookseller.dao.BookDao;
 import com.company.bookseller.dao.DaoFactory;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import com.company.bookseller.dao.OrderDao;
+import com.company.bookseller.dao.UserDao;
+import com.company.bookseller.service.impl.BookServiceImpl;
+import com.company.bookseller.service.impl.CartServiceImpl;
+import com.company.bookseller.service.impl.OrderServiceImpl;
+import com.company.bookseller.service.impl.UserServiceImpl;
+import java.util.HashMap;
+import java.util.Map;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ServiceFactory {
     public static ServiceFactory getInstance() {
         return Holder.INSTANCE;
@@ -15,24 +20,18 @@ public class ServiceFactory {
         static final ServiceFactory INSTANCE = new ServiceFactory();
     }
 
-    public Object getService(String serviceName) {
-        return ServiceRegister.valueOf(serviceName).getService();
-    }
-}
+    private final Map<Class<?>, Object> map;
 
-enum ServiceRegister {
-    BOOK_SERVICE((BookDao) DaoFactory.getInstance().getDao("BOOK_DAO")),
-    USER_SERVICE(DaoFactory.getInstance().getDao("USER_DAO")),
-    CART_SERVICE(DaoFactory.getInstance().getDao("ORDER_ITEM_DAO")),
-    ORDER_SERVICE(DaoFactory.getInstance().getDao("ORDER_DAO"));
-
-    private final Object service;
-
-    ServiceRegister(Object service) {
-        this.service = service;
+    private ServiceFactory() {
+        map = new HashMap<>();
+        map.put(BookService.class, new BookServiceImpl(DaoFactory.getInstance().getDao(BookDao.class)));
+        map.put(UserService.class, new UserServiceImpl(DaoFactory.getInstance().getDao(UserDao.class)));
+        map.put(CartService.class, new CartServiceImpl());
+        map.put(OrderService.class, new OrderServiceImpl(DaoFactory.getInstance().getDao(OrderDao.class)));
     }
 
-    public Object getService() {
-        return service;
+    @SuppressWarnings("unchecked")
+    public <T> T getService(Class<T> serviceName) {
+        return (T) map.get(serviceName);
     }
 }
