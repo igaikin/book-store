@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CartServiceImpl implements CartService {
-
     @Override
     public BigDecimal calculateTotalPrice(List<CartCommand.CartItem> items) {
         BigDecimal totalPrice = BigDecimal.ZERO;

@@ -19,7 +19,6 @@ public class UserRoleUtil {
                     "BOOKS",
                     "CHANGE_LANGUAGE",
                     "CART" -> false;
-
             default -> true;
         };
     }

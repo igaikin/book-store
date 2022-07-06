@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
-
     private static final Logger LOG = LogManager.getLogger(Controller.class);
 
     @Override
@@ -37,7 +36,6 @@ public class Controller extends HttpServlet {
     }
 
     private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String action = req.getParameter("command");
         Command command = CommandFactory.getInstance().getCommand(action);
         String page;

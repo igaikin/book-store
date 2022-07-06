@@ -3,7 +3,6 @@ package com.company.bookseller.service.impl;
 import com.company.bookseller.dao.DaoFactory;
 import com.company.bookseller.dao.OrderDao;
 import com.company.bookseller.dao.OrderItemDao;
-import com.company.bookseller.dao.UserDao;
 import com.company.bookseller.dao.entity.Order;
 import com.company.bookseller.dao.entity.OrderItem;
 import com.company.bookseller.service.BookService;

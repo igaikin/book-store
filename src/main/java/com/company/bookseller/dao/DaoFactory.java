@@ -26,7 +26,7 @@ public class DaoFactory {
         map.put(OrderDao.class, new OrderDaoJdbcImpl());
     }
 
-    @SuppressWarnings("Unchecked")
+    @SuppressWarnings("unchecked")
     public <T> T getDao(Class<T> daoName) {
         return (T) map.get(daoName);
     }
