@@ -100,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto update(OrderDto orderDto) {
-        DaoFactory.getInstance().getDao(OrderDao.class).update(orderToEntity(orderDto));
+        orderDao.update(orderToEntity(orderDto));
         List<OrderItem> oldItems = DaoFactory.getInstance().getDao(OrderItemDao.class).getByOrderId(orderDto.getId());
         oldItems.forEach(orderItem -> DaoFactory.getInstance().getDao(OrderItemDao.class).delete(orderItem.getId()));
 
@@ -121,7 +121,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderItem> orderItems = DaoFactory.getInstance().getDao(OrderItemDao.class).getByBookId(bookId);
         List<OrderDto> orders = new ArrayList<>();
         for (OrderItem orderItem : orderItems) {
-            Order order = DaoFactory.getInstance().getDao(OrderDao.class).get(orderItem.getOrderId());
+            Order order = orderDao.get(orderItem.getOrderId());
             OrderDto orderDto = orderToDto(order);
             orders.add(orderDto);
         }
@@ -130,7 +130,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getOrderByUserId(Long userId) {
-        return DaoFactory.getInstance().getDao(OrderDao.class).getByUserId(userId)
+        return orderDao.getByUserId(userId)
                 .stream()
                 .map(this::orderToDto)
                 .toList();
