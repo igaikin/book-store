@@ -30,8 +30,11 @@ public class OrderDaoJdbcImpl implements OrderDao {
     private static final String GET_BY_USER_ID = ORDERS_ALL + " WHERE user_id = ?";
     private static final String DELETE_ORDER = "UPDATE orders SET status_id = (SELECT id FROM statuses WHERE status = 'CANCELLED')"
             + " WHERE id = ?";
+    private final ConnectionManager connectionManager;
 
-    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
+    public OrderDaoJdbcImpl(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
 
     private Order processOrder(ResultSet resultSet) throws SQLException {
         Order order = new Order();

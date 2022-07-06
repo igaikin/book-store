@@ -31,7 +31,11 @@ public class BookDaoJdbcImpl implements BookDao {
     private static final String GET_BY_ISBN = BOOK_ALL + "WHERE b.isbn = ? AND b.deleted = false ORDER BY b.isbn";
     private static final String GET_BY_ORDER_ID = BOOK_ALL + "WHERE order_id = ?";
     private static final String GET_BY_USER_ID = BOOK_ALL + "WHERE user_id = ?";
-    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
+    private final ConnectionManager connectionManager;
+
+    public BookDaoJdbcImpl(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
 
     private Book processBook(ResultSet resultSet) throws SQLException {
         Book book = new Book();

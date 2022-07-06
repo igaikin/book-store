@@ -1,5 +1,6 @@
 package com.company.bookseller.dao;
 
+import com.company.bookseller.dao.connection.ConnectionManager;
 import com.company.bookseller.dao.impl.BookDaoJdbcImpl;
 import com.company.bookseller.dao.impl.OrderDaoJdbcImpl;
 import com.company.bookseller.dao.impl.OrderItemDaoJdbcImpl;
@@ -20,10 +21,10 @@ public class DaoFactory {
 
     private DaoFactory() {
         map = new HashMap<>();
-        map.put(BookDao.class, new BookDaoJdbcImpl());
-        map.put(UserDao.class, new UserDaoJdbcImpl());
-        map.put(OrderItemDao.class, new OrderItemDaoJdbcImpl());
-        map.put(OrderDao.class, new OrderDaoJdbcImpl());
+        map.put(BookDao.class, new BookDaoJdbcImpl(ConnectionManager.getInstance()));
+        map.put(UserDao.class, new UserDaoJdbcImpl(ConnectionManager.getInstance()));
+        map.put(OrderItemDao.class, new OrderItemDaoJdbcImpl(ConnectionManager.getInstance()));
+        map.put(OrderDao.class, new OrderDaoJdbcImpl(ConnectionManager.getInstance()));
     }
 
     @SuppressWarnings("unchecked")

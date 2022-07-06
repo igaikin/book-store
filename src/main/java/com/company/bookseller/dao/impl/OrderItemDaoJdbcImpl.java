@@ -22,7 +22,11 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
     private static final String CREATE_ITEM = "INSERT INTO order_items (order_id, book_id, price, quantity) " + "VALUES (?, ?, ?, ?)";
     private static final String UPDATE_ITEM = "UPDATE order_items SET order_id = ?, book_id = ?, price = ?, quantity " + "= ? AND deleted = false";
     private static final String DELETE_ITEM = "UPDATE order_items SET deleted = true WHERE id = ? AND  deleted = false";
-    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
+    private final ConnectionManager connectionManager;
+
+    public OrderItemDaoJdbcImpl(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
 
     private OrderItem processItem(ResultSet resultSet) throws SQLException {
         OrderItem item = new OrderItem();

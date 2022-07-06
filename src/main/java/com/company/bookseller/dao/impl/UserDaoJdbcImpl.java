@@ -1,9 +1,8 @@
 package com.company.bookseller.dao.impl;
 
-import com.company.bookseller.dao.entity.User;
 import com.company.bookseller.dao.UserDao;
 import com.company.bookseller.dao.connection.ConnectionManager;
-
+import com.company.bookseller.dao.entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +27,11 @@ public class UserDaoJdbcImpl implements UserDao {
     private static final String GET_ALL = USER_ALL + "WHERE u.deleted = false ORDER BY u.id";
     private static final String GET_BY_ID = USER_ALL + "WHERE u.id = ? AND u.deleted = false ORDER BY u.id";
     private static final String GET_BY_EMAIL = USER_ALL + "WHERE u.email = ? AND u.deleted = false ORDER BY u.email";
-    private final ConnectionManager connectionManager = ConnectionManager.getInstance();
+    private final ConnectionManager connectionManager;
+
+    public UserDaoJdbcImpl(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
 
     private User processUser(ResultSet resultSet) throws SQLException {
         User user = new User();
