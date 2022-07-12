@@ -22,11 +22,10 @@
     <table>
         <tr>
             <th><fmt:message key="title.count"/></th>
-            <th><fmt:message key="title.id"/></th>
-            <th><fmt:message key="title.isbn"/></th>
             <th><fmt:message key="title.author"/></th>
             <th><fmt:message key="title.title"/></th>
             <th><fmt:message key="title.cover"/></th>
+            <th><fmt:message key="title.isbn"/></th>
             <th><fmt:message key="title.pages"/></th>
             <th><fmt:message key="title.price"/></th>
             <th><fmt:message key="title.action"/></th>
@@ -34,11 +33,10 @@
         <c:forEach items="${books}" var="book" varStatus="counter">
             <tr>
                 <td>${counter.count}</td>
-                <td>${book.id}</td>
-                <td>${book.isbn}</td>
                 <td>${book.author}</td>
                 <td>${book.title}</td>
                 <td>${book.cover.name}</td>
+                <td>${book.isbn}</td>
                 <td>${book.pages}</td>
                 <td>$${book.price}</td>
                 <td>
