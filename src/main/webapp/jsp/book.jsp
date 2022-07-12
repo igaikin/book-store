@@ -25,10 +25,6 @@
             <th><fmt:message key="title.value"/></th>
         </tr>
         <tr>
-            <td><fmt:message key="title.id"/></td>
-            <td>${book.id}</td>
-        </tr>
-        <tr>
             <td><fmt:message key="title.isbn"/></td>
             <td>${book.isbn}</td>
         </tr>

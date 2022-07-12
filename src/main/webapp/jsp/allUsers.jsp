@@ -22,7 +22,6 @@
     <table>
         <tr>
             <th><fmt:message key="title.count"/></th>
-            <th><fmt:message key="title.id"/></th>
             <th><fmt:message key="title.firstName"/></th>
             <th><fmt:message key="title.lastName"/></th>
             <th><fmt:message key="title.email"/></th>
@@ -32,7 +31,6 @@
         <c:forEach items="${users}" var="user" varStatus="counter">
             <tr>
                 <td>${counter.count}</td>
-                <td>${user.id}</td>
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
                 <td>${user.email}</td>

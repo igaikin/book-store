@@ -84,7 +84,7 @@ public class CommandFactory {
 
     public Command getCommand(String action) {
         if (action != null) {
-            return register.get(action);
+            return register.get(action.toUpperCase());
         }
         return register.get("ERROR");
     }

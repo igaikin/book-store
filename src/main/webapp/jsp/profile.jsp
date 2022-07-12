@@ -25,10 +25,6 @@
             <th><fmt:message key="title.value"/></th>
         </tr>
         <tr>
-            <td><fmt:message key="title.id"/></td>
-            <td>${user.id}</td>
-        </tr>
-        <tr>
             <td><fmt:message key="title.firstName"/></td>
             <td>${user.firstName}</td>
         </tr>

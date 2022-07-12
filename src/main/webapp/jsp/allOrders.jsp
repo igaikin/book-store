@@ -22,7 +22,6 @@
     <table>
         <tr>
             <th><fmt:message key="title.count"/></th>
-            <th><fmt:message key="title.id"/></th>
             <th><fmt:message key="title.status"/></th>
             <th><fmt:message key="title.time"/></th>
             <th><fmt:message key="title.user"/></th>
@@ -32,7 +31,6 @@
         <c:forEach items="${orders}" var="order" varStatus="counter">
             <tr>
                 <td>${counter.count}</td>
-                <td>${order.id}</td>
                 <td>${order.status.name}</td>
                 <td>
                     <time>${order.orderDateTime}</time>

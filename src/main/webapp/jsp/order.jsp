@@ -25,10 +25,6 @@
             <th><fmt:message key="title.value"/></th>
         </tr>
         <tr>
-            <td><fmt:message key="title.id"/></td>
-            <td>${order.id}</td>
-        </tr>
-        <tr>
             <td><fmt:message key="title.status"/></td>
             <td>${order.status.name}</td>
         </tr>
@@ -38,7 +34,7 @@
         </tr>
         <tr>
             <td><fmt:message key="title.user"/></td>
-            <td><fmt:message key="title.id"/> = ${order.user.id}; <fmt:message key="title.name"/> = ${order.user.firstName} ${order.user.lastName}</td>
+            <td><fmt:message key="title.name"/> = ${order.user.firstName} ${order.user.lastName}</td>
         </tr>
         <tr>
             <td><fmt:message key="title.price"/></td>
