@@ -3,6 +3,7 @@ package com.company.bookseller.controller.commands.impl.user;
 import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.UserDto;
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class EditProfileFormCommand implements Command {
@@ -19,7 +20,7 @@ public class EditProfileFormCommand implements Command {
         req.setAttribute("id", id);
         req.setAttribute("user", editUser);
         if (editUser == null) {
-            req.setAttribute("message", "User with ID: " + id + "not found");
+            req.setAttribute("message", MessageManager.getMessage("msg.userNotFound"));
             return "jsp/error.jsp";
         }
         return "jsp/editProfileForm.jsp";

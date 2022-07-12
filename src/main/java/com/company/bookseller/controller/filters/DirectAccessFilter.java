@@ -1,5 +1,6 @@
 package com.company.bookseller.controller.filters;
 
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,7 +18,7 @@ public class DirectAccessFilter implements Filter {
             ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         ((HttpServletResponse) response).setStatus(403);
-        req.setAttribute("message", "Do you think you are the smartest? Access forbidden");
+        req.setAttribute("message", MessageManager.getMessage("msg.accessForbidden))"));
         req.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
     }
 }

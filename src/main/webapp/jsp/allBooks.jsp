@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${sessionScope.language != null}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
     <title>Books</title>
@@ -12,19 +17,19 @@
 <body>
 <jsp:include page="header.jsp"/>
 <jsp:include page="navbar.jsp"/>
-<h2>Catalogue</h2>
+<h2><fmt:message key="btn.catalogue"/></h2>
 <div class="main">
     <table>
         <tr>
-            <th>Count</th>
-            <th>ID</th>
-            <th>ISBN</th>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Cover</th>
-            <th>Pages</th>
-            <th>Price</th>
-            <th>Action</th>
+            <th><fmt:message key="title.count"/></th>
+            <th><fmt:message key="title.id"/></th>
+            <th><fmt:message key="title.isbn"/></th>
+            <th><fmt:message key="title.author"/></th>
+            <th><fmt:message key="title.title"/></th>
+            <th><fmt:message key="title.cover"/></th>
+            <th><fmt:message key="title.pages"/></th>
+            <th><fmt:message key="title.price"/></th>
+            <th><fmt:message key="title.action"/></th>
         </tr>
         <c:forEach items="${books}" var="book" varStatus="counter">
             <tr>
@@ -40,24 +45,24 @@
                     <form action="controller" method="get">
                         <input type="hidden" name="command" value="book">
                         <input type="hidden" name="id" value="${book.id}">
-                        <input type="submit" value="Details">
+                        <input type="submit" value="<fmt:message key="btn.details"/>">
                     </form>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="add_to_cart">
                             <input type="hidden" name="book_id" value="${book.id}">
                             <input type="hidden" name="from" value="jsp/allBooks.jsp">
-                            <input type="submit" value="Add to Cart">
+                            <input type="submit" value="<fmt:message key="btn.addToCart"/>">
                         </form>
                     <c:if test="${userGlobal.role=='ADMIN'}">
                         <form action="controller" method="get">
                             <input type="hidden" name="command" value="edit_book_form">
                             <input type="hidden" name="id" value="${book.id}">
-                            <input type="submit" value="Edit">
+                            <input type="submit" value="<fmt:message key="btn.edit"/>">
                         </form>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="delete_book">
                             <input type="hidden" name="id" value="${book.id}">
-                            <input type="submit" value="Delete">
+                            <input type="submit" value="<fmt:message key="btn.delete"/>">
                         </form>
                     </c:if>
                 </td>
@@ -65,7 +70,7 @@
         </c:forEach><br/>
     </table>
     </br>
-    <a href="controller?command=add_book_form"> Add Book </a>
+    <a href="controller?command=add_book_form"> <fmt:message key="title.addBook"/></a>
     <c:if test="${message != null}">${message}</c:if>
 </div>
 <jsp:include page="footer.jsp"/>

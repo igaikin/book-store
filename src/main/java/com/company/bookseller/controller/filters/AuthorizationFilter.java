@@ -1,5 +1,6 @@
 package com.company.bookseller.controller.filters;
 
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,7 +28,7 @@ public class AuthorizationFilter implements Filter {
             Object user = req.getSession(false).getAttribute("userGlobal");
             if (user == null) {
                 ((HttpServletResponse) response).setStatus(401);
-                req.setAttribute("message", "Please login or sign up");
+                req.setAttribute("message", MessageManager.getMessage("msg.loginOrSign"));
                 req.getRequestDispatcher("jsp/error.jsp").forward(request, response);
                 return;
             }

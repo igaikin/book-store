@@ -4,6 +4,7 @@ import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.controller.commands.CommandFactory;
 import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.dto.BookDto;
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +23,7 @@ public class DeleteBookCommand implements Command {
         String id = req.getParameter("id");
         BookDto book = bookService.get(Long.valueOf(id));
         if (book == null) {
-            req.setAttribute("message", "Book with ID: " + id + "not found");
+            req.setAttribute("message", MessageManager.getMessage("msg.bookNotFound"));
             return "jsp/error.jsp";
         }
         bookService.delete(Long.valueOf(id));

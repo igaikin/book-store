@@ -7,7 +7,7 @@
     <groupId>com.company</groupId>
     <artifactId>book-store</artifactId>
     <version>1.0</version>
-    <name>book-store</name>
+    <name>bookstore.com</name>
     <packaging>war</packaging>
 
     <properties>

@@ -30,7 +30,7 @@ public class CreateOrderCommand implements Command {
         HttpSession session = req.getSession();
         UserDto user = (UserDto) session.getAttribute("userGlobal");
         if (user == null) {
-            req.setAttribute("message", "notSign");
+            req.setAttribute("message", MessageManager.getMessage("msg.notSign"));
             return "jsp/login.jsp";
         }
 
@@ -56,8 +56,7 @@ public class CreateOrderCommand implements Command {
         order.setTotalPrice(cartService.calculateTotalPrice(items));
         OrderDto created = orderService.create(order);
         req.setAttribute("order", created);
-        req.setAttribute("message", MessageManager.getMessage("emptyCart"));
+        req.setAttribute("message", MessageManager.getMessage("msg.emptyCart"));
         return "jsp/order.jsp";
     }
 }
-

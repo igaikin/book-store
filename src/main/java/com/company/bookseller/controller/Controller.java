@@ -2,6 +2,7 @@ package com.company.bookseller.controller;
 
 import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.controller.commands.CommandFactory;
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -43,7 +44,7 @@ public class Controller extends HttpServlet {
             page = command.execute(req);
         } catch (Exception e) {
             LOG.error(e);
-            req.setAttribute("message", "PAGE NOT FOUND");
+            req.setAttribute("message", MessageManager.getMessage("msg.pageNotFound"));
             page = "jsp/error.jsp";
         }
         req.getRequestDispatcher(page).forward(req, resp);

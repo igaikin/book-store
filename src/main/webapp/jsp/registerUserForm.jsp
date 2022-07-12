@@ -1,8 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${sessionScope.language != null}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
-    <title>Registration</title>
+    <title><fmt:message key="title.registration"/></title>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,43 +17,23 @@
 <body>
 <jsp:include page="header.jsp"/>
 <jsp:include page="navbar.jsp"/>
-<h2>Registration</h2>
+<h2><fmt:message key="title.registration"/></h2>
 <div class="main">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="register"/>
-        <table>
-            <tr>
-                <td> First Name:</td>
-                <td><input type="text" name="firstName"></td>
-            </tr>
-            <tr>
-                <td> Last Name:</td>
-                <td><input type="text" name="lastName"></td>
-            </tr>
-            <tr>
-                <td> Role:</td>
-                <td><input type="radio" id="role1"
-                           name="role" value="CUSTOMER" checked>
-                    <label for="role1">Customer</label>
-                    <input type="radio" id="role2"
-                           name="role" value="MANAGER">
-                    <label for="role2">Manager</label>
-                    <input type="radio" id="role3"
-                           name="role" value="ADMIN">
-                    <label for="role3">Administrator</label>
-                </td>
-            </tr>
-            <tr>
-                <td> Email:</td>
-                <td><input type="text" name="email"></td>
-            </tr>
-            <tr>
-                <td> Password:</td>
-                <td><input type="text" name="password"></td>
-            </tr>
-        </table>
+        <label for="firstName"><fmt:message key="title.firstName"/>: </label>
+        <input id="firstName" type="text" name="firstName" value="${user.firstName}">
         <br/>
-        <td colspan="2"><input type="submit" name="submit" value="Registration"></td>
+        <label for="lastName"><fmt:message key="title.lastName"/>: </label>
+        <input id="lastName" type="text" name="lastName" value="${user.lastName}">
+        <br/>
+        <label for="email"><fmt:message key="title.email"/>: </label>
+        <input id="email" type="email" name="email" value="${user.email}">
+        <br/>
+        <label for="password"><fmt:message key="title.password"/>: </label>
+        <input id="password" type="password" name="password" value="${user.password}">
+        <br/>
+        <input type="submit" value="<fmt:message key="title.registration"/>">
     </form>
     <c:if test="${message != null}">${message}</c:if>
 </div>

@@ -1,8 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${sessionScope.language != null}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
-    <title>Order</title>
+    <title><fmt:message key="title.order"/></title>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,31 +17,31 @@
 <body>
 <jsp:include page="header.jsp"/>
 <jsp:include page="navbar.jsp"/>
-<h2>Order</h2>
+<h2><fmt:message key="title.order"/></h2>
 <div class="main">
     <table>
         <tr>
-            <th>Field</th>
-            <th>Value</th>
+            <th><fmt:message key="title.field"/></th>
+            <th><fmt:message key="title.value"/></th>
         </tr>
         <tr>
-            <td>ID</td>
+            <td><fmt:message key="title.id"/></td>
             <td>${order.id}</td>
         </tr>
         <tr>
-            <td>Status</td>
+            <td><fmt:message key="title.status"/></td>
             <td>${order.status.name}</td>
         </tr>
         <tr>
-            <td>Date/Time</td>
+            <td><fmt:message key="title.time"/></td>
             <td>${order.orderDateTime}</td>
         </tr>
         <tr>
-            <td>User</td>
-            <td>ID = ${order.user.id}; Name = ${order.user.firstName} ${order.user.lastName}</td>
+            <td><fmt:message key="title.user"/></td>
+            <td><fmt:message key="title.id"/> = ${order.user.id}; <fmt:message key="title.name"/> = ${order.user.firstName} ${order.user.lastName}</td>
         </tr>
         <tr>
-            <td>Price</td>
+            <td><fmt:message key="title.price"/></td>
             <td>$${order.totalPrice}</td>
         </tr>
     </table>

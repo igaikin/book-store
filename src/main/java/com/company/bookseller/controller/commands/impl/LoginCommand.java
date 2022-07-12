@@ -3,6 +3,7 @@ package com.company.bookseller.controller.commands.impl;
 import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.UserService;
 import com.company.bookseller.service.dto.UserDto;
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +32,7 @@ public class LoginCommand implements Command {
             LOG.error(e);
         }
         LOG.info("Invalid login attempt, email{}, password{}", email, password);
-        req.setAttribute("message", "Invalid credentials, please try again");
+        req.setAttribute("message", MessageManager.getMessage("msg.invalidCredential"));
         return "jsp/login.jsp";
     }
 }

@@ -1,33 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>Page Not Found</title>--%>
-<%--    <link href="css/style.css" rel="stylesheet" type="text/css"/>--%>
-<%--    <meta name="viewport" content="width=device-width, initial-scale=1">--%>
-<%--    <link rel="preconnect" href="https://fonts.googleapis.com">--%>
-<%--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>--%>
-<%--    <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<header>--%>
-<%--    <h1>Welcome to Bookstore.com</h1>--%>
-<%--    <nav>--%>
-<%--        <a href="http://localhost:8090/bookstore.com/controller?command=books"> Books </a>--%>
-<%--        <a href="http://localhost:8090/bookstore.com/controller?command=users"> Users </a>--%>
-<%--        <a href="http://localhost:8090/bookstore.com/controller?command=orders"> Orders </a>--%>
-<%--    </nav>--%>
-<%--</header>--%>
-<%--<div class="error">--%>
-<%--    Error!!!!--%>
-<%--    <br/>--%>
-<%--    ${message}--%>
-<%--</div>--%>
-<%--</br>--%>
-<%--<a href="http://localhost:8090/bookstore.com"> Back to main Page </a>--%>
-<%--<jsp:include page="footer.jsp"/>--%>
-<%--</body>--%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${sessionScope.language != null}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="messages"/>
 <html style="font-size: 16px;">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,16 +37,23 @@
         <h1 class="u-text u-text-default u-block-f8c9-11">${pageContext.response.status}</h1>
         <p class="u-text u-text-default u-text-not-found-message u-block-f8c9-10">
             ${message}
+                <c:set var="book" value="Book"/>
+                <c:set var="user" value="User"/>
+                <c:set var="order" value="Order"/>
+                    <fmt:message key="msg.entityNotFound">
+                        <fmt:param value="${book}"/>
+                        <fmt:param value="${user}"/>
+                        <fmt:param value="${order}"/>
+                    </fmt:message>
+                    <br/> <%--FIXME--%>
         </p>
-        <p class="u-text u-block-f8c9-5">The page you are looking for was moved, removed, renamed or might never
-            existed</p>
+        <p class="u-text u-block-f8c9-5"><fmt:message key="msg.errorText"/></p>
         </br>
         </br>
 
         <a href="/bookstore.com"
-           class="u-active-white u-black u-border-2 u-border-active-black u-border-black u-border-hover-black u-btn u-button-style u-hover-white u-text-active-black u-text-body-alt-color u-text-hover-black u-block-f8c9-6">Go
-            to homepage</a>
-        <c:if test="${message != null}">${message}</c:if>
+           class="u-active-white u-black u-border-2 u-border-active-black u-border-black u-border-hover-black u-btn u-button-style u-hover-white u-text-active-black u-text-body-alt-color u-text-hover-black u-block-f8c9-6">
+            <fmt:message key="msg.home"/></a>
     </div>
     <jsp:include page="footer.jsp"/>
     <style data-mode="XL">@media (min-width: 1200px) {

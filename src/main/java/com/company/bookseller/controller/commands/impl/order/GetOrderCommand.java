@@ -3,6 +3,7 @@ package com.company.bookseller.controller.commands.impl.order;
 import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.OrderService;
 import com.company.bookseller.service.dto.OrderDto;
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class GetOrderCommand implements Command {
@@ -17,7 +18,7 @@ public class GetOrderCommand implements Command {
         String id = req.getParameter("id");
         OrderDto order = orderService.get(Long.valueOf(id));
         if (order == null) {
-            req.setAttribute("message", "Order with ID: " + id + "not found");
+            req.setAttribute("message", MessageManager.getMessage("msg.orderNotFound"));
             return "jsp/error.jsp";
         }
         req.setAttribute("order", order);

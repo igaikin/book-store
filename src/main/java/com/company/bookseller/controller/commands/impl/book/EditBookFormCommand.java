@@ -3,6 +3,7 @@ package com.company.bookseller.controller.commands.impl.book;
 import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.dto.BookDto;
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class EditBookFormCommand implements Command {
@@ -19,7 +20,7 @@ public class EditBookFormCommand implements Command {
         req.setAttribute("id", id);
         req.setAttribute("book", editBook);
         if (editBook == null) {
-            req.setAttribute("message", "Book with ID: " + id + "not found");
+            req.setAttribute("message", MessageManager.getMessage("msg.bookNotFound"));
             return "jsp/error.jsp";
         }
         return "jsp/editBookForm.jsp";

@@ -17,7 +17,7 @@ public class RegisterCommand implements Command {
         UserDto user = new UserDto();
         user.setFirstName(req.getParameter("firstName"));
         user.setLastName(req.getParameter("lastName"));
-        user.setRole(UserDto.Role.valueOf(req.getParameter("role")));
+        user.setRole(UserDto.Role.CUSTOMER);
         user.setEmail(req.getParameter("email"));
         user.setPassword(req.getParameter("password"));
         UserDto registerUser = userService.create(user);

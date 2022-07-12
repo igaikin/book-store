@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${sessionScope.language != null}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
     <title>Book</title>
@@ -16,35 +21,35 @@
 <div class="main">
     <table>
         <tr>
-            <th>Field</th>
-            <th>Value</th>
+            <th><fmt:message key="title.field"/></th>
+            <th><fmt:message key="title.value"/></th>
         </tr>
         <tr>
-            <td>ID</td>
+            <td><fmt:message key="title.id"/></td>
             <td>${book.id}</td>
         </tr>
         <tr>
-            <td>ISBN</td>
+            <td><fmt:message key="title.isbn"/></td>
             <td>${book.isbn}</td>
         </tr>
         <tr>
-            <td>Author</td>
+            <td><fmt:message key="title.author"/></td>
             <td>${book.author}</td>
         </tr>
         <tr>
-            <td>Title</td>
+            <td><fmt:message key="title.title"/></td>
             <td>${book.title}</td>
         </tr>
         <tr>
-            <td>Cover</td>
+            <td><fmt:message key="title.cover"/></td>
             <td>${book.cover.name}</td>
         </tr>
         <tr>
-            <td>Pages</td>
+            <td><fmt:message key="title.pages"/></td>
             <td>${book.pages}</td>
         </tr>
         <tr>
-            <td>Price</td>
+            <td><fmt:message key="title.price"/></td>
             <td>$${book.price}</td>
         </tr>
     </table>
@@ -52,7 +57,7 @@
         <form action="controller" method="get">
             <input type="hidden" name="command" value="edit_book_form">
             <input type="hidden" name="id" value="${book.id}">
-            <input type="submit" value="Edit">
+            <input type="submit" value="<fmt:message key="btn.edit"/>">
         </form>
     </c:if>
     <c:if test="${message != null}">${message}</c:if>

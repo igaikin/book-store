@@ -1,6 +1,7 @@
 package com.company.bookseller.controller.filters;
 
 import com.company.bookseller.service.dto.UserDto;
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +25,7 @@ public class RoleFilter implements Filter {
             UserDto user = (UserDto) req.getSession(false).getAttribute("userGlobal");
             if (user == null || isRestricted(command, user.getRole())) {
                 ((HttpServletResponse) response).setStatus(403);
-                req.setAttribute("message", "Access forbidden");
+                req.setAttribute("message", MessageManager.getMessage("msg.accessForbidden"));
                 req.getRequestDispatcher("jsp/error.jsp").forward(request, response);
                 return;
             }

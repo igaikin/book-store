@@ -1,8 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${sessionScope.language != null}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
-    <title>Orders</title>
+    <title><fmt:message key="btn.orders"/></title>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,17 +17,17 @@
 <body>
 <jsp:include page="header.jsp"/>
 <jsp:include page="navbar.jsp"/>
-<h2>Orders</h2>
+<h2><fmt:message key="btn.orders"/></h2>
 <div class="main">
     <table>
         <tr>
-            <th>Count</th>
-            <th>ID</th>
-            <th>Status</th>
-            <th>Date/Time</th>
-            <th>User</th>
-            <th>Books</th>
-            <th>Price</th>
+            <th><fmt:message key="title.count"/></th>
+            <th><fmt:message key="title.id"/></th>
+            <th><fmt:message key="title.status"/></th>
+            <th><fmt:message key="title.time"/></th>
+            <th><fmt:message key="title.user"/></th>
+            <th><fmt:message key="title.books"/></th>
+            <th><fmt:message key="title.price"/></th>
         </tr>
         <c:forEach items="${orders}" var="order" varStatus="counter">
             <tr>

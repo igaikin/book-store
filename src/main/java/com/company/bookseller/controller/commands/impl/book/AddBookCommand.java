@@ -3,6 +3,7 @@ package com.company.bookseller.controller.commands.impl.book;
 import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.dto.BookDto;
+import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +31,7 @@ public class AddBookCommand implements Command {
         BookDto createdBook = bookService.create(book);
         req.setAttribute("book", createdBook);
         LOG.info("Book add to database");
+        req.setAttribute("message", MessageManager.getMessage("msg.addBook"));
         return "jsp/book.jsp";
     }
 }
