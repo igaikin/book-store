@@ -5,6 +5,10 @@
     <fmt:setLocale value="${sessionScope.language}"/>
 </c:if>
 <fmt:setBundle basename="messages"/>
+<html>
+<head>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+</head>
 <nav>
     <ul id="nav">
         <li>
@@ -54,34 +58,4 @@
         </li>
     </ul>
 </nav>
-
-<style>
-    #nav {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        border: 2px solid #0066FF;
-        border-radius: 20px 5px;
-        width: 100%;
-        text-align: match-parent;
-        background-color: #33ADFF;
-    }
-
-    #nav li {
-        display: inline;
-    }
-
-    #nav a {
-        color: #fff;
-        padding: 5px 10px;
-        text-decoration: none;
-        font-weight: bold;
-        display: inline;
-        width: 100px;
-    }
-
-    #nav a:hover {
-        border-radius: 20px 5px;
-        background-color: #0066FF;
-    }
-</style>
+</html>

@@ -5,8 +5,10 @@
     <fmt:setLocale value="${sessionScope.language}"/>
 </c:if>
 <fmt:setBundle basename="messages"/>
+<html>
 <head>
     <title><fmt:message key="msg.welcome"/> Bookstore.com</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <header>
     <h1><fmt:message key="msg.welcome"/> Bookstore.com</h1>
@@ -17,9 +19,4 @@
         <h2><fmt:message key="msg.hello"/> <fmt:message key="msg.person"/></h2>
     </c:if>
 </header>
-<style>
-    header {
-        background: url('../images/fon_knizhnie_polki.jpg');
-        background-size: cover;
-    }
-</style>
+</html>
