@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
     private User userToEntity(UserDto userDto) {
         User user = new User();
         user.setId(userDto.getId());
+        user.setAvatar(userDto.getAvatar());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setRole(User.Role.valueOf(userDto.getRole().toString()));
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
     private UserDto userToDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
+        userDto.setAvatar(user.getAvatar());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setRole(UserDto.Role.valueOf(user.getRole().toString()));

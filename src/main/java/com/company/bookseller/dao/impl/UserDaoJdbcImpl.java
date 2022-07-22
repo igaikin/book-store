@@ -16,14 +16,14 @@ import org.apache.logging.log4j.Logger;
 public class UserDaoJdbcImpl implements UserDao {
     private static final Logger LOG = LogManager.getLogger(UserDaoJdbcImpl.class);
     private static final String CREATE_USER =
-            "INSERT INTO users  (first_name, last_name, role_id, email, password) "
-                    + "VALUES (?, ?, (SELECT id FROM roles WHERE role = ?), ?, ?)";
+            "INSERT INTO users  (avatar, first_name, last_name, role_id, email, password) "
+                    + "VALUES (?, ?, ?, (SELECT id FROM roles WHERE role = ?), ?, ?)";
     private static final String UPDATE_USER =
-            "UPDATE users SET first_name = ?, last_name = ?, role_id = (SELECT id FROM roles WHERE role = ?), "
-                    + "email = ?, password = ? WHERE id = ? AND deleted = false";
+            "UPDATE users SET avatar = ?, first_name = ?, last_name = ?, role_id = (SELECT id FROM roles WHERE role = "
+                    + "?), email = ?, password = ? WHERE id = ? AND deleted = false";
     private static final String DELETE_USER = "UPDATE users SET deleted = true WHERE id = ? AND  deleted = false";
-    private static final String USER_ALL = "SELECT u.id, u.first_name, u.last_name, r.role, u.email, u.password "
-            + "FROM users u JOIN roles r ON u.role_id = r.id ";
+    private static final String USER_ALL = "SELECT u.id, u.avatar, u.first_name, u.last_name, r.role, u.email, u"
+            + ".password FROM users u JOIN roles r ON u.role_id = r.id ";
     private static final String GET_ALL = USER_ALL + "WHERE u.deleted = false ORDER BY u.id";
     private static final String GET_BY_ID = USER_ALL + "WHERE u.id = ? AND u.deleted = false ORDER BY u.id";
     private static final String GET_BY_EMAIL = USER_ALL + "WHERE u.email = ? AND u.deleted = false ORDER BY u.email";
@@ -36,6 +36,7 @@ public class UserDaoJdbcImpl implements UserDao {
     private User processUser(ResultSet resultSet) throws SQLException {
         User user = new User();
         user.setId(resultSet.getLong("id"));
+        user.setAvatar(resultSet.getString("avatar"));
         user.setFirstName(resultSet.getString("first_name"));
         user.setLastName(resultSet.getString("last_name"));
         user.setRole(User.Role.valueOf(resultSet.getString("role")));
@@ -99,11 +100,12 @@ public class UserDaoJdbcImpl implements UserDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(CREATE_USER, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, user.getFirstName());
-            statement.setString(2, user.getLastName());
-            statement.setString(3, String.valueOf(user.getRole()));
-            statement.setString(4, user.getEmail());
-            statement.setString(5, user.getPassword());
+            statement.setString(1, user.getAvatar());
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getLastName());
+            statement.setString(4, String.valueOf(user.getRole()));
+            statement.setString(5, user.getEmail());
+            statement.setString(6, user.getPassword());
             statement.executeUpdate();
             ResultSet keys = statement.getGeneratedKeys();
             if (keys.next()) {
@@ -121,12 +123,13 @@ public class UserDaoJdbcImpl implements UserDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
-            statement.setString(1, user.getFirstName());
-            statement.setString(2, user.getLastName());
-            statement.setString(3, String.valueOf(user.getRole()));
-            statement.setString(4, user.getEmail());
-            statement.setString(5, user.getPassword());
-            statement.setLong(6, user.getId());
+            statement.setString(1, user.getAvatar());
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getLastName());
+            statement.setString(4, String.valueOf(user.getRole()));
+            statement.setString(5, user.getEmail());
+            statement.setString(6, user.getPassword());
+            statement.setLong(7, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             LOG.error(e);

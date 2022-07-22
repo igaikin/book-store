@@ -15,6 +15,7 @@ public class RegisterCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         UserDto user = new UserDto();
+        user.setAvatar(req.getParameter("avatar"));
         user.setFirstName(req.getParameter("firstName"));
         user.setLastName(req.getParameter("lastName"));
         user.setRole(UserDto.Role.CUSTOMER);

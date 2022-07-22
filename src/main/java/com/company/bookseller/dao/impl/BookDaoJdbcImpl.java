@@ -3,7 +3,6 @@ package com.company.bookseller.dao.impl;
 import com.company.bookseller.dao.entity.Book;
 import com.company.bookseller.dao.BookDao;
 import com.company.bookseller.dao.connection.ConnectionManager;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,14 +16,14 @@ import org.apache.logging.log4j.Logger;
 public class BookDaoJdbcImpl implements BookDao {
     private static Logger LOG = LogManager.getLogger(BookDaoJdbcImpl.class);
     private static final String CREATE_BOOK =
-            "INSERT INTO books (author, title, cover_id, pages, isbn, price)"
-                    + "VALUES (?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?, ?)";
+            "INSERT INTO books (image, author, title, cover_id, pages, isbn, price)"
+                    + "VALUES (?, ?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?, ?)";
     private static final String UPDATE_BOOK =
-            "UPDATE books SET author = ?, title = ?, cover_id = (SELECT id FROM covers WHERE cover = ?), "
+            "UPDATE books SET image = ?, author = ?, title = ?, cover_id = (SELECT id FROM covers WHERE cover = ?), "
                     + "pages =?, isbn = ?, price = ? WHERE id = ? AND deleted = false";
     private static final String DELETE_BOOK = "UPDATE books SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String BOOK_ALL =
-            "SELECT b.id, b.title, b.author, c.cover, b.pages, b.isbn, b.price, b.deleted "
+            "SELECT b.id, b.image, b.title, b.author, c.cover, b.pages, b.isbn, b.price, b.deleted "
                     + "FROM books b JOIN covers c ON b.cover_id = c.id ";
     private static final String GET_ALL = BOOK_ALL + "WHERE b.deleted = false ORDER BY b.id";
     private static final String GET_BY_ID = BOOK_ALL + "WHERE b.id = ? AND deleted = false ORDER BY b.id";
@@ -39,13 +38,14 @@ public class BookDaoJdbcImpl implements BookDao {
 
     private Book processBook(ResultSet resultSet) throws SQLException {
         Book book = new Book();
+        book.setId(resultSet.getLong("id"));
+        book.setImage(resultSet.getString("image"));
         book.setAuthor(resultSet.getString("author"));
         book.setTitle(resultSet.getString("title"));
         book.setCover(Book.Cover.valueOf(resultSet.getString("cover")));
         book.setPages(resultSet.getInt("pages"));
         book.setIsbn(resultSet.getString("isbn"));
         book.setPrice(resultSet.getBigDecimal("price"));
-        book.setId(resultSet.getLong("id"));
         return book;
     }
 
@@ -99,6 +99,7 @@ public class BookDaoJdbcImpl implements BookDao {
         return book;
     }
 
+
     public List<Book> getByOrderId(Long orderId) {
         return getBookByParam(orderId, GET_BY_ORDER_ID);
     }
@@ -128,12 +129,13 @@ public class BookDaoJdbcImpl implements BookDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(CREATE_BOOK, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, book.getAuthor());
-            statement.setString(2, book.getTitle());
-            statement.setString(3, String.valueOf(book.getCover()));
-            statement.setInt(4, book.getPages());
-            statement.setString(5, book.getIsbn());
-            statement.setBigDecimal(6, book.getPrice());
+            statement.setString(1, book.getImage());
+            statement.setString(2, book.getAuthor());
+            statement.setString(3, book.getTitle());
+            statement.setString(4, String.valueOf(book.getCover()));
+            statement.setInt(5, book.getPages());
+            statement.setString(6, book.getIsbn());
+            statement.setBigDecimal(7, book.getPrice());
             statement.executeUpdate();
 
             ResultSet keys = statement.getGeneratedKeys();
@@ -152,13 +154,14 @@ public class BookDaoJdbcImpl implements BookDao {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_BOOK);
-            statement.setString(1, book.getAuthor());
-            statement.setString(2, book.getTitle());
-            statement.setString(3, String.valueOf(book.getCover()));
-            statement.setInt(4, book.getPages());
-            statement.setString(5, book.getIsbn());
-            statement.setBigDecimal(6, book.getPrice());
-            statement.setLong(7, book.getId());
+            statement.setString(1, book.getImage());
+            statement.setString(2, book.getAuthor());
+            statement.setString(3, book.getTitle());
+            statement.setString(4, String.valueOf(book.getCover()));
+            statement.setInt(5, book.getPages());
+            statement.setString(6, book.getIsbn());
+            statement.setBigDecimal(7, book.getPrice());
+            statement.setLong(8, book.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             LOG.error(e);

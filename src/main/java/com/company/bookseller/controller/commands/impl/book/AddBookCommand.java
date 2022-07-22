@@ -21,6 +21,7 @@ public class AddBookCommand implements Command {
     public String execute(HttpServletRequest req) {
         BookDto book = new BookDto();
         LOG.info("book create");
+        book.setImage(req.getParameter("image"));
         book.setAuthor(req.getParameter("author"));
         book.setTitle(req.getParameter("title"));
         book.setCover(BookDto.Cover.valueOf(req.getParameter("cover")));

@@ -20,6 +20,7 @@ public class EditBookCommand implements Command {
     public String execute(HttpServletRequest req) {
         String id = req.getParameter("id");
         BookDto book = bookService.get(Long.valueOf(id));
+        book.setImage(req.getParameter("image"));
         book.setAuthor(req.getParameter("author"));
         book.setTitle(req.getParameter("title"));
         book.setCover(BookDto.Cover.valueOf(req.getParameter("cover")));

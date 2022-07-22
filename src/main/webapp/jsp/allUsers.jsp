@@ -22,6 +22,7 @@
     <table>
         <tr>
             <th><fmt:message key="title.count"/></th>
+            <th><fmt:message key="title.avatar"/></th>
             <th><fmt:message key="title.firstName"/></th>
             <th><fmt:message key="title.lastName"/></th>
             <th><fmt:message key="title.email"/></th>
@@ -31,6 +32,9 @@
         <c:forEach items="${users}" var="user" varStatus="counter">
             <tr>
                 <td>${counter.count}</td>
+                <td style="height: 125px">
+                    <img src="${user.avatar}" style="width: auto; height: 100%" alt="${user.email}"/>
+                </td>
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
                 <td>${user.email}</td>

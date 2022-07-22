@@ -22,7 +22,7 @@
     <table>
         <tr>
             <th><fmt:message key="title.count"/></th>
-<%--            <th><fmt:message key="title.picture"/></th>--%>
+            <th><fmt:message key="title.image"/></th>
             <th><fmt:message key="title.author"/></th>
             <th><fmt:message key="title.title"/></th>
             <th><fmt:message key="title.cover"/></th>
@@ -34,7 +34,9 @@
         <c:forEach items="${books}" var="book" varStatus="counter">
             <tr>
                 <td>${counter.count}</td>
-<%--                <td>${book.picture}</td>--%>
+                <td style="height: 250px">
+                    <img src="${book.image}" style="width: auto; height: 100%" alt="${book.author} - ${book.title}"/>
+                </td>
                 <td>${book.author}</td>
                 <td>${book.title}</td>
                 <td>${book.cover.name}</td>

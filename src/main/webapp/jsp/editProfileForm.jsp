@@ -27,9 +27,11 @@
         <label for="firstName"><fmt:message key="title.firstName"/>: </label>
         <input id="firstName" type="text" name="firstName" value="${user.firstName}">
         <br/>
+
         <label for="lastName"><fmt:message key="title.lastName"/>: </label>
         <input id="lastName" type="text" name="lastName" value="${user.lastName}">
         <br/>
+
         <label for="email"><fmt:message key="title.email"/>: </label>
         <input id="email" type="email" name="email" value="${user.email}">
         <br/>

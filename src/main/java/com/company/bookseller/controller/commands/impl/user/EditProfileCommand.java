@@ -16,6 +16,7 @@ public class EditProfileCommand implements Command {
     public String execute(HttpServletRequest req) {
         String id = req.getParameter("id");
         UserDto user = userService.get(Long.valueOf(id));
+        user.setAvatar(req.getParameter("avatar"));
         user.setFirstName(req.getParameter("firstName"));
         user.setLastName(req.getParameter("lastName"));
         user.setRole(UserDto.Role.valueOf(req.getParameter("role")));

@@ -20,6 +20,7 @@ public class BookServiceImpl implements BookService {
     private Book bookToEntity(BookDto bookDto) {
         Book book = new Book();
         book.setId(bookDto.getId());
+        book.setImage(bookDto.getImage());
         book.setAuthor(bookDto.getAuthor());
         book.setTitle(bookDto.getTitle());
         book.setCover(Book.Cover.valueOf(bookDto.getCover().toString()));
@@ -32,6 +33,7 @@ public class BookServiceImpl implements BookService {
     private BookDto bookToDto(Book book) {
         BookDto bookDto = new BookDto();
         bookDto.setId(book.getId());
+        bookDto.setImage(book.getImage());
         bookDto.setAuthor(book.getAuthor());
         bookDto.setTitle(book.getTitle());
         bookDto.setCover(BookDto.Cover.valueOf(book.getCover().toString()));

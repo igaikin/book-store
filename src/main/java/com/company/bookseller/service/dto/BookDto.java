@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 @Data
 public class BookDto {
     private Long id;
+    private String image;
     private String author;
     private String title;
     private Cover cover;

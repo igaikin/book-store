@@ -19,6 +19,7 @@
 <jsp:include page="navbar.jsp"/>
 <h2><fmt:message key="title.profile"/></h2>
 <div class="main">
+    <img src="${user.avatar}" alt="${user.email}" width="220px">
     <table>
         <tr>
             <th><fmt:message key="title.field"/></th>

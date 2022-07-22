@@ -19,6 +19,7 @@
 <jsp:include page="navbar.jsp"/>
 <h2>Book</h2>
 <div class="main">
+        <img src="${book.image}" alt="${book.title}" width="220px">
     <table>
         <tr>
             <th><fmt:message key="title.field"/></th>

@@ -6,6 +6,7 @@ import lombok.Getter;
 @Data
 public class UserDto {
     private Long id;
+    private  String avatar;
     private String firstName;
     private String lastName;
     private Role role;

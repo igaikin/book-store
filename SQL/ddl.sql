@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS covers
 CREATE TABLE IF NOT EXISTS books
 (
     id              BIGSERIAL PRIMARY KEY,
+    image           VARCHAR,
     author          VARCHAR(100)             NOT NULL,
     title           VARCHAR(100)             NOT NULL,
     cover_id        BIGINT REFERENCES covers NOT NULL,
@@ -35,6 +36,7 @@ CREATE TABLE IF NOT EXISTS roles
 CREATE TABLE IF NOT EXISTS users
 (
     id         BIGSERIAL PRIMARY KEY,
+    avatar     VARCHAR,
     first_name VARCHAR(50),
     last_name  VARCHAR(50),
     role_id    BIGINT REFERENCES roles NOT NULL,
