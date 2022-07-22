@@ -26,6 +26,7 @@ public class CreateOrderCommand implements Command {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public String execute(HttpServletRequest req) {
         HttpSession session = req.getSession();
         UserDto user = (UserDto) session.getAttribute("userGlobal");
@@ -34,7 +35,6 @@ public class CreateOrderCommand implements Command {
             return "jsp/login.jsp";
         }
 
-        @SuppressWarnings("unchecked")
         Object cartObj = session.getAttribute("cart");
         Map<Long, Integer> cart;
         if (cartObj != null) {
@@ -57,6 +57,7 @@ public class CreateOrderCommand implements Command {
         OrderDto created = orderService.create(order);
         req.setAttribute("order", created);
         req.setAttribute("message", MessageManager.getMessage("msg.emptyCart"));
+        session.removeAttribute("cart");
         return "jsp/order.jsp";
     }
 }

@@ -21,11 +21,6 @@ public class AddToCartCommand implements Command {
         return CommandFactory.getInstance().getCommand("books").execute(req);
     }
 
-    private String getReturnPage(HttpServletRequest req, String defaultValue) {
-        String from = req.getParameter("from");
-        return from != null ? from : defaultValue;
-    }
-
     private void addBookToCart(Long bookId, Map<Long, Integer> cart) {
         Integer quantity = cart.get(bookId);
         if (quantity == null) {
