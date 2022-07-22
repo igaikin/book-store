@@ -58,6 +58,8 @@ VALUES ('PENDING'),
 INSERT INTO orders (status_id, date, user_id, total_price)
 VALUES ((SELECT id FROM statuses WHERE status = 'PENDING'), '2020-08-12 12:16:44',
         (SELECT id FROM users WHERE email = 'muamar@mail.lby' AND users.deleted = false), 155),
+       ((SELECT id FROM statuses WHERE status = 'CANCELLED'), '2022-07-22 12:02:44',
+        (SELECT id FROM users WHERE email = 'manager' AND users.deleted = false), 111),
        ((SELECT id FROM statuses WHERE status = 'DELIVERED'), '2021-07-15 08:35:33',
         (SELECT id FROM users WHERE email = 'usatiy_nany@mail.by' AND users.deleted = false), 632);
 
@@ -73,4 +75,7 @@ VALUES ((SELECT id FROM orders WHERE date = '2020-08-12 12:16:44'),
         (SELECT price FROM books WHERE isbn = '978-1-33-879023-8'), 3),
        ((SELECT id FROM orders WHERE date = '2021-07-15 08:35:33'),
         (SELECT id FROM books WHERE isbn = '978-0-67-001661-7'),
-        (SELECT price FROM books WHERE isbn = '978-0-67-001661-7'), 1);
+        (SELECT price FROM books WHERE isbn = '978-0-67-001661-7'), 1),
+       ((SELECT id FROM orders WHERE date = '2022-07-22 12:02:44'),
+        (SELECT id FROM books WHERE isbn = '978-0-45-226293-5'),
+        (SELECT price FROM books WHERE isbn = '978-0-45-226293-5'), 10);
