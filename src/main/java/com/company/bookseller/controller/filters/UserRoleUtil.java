@@ -29,23 +29,13 @@ public class UserRoleUtil {
         }
         command = command.toUpperCase();
         return switch (command) {
-            case "CHANGE_LANGUAGE",
-                    "PROFILE",
-                    "EDIT_PROFILE",
-                    "EDIT_PROFILE_FORM",
-                    "USERS",
+            case "USERS",
                     "DELETE_USER",
                     "ADD_BOOK",
                     "ADD_BOOK_FORM",
                     "EDIT_BOOK",
                     "EDIT_BOOK_FORM",
-                    "DELETE_BOOK",
-                    "BOOK",
-                    "BOOKS",
-                    "ERROR",
-                    "LOGIN",
-                    "LOGIN_PAGE",
-                    "LOGOUT" -> true;
+                    "DELETE_BOOK" -> true;
             default -> false;
         };
     }
@@ -55,7 +45,7 @@ public class UserRoleUtil {
             return false;
         }
         command = command.toUpperCase();
-        return switch (command) {
+        return /*switch (command) {
             case "CHANGE_LANGUAGE",
                     "PROFILE",
                     "EDIT_PROFILE",
@@ -71,36 +61,10 @@ public class UserRoleUtil {
                     "ORDER",
                     "ORDERS",
                     "DELETE_ORDER" -> true;
-            default -> false;
-        };
-    }
-
-    public static boolean isCustomerAction(String command) {
-        if (command == null) {
-            return false;
-        }
-        command = command.toUpperCase();
-        return switch (command) {
-            case "CHANGE_LANGUAGE",
-                    "EDIT_PROFILE",
-                    "EDIT_PROFILE_FORM",
-                    "PROFILE",
-                    "BOOK",
-                    "BOOKS",
-                    "ERROR",
-                    "LOGIN",
-                    "LOGIN_PAGE",
-                    "LOGOUT",
-                    "ADD_TO_CART",
-                    "CART",
-                    "CREATE_ORDER",
-                    "ORDER",
-                    "ORDERS",
-                    "DELETE_ORDER" -> true;
-            default -> false;
-        };
+            default ->*/ false;
     }
 }
+
 //*****************************************GUEST
 //"REGISTER"
 //"REGISTER_USER_FORM"
