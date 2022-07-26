@@ -33,6 +33,13 @@
             <li>
                 <a href="controller?command=profile&id=${userGlobal.id}"><fmt:message key="btn.profile"/></a>
             </li>
+            <li>
+            <c:if test="${userGlobal != null}">
+                <li>
+                    <a href="controller?command=my_orders&id=${userGlobal.id}"><fmt:message key="btn.myOrders"/> </a>
+                </li>
+            </c:if>
+            </li>
             <c:if test="${userGlobal.role=='ADMIN'}">
                 <li>
                     <a href="controller?command=orders"> <fmt:message key="btn.orders"/> </a>
@@ -42,18 +49,19 @@
                 </li>
             </c:if>
             <li>
-                <a href="controller?command=logout&page=${requestScope['javax.servlet.forward.request_uri']}"><fmt:message key="btn.logout"/> </a>
+                <a href="controller?command=logout&page=${requestScope['javax.servlet.forward.request_uri']}"><fmt:message
+                        key="btn.logout"/> </a>
             </li>
         </c:if>
         <li class="language">
-            <a href="controller?command=change_language">
-                <img src='../images/lang/uk.png' alt="en">
+            <a href="controller?command=change_language&lang=en">
+                <img src='images/lang/uk.png' alt="en">
             </a>
-            <a href="controller?command=change_language">
-                <img src='../images/lang/de.png' alt="de">
+            <a href="controller?command=change_language&lang=de">
+                <img src='images/lang/de.png' alt="de">
             </a>
-            <a href="controller?command=change_language">
-                <img src='../images/lang/ru.png' alt="ru">
+            <a href="controller?command=change_language&lang=ru">
+                <img src='images/lang/ru.png' alt="ru">
             </a>
         </li>
     </ul>

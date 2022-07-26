@@ -21,40 +21,33 @@
 <div class="main">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="add_book"/>
-        <table>
-            <tr>
-                <td> <fmt:message key="title.author"/>:</td>
-                <td><input type="text" name="author"></td>
-            </tr>
-            <tr>
-                <td> <fmt:message key="title.title"/>:</td>
-                <td><input type="text" name="title"></td>
-            </tr>
-            <tr>
-                <td> <fmt:message key="title.cover"/>:</td>
-                <td><input type="radio" id="cover1"
-                           name="cover" value="HARD">
-                    <label for="cover1"><fmt:message key="title.hard"/></label>
-                    <input type="radio" id="cover2"
-                           name="cover" value="SOFT">
-                    <label for="cover2"><fmt:message key="title.soft"/></label>
-                </td>
-            </tr>
-            <tr>
-                <td> <fmt:message key="title.pages"/>:</td>
-                <td><input type="number" name="pages"></td>
-            </tr>
-            <tr>
-                <td> <fmt:message key="title.isbn"/>:</td>
-                <td><input type="text" name="isbn"></td>
-            </tr>
-            <tr>
-                <td> <fmt:message key="title.price"/>:</td>
-                <td><input type="number" min="0.00" max="1000.00" step="0.01" name="price"></td>
-            </tr>
-        </table>
+        <input type="file" name="photo" multiple accept="images/*">
+        <input type="submit" value="<fmt:message key="btn.load"/>">
         <br/>
-        <td colspan="2"><input type="submit" name="submit" value="<fmt:message key="btn.add"/>"></td>
+        <label for="author"> <fmt:message key="title.author"/>: </label>
+        <input id="author" type="text" name="author" value="${book.author}">
+        <br/>
+        <label for="title"> <fmt:message key="title.title"/>: </label>
+        <input id="title" type="text" name="title" value="${book.title}">
+        <br/>
+
+        <label for="cover"><fmt:message key="title.cover"/>: </label>
+        <input id="cover" type="radio" name="cover" value="HARD"> <fmt:message key="title.hard"/>
+        <input type="radio" name="cover" value="SOFT"> <fmt:message key="title.soft"/>
+        <br/>
+        <label for="pages"> <fmt:message key="title.pages"/>: </label>
+        <input id="pages" type="number" name="pages" value="${book.pages}">
+        <br/>
+        <label for="isbn"> <fmt:message key="title.isbn"/>: </label>
+        <input id="isbn" type="text" name="isbn" value="${book.isbn}">
+        <br/>
+        <label for="price"> <fmt:message key="title.price"/>: </label>
+        <input id="price" type="number" min="0.00" max="1000.00" step="0.01" name="price" value="${book.price}">
+        <br/>
+
+        <input type="submit" value="<fmt:message key="title.addBook"/>">
+    </form>
+    <br/>
     </form>
     <c:if test="${message != null}">${message}</c:if>
 </div>

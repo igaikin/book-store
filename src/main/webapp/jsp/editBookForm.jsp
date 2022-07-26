@@ -21,9 +21,15 @@
 <div class="main">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="edit_book"/>
+        <input type="file" name="photo" multiple accept="images/*">
+        <input type="submit" value="<fmt:message key="btn.load"/>">
+        <br/>
         <label for="id"><fmt:message key="title.id"/>: </label>
         <input readonly="readonly" id="id" type="text" name="id" value="${book.id}">
         <br/>
+        <label for="image"><fmt:message key="title.image"/></label>
+        <input id="image" type="image" alt="${book.author} - ${book.title}" name="image" value="${book.image}">
+        </br>
         <label for="author"><fmt:message key="title.author"/>: </label>
         <input id="author" type="text" name="author" value="${book.author}">
         <br/>

@@ -21,6 +21,7 @@
 <div class="main">
     <table>
         <tr>
+            <th><fmt:message key="title.image"/></th>
             <th><fmt:message key="title.book"/></th>
             <th><fmt:message key="title.quantity"/></th>
             <th><fmt:message key="title.price"/></th>
@@ -38,7 +39,6 @@
         <input type="hidden" name="command" value="create_order">
         <input type="submit" value="<fmt:message key="btn.createOrder"/>"/>
     </form>
-<%--    <button action="controller?command=create_order">Create Order</button>--%>
     <c:if test="${message != null}">${message}</c:if>
 </div>
 <jsp:include page="footer.jsp"/>

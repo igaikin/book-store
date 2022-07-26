@@ -49,12 +49,12 @@
                         <input type="hidden" name="id" value="${book.id}">
                         <input type="submit" value="<fmt:message key="btn.details"/>">
                     </form>
-                        <form action="controller" method="post">
-                            <input type="hidden" name="command" value="add_to_cart">
-                            <input type="hidden" name="book_id" value="${book.id}">
-                            <input type="hidden" name="from" value="jsp/allBooks.jsp">
-                            <input type="submit" value="<fmt:message key="btn.addToCart"/>">
-                        </form>
+                    <form action="controller" method="post">
+                        <input type="hidden" name="command" value="add_to_cart">
+                        <input type="hidden" name="book_id" value="${book.id}">
+                        <input type="hidden" name="from" value="jsp/allBooks.jsp">
+                        <input type="submit" value="<fmt:message key="btn.addToCart"/>">
+                    </form>
                     <c:if test="${userGlobal.role=='ADMIN'}">
                         <form action="controller" method="get">
                             <input type="hidden" name="command" value="edit_book_form">

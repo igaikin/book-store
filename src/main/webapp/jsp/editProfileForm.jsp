@@ -24,6 +24,11 @@
         <label for="id"><fmt:message key="title.id"/>: </label>
         <input readonly="readonly" id="id" type="text" name="id" value="${user.id}">
         <br/>
+
+        <input type="file" name="photo" multiple accept="images/*">
+        <input type="submit" value="<fmt:message key="btn.load"/>">
+        <br/>
+
         <label for="firstName"><fmt:message key="title.firstName"/>: </label>
         <input id="firstName" type="text" name="firstName" value="${user.firstName}">
         <br/>
@@ -35,14 +40,21 @@
         <label for="email"><fmt:message key="title.email"/>: </label>
         <input id="email" type="email" name="email" value="${user.email}">
         <br/>
-        <label for="role"><fmt:message key="title.role"/>: </label>
-        <input id="role" type="radio" name="role" value="CUSTOMER"
-               <c:if test="${user.role=='CUSTOMER'}">checked</c:if>> <fmt:message key="title.customer"/>
-        <input type="radio" name="role" value="MANAGER"
-               <c:if test="${user.role=='MANAGER'}">checked</c:if>> <fmt:message key="title.manager"/>
-        <input type="radio" name="role" value="ADMIN"
-               <c:if test="${user.role=='ADMIN'}">checked</c:if>> <fmt:message key="title.admin"/>
+
+        <c:if test="${userGlobal.role=='ADMIN'}">
+            <label for="role"><fmt:message key="title.role"/>: </label>
+            <input id="role" type="radio" name="role" value="CUSTOMER"
+                   <c:if test="${user.role=='CUSTOMER'}">checked</c:if>> <fmt:message key="title.customer"/>
+            <input type="radio" name="role" value="MANAGER"
+                   <c:if test="${user.role=='MANAGER'}">checked</c:if>> <fmt:message key="title.manager"/>
+            <input type="radio" name="role" value="ADMIN"
+                   <c:if test="${user.role=='ADMIN'}">checked</c:if>> <fmt:message key="title.admin"/>
+        </c:if>
+        <c:if test="${userGlobal.role=='MANAGER'}">
+            <fmt:message key="title.role"/>: ${userGlobal.role.name}
+        </c:if>
         <br/>
+
         <input type="submit" value="<fmt:message key="btn.saveProfile"/>">
     </form>
     <c:if test="${message != null}">${message}</c:if>
