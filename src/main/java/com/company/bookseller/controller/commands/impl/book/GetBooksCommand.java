@@ -3,6 +3,8 @@ package com.company.bookseller.controller.commands.impl.book;
 import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.dto.BookDto;
+import com.company.bookseller.service.util.paging.Paging;
+import com.company.bookseller.service.util.paging.PagingUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +20,9 @@ public class GetBooksCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        List<BookDto> books = bookService.getAll();
+        Paging paging = PagingUtil.extractPaging(req);
+        List<BookDto> books = bookService.getAll(paging.getLimit(), paging.getOffset());
+
         req.setAttribute("books", books);
         return "jsp/allBooks.jsp";
     }

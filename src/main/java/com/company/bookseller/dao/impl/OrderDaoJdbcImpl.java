@@ -26,6 +26,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
     private static final String ORDERS_ALL = "SELECT o.id, o.date, s.status, o.user_id, o.total_price "
             + "FROM orders o JOIN statuses s ON o.status_id = s.id";
     private static final String GET_ALL = ORDERS_ALL + " ORDER BY o.id";
+    private static final String GET_ALL_PAGED = ORDERS_ALL + " ORDER BY o.id  LIMIT ? OFFSET ?";
     private static final String GET_BY_ID = ORDERS_ALL + " WHERE o.id = ? ORDER BY o.id";
     private static final String GET_BY_USER_ID = ORDERS_ALL + " WHERE user_id = ?";
     private static final String DELETE_ORDER = "UPDATE orders SET status_id = (SELECT id FROM statuses WHERE status = 'CANCELLED')"
@@ -45,14 +46,32 @@ public class OrderDaoJdbcImpl implements OrderDao {
         order.setTotalPrice(resultSet.getBigDecimal("total_price"));
         return order;
     }
+//
+//    @Override
+//    public List<Order> getAll() {
+//        List<Order> orders = new ArrayList<>();
+//        try {
+//            Connection connection = connectionManager.getConnection();
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery(GET_ALL);
+//            while (resultSet.next()) {
+//                orders.add(processOrder(resultSet));
+//            }
+//        } catch (SQLException e) {
+//            LOG.error(e);
+//        }
+//        return orders;
+//    }
 
     @Override
-    public List<Order> getAll() {
+    public List<Order> getAll(int limit, int offset) {
         List<Order> orders = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(GET_ALL);
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_PAGED);
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 orders.add(processOrder(resultSet));
             }

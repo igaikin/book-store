@@ -64,6 +64,10 @@
                 <img src='images/lang/ru.png' alt="ru">
             </a>
         </li>
+        <li>
+            <input name="command" type="search" value="" placeholder="<fmt:message key="btn.search"/> ...">
+            <input action="controller" type="submit" value="<fmt:message key="btn.search"/>">
+        </li>
     </ul>
 </nav>
 </html>

@@ -5,6 +5,7 @@ import com.company.bookseller.controller.commands.impl.ErrorCommand;
 import com.company.bookseller.controller.commands.impl.LoginCommand;
 import com.company.bookseller.controller.commands.impl.LoginPageCommand;
 import com.company.bookseller.controller.commands.impl.LogoutCommand;
+import com.company.bookseller.controller.commands.impl.SearchCommand;
 import com.company.bookseller.controller.commands.impl.book.AddBookCommand;
 import com.company.bookseller.controller.commands.impl.book.AddBookFormCommand;
 import com.company.bookseller.controller.commands.impl.book.DeleteBookCommand;
@@ -16,6 +17,10 @@ import com.company.bookseller.controller.commands.impl.order.AddToCartCommand;
 import com.company.bookseller.controller.commands.impl.order.CartCommand;
 import com.company.bookseller.controller.commands.impl.order.CreateOrderCommand;
 import com.company.bookseller.controller.commands.impl.order.DeleteOrderCommand;
+import com.company.bookseller.controller.commands.impl.order.EditCartCommand;
+import com.company.bookseller.controller.commands.impl.order.EditOrderCommand;
+import com.company.bookseller.controller.commands.impl.order.EditOrderFormCommand;
+import com.company.bookseller.controller.commands.impl.order.GetMyOrdersCommand;
 import com.company.bookseller.controller.commands.impl.order.GetOrderCommand;
 import com.company.bookseller.controller.commands.impl.order.GetOrdersCommand;
 import com.company.bookseller.controller.commands.impl.user.DeleteUserCommand;
@@ -69,10 +74,15 @@ public class CommandFactory {
                 ServiceFactory.getInstance().getService(OrderService.class)));
         register.put("ORDER", new GetOrderCommand(ServiceFactory.getInstance().getService(OrderService.class)));
         register.put("ORDERS", new GetOrdersCommand(ServiceFactory.getInstance().getService(OrderService.class)));
+        register.put("MY_ORDERS", new GetMyOrdersCommand(ServiceFactory.getInstance().getService(OrderService.class)));
+        register.put("EDIT_ORDER_FORM", new EditOrderFormCommand(ServiceFactory.getInstance().getService(OrderService.class)));
+        register.put("EDIT_ORDER", new EditOrderCommand(ServiceFactory.getInstance().getService(OrderService.class)));
         register.put("DELETE_ORDER", new DeleteOrderCommand(ServiceFactory.getInstance().getService(OrderService.class)));
         register.put("ADD_TO_CART", new AddToCartCommand());
         register.put("CART", new CartCommand(ServiceFactory.getInstance().getService(BookService.class),
                 ServiceFactory.getInstance().getService(CartService.class)));
+        register.put("EDIT_CART", new EditCartCommand(ServiceFactory.getInstance().getService(BookService.class),
+                        ServiceFactory.getInstance().getService(CartService.class)));
 
 
         register.put("ERROR", new ErrorCommand());
@@ -80,6 +90,7 @@ public class CommandFactory {
         register.put("LOGIN", new LoginCommand(ServiceFactory.getInstance().getService(UserService.class)));
         register.put("LOGIN_PAGE", new LoginPageCommand());
         register.put("LOGOUT", new LogoutCommand());
+        register.put("SEARCH", new SearchCommand(ServiceFactory.getInstance().getService(BookService.class)));
     }
 
     public Command getCommand(String action) {

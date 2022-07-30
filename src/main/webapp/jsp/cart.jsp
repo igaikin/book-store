@@ -29,7 +29,13 @@
         <c:forEach var="entry" items="${requestScope.cart}">
             <tr>
                 <td>${entry.book.author} - ${entry.book.title}</td>
-                <td>${entry.quantity}</td>
+                <td>
+                    <div class="number">
+                        <span class="minus">-</span>
+                        <input ${entry.quantity} type="number" value="1" size="5"/>
+                        <span class="plus">+</span>
+                    </div>
+                </td>
                 <td>${entry.price}</td>
             </tr>
         </c:forEach>

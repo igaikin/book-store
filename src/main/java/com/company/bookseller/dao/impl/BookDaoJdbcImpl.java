@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BookDaoJdbcImpl implements BookDao {
-    private static Logger LOG = LogManager.getLogger(BookDaoJdbcImpl.class);
+    private static final Logger LOG = LogManager.getLogger(BookDaoJdbcImpl.class);
     private static final String CREATE_BOOK =
             "INSERT INTO books (image, author, title, cover_id, pages, isbn, price)"
                     + "VALUES (?, ?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?, ?)";
@@ -26,6 +26,8 @@ public class BookDaoJdbcImpl implements BookDao {
             "SELECT b.id, b.image, b.title, b.author, c.cover, b.pages, b.isbn, b.price, b.deleted "
                     + "FROM books b JOIN covers c ON b.cover_id = c.id ";
     private static final String GET_ALL = BOOK_ALL + "WHERE b.deleted = false ORDER BY b.id";
+    private static final String GET_SEARCH = BOOK_ALL + "WHERE b.deleted = false ORDER BY b.id AND b.title like ?";
+    private static final String GET_ALL_PAGED = BOOK_ALL + "WHERE b.deleted = false ORDER BY b.id LIMIT ? OFFSET ?";
     private static final String GET_BY_ID = BOOK_ALL + "WHERE b.id = ? AND deleted = false ORDER BY b.id";
     private static final String GET_BY_ISBN = BOOK_ALL + "WHERE b.isbn = ? AND b.deleted = false ORDER BY b.isbn";
     private static final String GET_BY_ORDER_ID = BOOK_ALL + "WHERE order_id = ?";
@@ -48,14 +50,32 @@ public class BookDaoJdbcImpl implements BookDao {
         book.setPrice(resultSet.getBigDecimal("price"));
         return book;
     }
+//
+//    @Override
+//    public List<Book> getAll() {
+//        List<Book> books = new ArrayList<>();
+//        try {
+//            Connection connection = connectionManager.getConnection();
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery(GET_ALL);
+//            while (resultSet.next()) {
+//                books.add(processBook(resultSet));
+//            }
+//        } catch (SQLException e) {
+//            LOG.error(e);
+//        }
+//        return books;
+//    }
 
     @Override
-    public List<Book> getAll() {
+    public List<Book> getAll(int limit, int offset) {
         List<Book> books = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(GET_ALL);
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_PAGED);
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 books.add(processBook(resultSet));
             }
@@ -64,6 +84,7 @@ public class BookDaoJdbcImpl implements BookDao {
         }
         return books;
     }
+
 
     @Override
     public Book get(Long id) {
@@ -80,6 +101,24 @@ public class BookDaoJdbcImpl implements BookDao {
             LOG.error(e);
         }
         return book;
+    }
+
+    @Override
+    public List<Book> getSearch(String search) {
+//        "%" + "?" + "%"
+        List<Book> books = new ArrayList<>();
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(GET_SEARCH);
+            statement.setString(1, search);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                books.add(processBook(resultSet));
+            }
+        } catch (SQLException e) {
+            LOG.error(e);
+        }
+        return books;
     }
 
     @Override

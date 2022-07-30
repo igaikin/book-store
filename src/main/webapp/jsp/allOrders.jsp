@@ -27,6 +27,7 @@
             <th><fmt:message key="title.user"/></th>
             <th><fmt:message key="title.books"/></th>
             <th><fmt:message key="title.price"/></th>
+            <th><fmt:message key="title.action"/></th>
         </tr>
         <c:forEach items="${orders}" var="order" varStatus="counter">
             <tr>
@@ -45,6 +46,22 @@
                 </td>
                 <td>
                     $${order.totalPrice}
+                </td>
+                <td>
+                    <form action="controller" method="get">
+                        <input type="hidden" name="command" value="order">
+                        <input type="hidden" name="id" value="${order.id}">
+                        <input type="submit" value="<fmt:message key="btn.details"/>">
+                    </form>
+                    <c:if test="${userGlobal.role=='ADMIN'}">
+                        <form action="controller" method="get">
+                            <input type="hidden" name="command" value="edit_order_form">
+                            <input type="hidden" name="id" value="${order.id}">
+                            <c:if test="${order.status!='CANCELLED'}">
+                                <input type="submit" value="<fmt:message key="btn.edit"/>">
+                            </c:if>
+                        </form>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach><br/>

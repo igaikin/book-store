@@ -25,6 +25,7 @@ public class UserDaoJdbcImpl implements UserDao {
     private static final String USER_ALL = "SELECT u.id, u.avatar, u.first_name, u.last_name, r.role, u.email, u"
             + ".password FROM users u JOIN roles r ON u.role_id = r.id ";
     private static final String GET_ALL = USER_ALL + "WHERE u.deleted = false ORDER BY u.id";
+    private static final String GET_ALL_PAGED = USER_ALL + "WHERE u.deleted = false ORDER BY u.id  LIMIT ? OFFSET ?";
     private static final String GET_BY_ID = USER_ALL + "WHERE u.id = ? AND u.deleted = false ORDER BY u.id";
     private static final String GET_BY_EMAIL = USER_ALL + "WHERE u.email = ? AND u.deleted = false ORDER BY u.email";
     private final ConnectionManager connectionManager;
@@ -44,14 +45,32 @@ public class UserDaoJdbcImpl implements UserDao {
         user.setPassword(resultSet.getString("password"));
         return user;
     }
+//
+//    @Override
+//    public List<User> getAll() {
+//        List<User> users = new ArrayList<>();
+//        try {
+//            Connection connection = connectionManager.getConnection();
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery(GET_ALL);
+//            while (resultSet.next()) {
+//                users.add(processUser(resultSet));
+//            }
+//        } catch (SQLException e) {
+//            LOG.error(e);
+//        }
+//        return users;
+//    }
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAll(int limit, int offset) {
         List<User> users = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(GET_ALL);
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_PAGED);
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 users.add(processUser(resultSet));
             }

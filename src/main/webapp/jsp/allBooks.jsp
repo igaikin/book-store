@@ -71,6 +71,7 @@
             </tr>
         </c:forEach><br/>
     </table>
+    <jsp:include page="pagination.jsp"/>
     </br>
     <a href="controller?command=add_book_form"> <fmt:message key="title.addBook"/></a>
     <c:if test="${message != null}">${message}</c:if>

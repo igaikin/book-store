@@ -42,10 +42,27 @@ public class BookServiceImpl implements BookService {
         bookDto.setPrice(book.getPrice());
         return bookDto;
     }
+//
+//    @Override
+//    public List<BookDto> getAll() {
+//        return bookDao.getAll()
+//                .stream()
+//                .map(this::bookToDto)
+//                .collect(Collectors.toList());
+//    }
 
     @Override
-    public List<BookDto> getAll() {
-        return bookDao.getAll().stream()
+    public List<BookDto> getSearch(String search) {
+        return bookDao.getSearch(search)
+                .stream()
+                .map(this::bookToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookDto> getAll(int limit, int offset) {
+        return bookDao.getAll(limit, offset)
+                .stream()
                 .map(this::bookToDto)
                 .collect(Collectors.toList());
     }

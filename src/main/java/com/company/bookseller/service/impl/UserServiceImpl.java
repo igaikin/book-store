@@ -41,10 +41,18 @@ public class UserServiceImpl implements UserService {
         userDto.setPassword(user.getPassword());
         return userDto;
     }
+//
+//    @Override
+//    public List<UserDto> getAll() {
+//        return userDao.getAll()
+//                .stream()
+//                .map(this::userToDto)
+//                .collect(Collectors.toList());
+//    }
 
     @Override
-    public List<UserDto> getAll() {
-        return userDao.getAll()
+    public List<UserDto> getAll(int limit, int offset) {
+        return userDao.getAll(limit, offset)
                 .stream()
                 .map(this::userToDto)
                 .collect(Collectors.toList());

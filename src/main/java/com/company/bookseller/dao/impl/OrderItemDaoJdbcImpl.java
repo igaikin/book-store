@@ -15,7 +15,10 @@ import org.apache.logging.log4j.Logger;
 
 public class OrderItemDaoJdbcImpl implements OrderItemDao {
     private static final Logger LOG = LogManager.getLogger(OrderItemDaoJdbcImpl.class);
-    public static final String GET_ALL = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM " + "order_items oi WHERE oi.deleted = false";
+    public static final String GET_ALL = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
+            + "order_items oi WHERE oi.deleted = false";
+    public static final String GET_ALL_PAGED = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
+            + "order_items oi WHERE oi.deleted = false LIMIT ? OFFSET ?";
     public static final String GET_BY_ORDER_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM " + "order_items oi WHERE oi.deleted = false AND oi.order_id = ?";
     public static final String GET_BY_BOOK_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM " + "order_items oi WHERE oi.deleted = false AND oi.book_id = ?";
     public static final String GET_BY_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM " + "order_items oi WHERE oi.deleted = false AND oi.id = ?";
@@ -37,14 +40,32 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
         item.setQuantity(resultSet.getInt("quantity"));
         return item;
     }
+//
+//    @Override
+//    public List<OrderItem> getAll() {
+//        List<OrderItem> items = new ArrayList<>();
+//        try {
+//            Connection connection = connectionManager.getConnection();
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery(GET_ALL);
+//            while (resultSet.next()) {
+//                items.add(processItem(resultSet));
+//            }
+//        } catch (SQLException e) {
+//            LOG.error(e);
+//        }
+//        return items;
+//    }
 
     @Override
-    public List<OrderItem> getAll() {
+    public List<OrderItem> getAll(int limit, int offset) {
         List<OrderItem> items = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(GET_ALL);
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_PAGED);
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 items.add(processItem(resultSet));
             }
