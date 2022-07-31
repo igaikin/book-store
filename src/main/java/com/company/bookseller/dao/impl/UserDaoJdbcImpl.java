@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class UserDaoJdbcImpl implements UserDao {
     private static final Logger LOG = LogManager.getLogger(UserDaoJdbcImpl.class);
     private static final String CREATE_USER =
@@ -75,7 +75,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 users.add(processUser(resultSet));
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return users;
     }
@@ -92,7 +92,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 user = processUser(resultSet);
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return user;
     }
@@ -109,7 +109,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 user = processUser(resultSet);
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return user;
     }
@@ -132,7 +132,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 return user;
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         throw new RuntimeException("Couldn't create person: " + user);
     }
@@ -151,7 +151,7 @@ public class UserDaoJdbcImpl implements UserDao {
             statement.setLong(7, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return user;
     }
@@ -164,7 +164,7 @@ public class UserDaoJdbcImpl implements UserDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return true;
     }

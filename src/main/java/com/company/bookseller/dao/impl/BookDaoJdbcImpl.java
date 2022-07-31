@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class BookDaoJdbcImpl implements BookDao {
     private static final Logger LOG = LogManager.getLogger(BookDaoJdbcImpl.class);
     private static final String CREATE_BOOK =
@@ -80,7 +80,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 books.add(processBook(resultSet));
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return books;
     }
@@ -98,7 +98,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 book = processBook(resultSet);
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return book;
     }
@@ -116,7 +116,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 books.add(processBook(resultSet));
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return books;
     }
@@ -133,7 +133,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 book = processBook(resultSet);
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return book;
     }
@@ -158,7 +158,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 books.add(processBook(resultSet));
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return books;
     }
@@ -183,7 +183,7 @@ public class BookDaoJdbcImpl implements BookDao {
                 return book;
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         throw new RuntimeException("Couldn't create object: " + book);
     }
@@ -203,7 +203,7 @@ public class BookDaoJdbcImpl implements BookDao {
             statement.setLong(8, book.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return book;
     }
@@ -216,7 +216,7 @@ public class BookDaoJdbcImpl implements BookDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return true;
     }

@@ -6,11 +6,8 @@ import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.dto.BookDto;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class BookServiceImpl implements BookService {
-    private static final Logger LOG = LogManager.getLogger(BookServiceImpl.class);
     private final BookDao bookDao;
 
     public BookServiceImpl(BookDao bookDao) {

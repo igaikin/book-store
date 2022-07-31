@@ -5,11 +5,8 @@ import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.dto.BookDto;
 import jakarta.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class EditBookCommand implements Command {
-    private static final Logger LOG = LogManager.getLogger(EditBookCommand.class);
     private final BookService bookService;
 
     public EditBookCommand(BookService bookService) {

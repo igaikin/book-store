@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class OrderItemDaoJdbcImpl implements OrderItemDao {
     private static final Logger LOG = LogManager.getLogger(OrderItemDaoJdbcImpl.class);
     public static final String GET_ALL = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
@@ -70,7 +70,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 items.add(processItem(resultSet));
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return items;
     }
@@ -87,7 +87,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 item = processItem(resultSet);
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return item;
     }
@@ -104,7 +104,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 items.add(processItem(resultSet));
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return items;
     }
@@ -121,7 +121,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 items.add(processItem(resultSet));
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return items;
     }
@@ -143,7 +143,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
                 return item;
             }
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         throw new RuntimeException("Couldn't create object: " + item);
     }
@@ -159,7 +159,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
             statement.setInt(4, item.getQuantity());
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return item;
     }
@@ -172,7 +172,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOG.error(e);
+            log.error(e);
         }
         return true;
     }

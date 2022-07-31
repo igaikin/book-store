@@ -6,12 +6,10 @@ import com.company.bookseller.service.BookService;
 import com.company.bookseller.service.dto.BookDto;
 import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
-
+@Log4j2
 public class DeleteBookCommand implements Command {
-    private static final Logger LOG = LogManager.getLogger(DeleteBookCommand.class);
     private final BookService bookService;
 
     public DeleteBookCommand(BookService bookService) {
@@ -27,7 +25,7 @@ public class DeleteBookCommand implements Command {
             return "jsp/error.jsp";
         }
         bookService.delete(Long.valueOf(id));
-        LOG.info("Book deleted");
+        log.info("Book deleted");
         CommandFactory.getInstance().getCommand("books").execute(req);
         return "jsp/allBooks.jsp";
     }

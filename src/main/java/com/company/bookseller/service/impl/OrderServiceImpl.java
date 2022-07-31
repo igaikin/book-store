@@ -18,11 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class OrderServiceImpl implements OrderService {
-    private static final Logger LOG = LogManager.getLogger(OrderServiceImpl.class);
     private final OrderDao orderDao;
 
     public OrderServiceImpl(OrderDao orderDao) {

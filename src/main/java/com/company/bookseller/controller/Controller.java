@@ -9,12 +9,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
-    private static final Logger LOG = LogManager.getLogger(Controller.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,7 +42,7 @@ public class Controller extends HttpServlet {
         try {
             page = command.execute(req);
         } catch (Exception e) {
-            LOG.error(e);
+            log.error(e);
             req.setAttribute("message", MessageManager.getMessage("msg.pageNotFound"));
             page = "jsp/error.jsp";
         }

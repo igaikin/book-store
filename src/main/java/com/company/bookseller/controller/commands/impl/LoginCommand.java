@@ -6,11 +6,10 @@ import com.company.bookseller.service.dto.UserDto;
 import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class LoginCommand implements Command {
-    public static final Logger LOG = LogManager.getLogger(LoginCommand.class);
     private final UserService userService;
 
     public LoginCommand(UserService userService) {
@@ -29,9 +28,9 @@ public class LoginCommand implements Command {
                 return "index.jsp";
             }
         } catch (Exception e) {
-            LOG.error(e);
+            log.error(e);
         }
-        LOG.info("Invalid login attempt, email{}, password{}", email, password);
+        log.info("Invalid login attempt, email{}, password{}", email, password);
         req.setAttribute("message", MessageManager.getMessage("msg.invalidCredential"));
         return "jsp/login.jsp";
     }

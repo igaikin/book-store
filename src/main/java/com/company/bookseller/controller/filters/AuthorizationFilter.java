@@ -10,19 +10,18 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @WebFilter("/controller")
 public class AuthorizationFilter implements Filter {
-    private static final Logger LOG = LogManager.getLogger(AuthorizationFilter.class);
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         String command = req.getParameter("command");
-        LOG.info("command = " + command);
+        log.info("command = " + command);
 
         if (UserRoleUtil.isAuthorizationRequired(command)) {
             Object user = req.getSession(false).getAttribute("userGlobal");

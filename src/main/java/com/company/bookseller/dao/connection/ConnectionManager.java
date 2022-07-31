@@ -1,21 +1,19 @@
 package com.company.bookseller.dao.connection;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class ConnectionManager {
-    private static final Logger LOG = LogManager.getLogger(ConnectionManager.class);
     private static final String URL = "jdbc:postgresql://127.0.0.1:5432/bookstore";
     private static final String USER_NAME = "postgres";
     private static final String PASSWORD = "root";
     private static ConnectionManager instance;
     private Connection connection;
 
-    public ConnectionManager(){
+    public ConnectionManager() {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
@@ -34,9 +32,9 @@ public class ConnectionManager {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-                LOG.info("Connection opened");
+                log.info("Connection opened");
             } catch (SQLException e) {
-                LOG.error(e);
+                log.error(e);
             }
         }
         return connection;
@@ -46,10 +44,10 @@ public class ConnectionManager {
         if (connection != null) {
             try {
                 connection.close();
-                LOG.info("Connection closed");
+                log.info("Connection closed");
                 connection = null;
             } catch (SQLException e) {
-                LOG.error(e);
+                log.error(e);
             }
         }
     }

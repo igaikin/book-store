@@ -6,11 +6,10 @@ import com.company.bookseller.service.dto.BookDto;
 import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class AddBookCommand implements Command {
-    private static final Logger LOG = LogManager.getLogger(AddBookCommand.class);
     private final BookService bookService;
 
     public AddBookCommand(BookService bookService) {
@@ -20,7 +19,7 @@ public class AddBookCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         BookDto book = new BookDto();
-        LOG.info("book create");
+        log.info("book create");
         book.setImage(req.getParameter("image"));
         book.setAuthor(req.getParameter("author"));
         book.setTitle(req.getParameter("title"));
@@ -28,10 +27,10 @@ public class AddBookCommand implements Command {
         book.setPages(Integer.parseInt(req.getParameter("pages")));
         book.setIsbn(req.getParameter("isbn"));
         book.setPrice(new BigDecimal(req.getParameter("price")));
-        LOG.info("book parameter setting");
+        log.info("book parameter setting");
         BookDto createdBook = bookService.create(book);
         req.setAttribute("book", createdBook);
-        LOG.info("Book add to database");
+        log.info("Book add to database");
         req.setAttribute("message", MessageManager.getMessage("msg.addBook"));
         return "jsp/book.jsp";
     }
