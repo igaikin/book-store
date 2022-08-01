@@ -45,23 +45,11 @@ public class UserRoleUtil {
             return false;
         }
         command = command.toUpperCase();
-        return /*switch (command) {
-            case "CHANGE_LANGUAGE",
-                    "PROFILE",
-                    "EDIT_PROFILE",
-                    "EDIT_PROFILE_FORM",
-                    "USERS",
-                    "BOOK",
-                    "BOOKS",
-                    "ERROR",
-                    "LOGIN",
-                    "LOGIN_PAGE",
-                    "LOGOUT",
-                    "CREATE_ORDER",
-                    "ORDER",
-                    "ORDERS",
-                    "DELETE_ORDER" -> true;
-            default ->*/ false;
+        return switch (command) {
+            case "EDIT_ORDER",
+                    "EDIT_ORDER_FORM" -> true;
+            default -> false;
+        };
     }
 }
 
