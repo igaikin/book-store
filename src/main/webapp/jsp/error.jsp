@@ -37,15 +37,7 @@
         <h1 class="u-text u-text-default u-block-f8c9-11">${pageContext.response.status}</h1>
         <p class="u-text u-text-default u-text-not-found-message u-block-f8c9-10">
             ${message}
-                <c:set var="book" value="Book"/>
-                <c:set var="user" value="User"/>
-                <c:set var="order" value="Order"/>
-                    <fmt:message key="msg.entityNotFound">
-                        <fmt:param value="${book}"/>
-                        <fmt:param value="${user}"/>
-                        <fmt:param value="${order}"/>
-                    </fmt:message>
-                    <br/> <%--FIXME--%>
+
         </p>
         <p class="u-text u-block-f8c9-5"><fmt:message key="msg.errorText"/></p>
         </br>
@@ -111,7 +103,8 @@
             padding-bottom: 10px;
             padding-left: 52px;
         }
-    }</style>
+    }
+    </style>
     <style data-mode="LG">@media (max-width: 1199px) and (min-width: 992px) {
         .u-block-f8c9-9 {
             background-image: none;
@@ -167,7 +160,8 @@
             padding-bottom: 10px;
             padding-left: 52px;
         }
-    }</style>
+    }
+    </style>
     <style data-mode="MD">@media (max-width: 991px) and (min-width: 768px) {
         .u-block-f8c9-9 {
             background-image: none;
@@ -223,7 +217,8 @@
             padding-bottom: 10px;
             padding-left: 52px;
         }
-    }</style>
+    }
+    </style>
     <style data-mode="SM" data-visited="true">@media (max-width: 767px) and (min-width: 576px) {
         .u-block-f8c9-9 {
             background-image: none;
@@ -279,7 +274,8 @@
             padding-bottom: 10px;
             padding-left: 52px;
         }
-    }</style>
+    }
+    </style>
     <style data-mode="XS" data-visited="true">@media (max-width: 575px) {
         .u-block-f8c9-9 {
             background-image: none;
@@ -335,7 +331,8 @@
             padding-bottom: 10px;
             padding-left: 52px;
         }
-    }</style>
+    }
+    </style>
 </section>
 </body>
 </html>
