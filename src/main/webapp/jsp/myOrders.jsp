@@ -20,6 +20,7 @@
 <h2><fmt:message key="btn.myOrders"/></h2>
 <div class="main">
     <c:if test="${orders != null}">
+        <jsp:include page="pagination.jsp"/>
         <table>
             <tr>
                 <th><fmt:message key="title.count"/></th>
@@ -52,6 +53,7 @@
             </c:forEach><br/>
 
         </table>
+        <jsp:include page="pagination.jsp"/>
     </c:if>
     <c:if test="${message != null}">${message}</c:if>
 </div>

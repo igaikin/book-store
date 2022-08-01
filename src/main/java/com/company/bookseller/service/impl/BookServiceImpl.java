@@ -39,14 +39,6 @@ public class BookServiceImpl implements BookService {
         bookDto.setPrice(book.getPrice());
         return bookDto;
     }
-//
-//    @Override
-//    public List<BookDto> getAll() {
-//        return bookDao.getAll()
-//                .stream()
-//                .map(this::bookToDto)
-//                .collect(Collectors.toList());
-//    }
 
     @Override
     public List<BookDto> getSearch(String search) {
@@ -54,6 +46,11 @@ public class BookServiceImpl implements BookService {
                 .stream()
                 .map(this::bookToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public long count() {
+        return bookDao.count();
     }
 
     @Override

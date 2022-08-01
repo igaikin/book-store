@@ -12,11 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.log4j.Log4j2;
 
+import static com.company.bookseller.service.util.paging.PagingUtil.totalCounter;
+
 @Log4j2
 public class OrderItemDaoJdbcImpl implements OrderItemDao {
-    private static final Logger LOG = LogManager.getLogger(OrderItemDaoJdbcImpl.class);
-    public static final String GET_ALL = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
-            + "order_items oi WHERE oi.deleted = false";
     public static final String GET_ALL_PAGED = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM "
             + "order_items oi WHERE oi.deleted = false LIMIT ? OFFSET ?";
     public static final String GET_BY_ORDER_ID = "SELECT oi.id, oi.order_id, oi.book_id, oi.price, oi.quantity FROM " + "order_items oi WHERE oi.deleted = false AND oi.order_id = ?";
@@ -25,6 +24,7 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
     private static final String CREATE_ITEM = "INSERT INTO order_items (order_id, book_id, price, quantity) " + "VALUES (?, ?, ?, ?)";
     private static final String UPDATE_ITEM = "UPDATE order_items SET order_id = ?, book_id = ?, price = ?, quantity " + "= ? AND deleted = false";
     private static final String DELETE_ITEM = "UPDATE order_items SET deleted = true WHERE id = ? AND  deleted = false";
+    private static final String COUNT = "SELECT count(*) AS total FROM order_items";
     private final ConnectionManager connectionManager;
 
     public OrderItemDaoJdbcImpl(ConnectionManager connectionManager) {
@@ -40,22 +40,6 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
         item.setQuantity(resultSet.getInt("quantity"));
         return item;
     }
-//
-//    @Override
-//    public List<OrderItem> getAll() {
-//        List<OrderItem> items = new ArrayList<>();
-//        try {
-//            Connection connection = connectionManager.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(GET_ALL);
-//            while (resultSet.next()) {
-//                items.add(processItem(resultSet));
-//            }
-//        } catch (SQLException e) {
-//            LOG.error(e);
-//        }
-//        return items;
-//    }
 
     @Override
     public List<OrderItem> getAll(int limit, int offset) {
@@ -73,6 +57,11 @@ public class OrderItemDaoJdbcImpl implements OrderItemDao {
             log.error(e);
         }
         return items;
+    }
+
+    @Override
+    public long count() {
+        return totalCounter(connectionManager, COUNT, log);
     }
 
     @Override

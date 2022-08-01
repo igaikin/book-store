@@ -19,7 +19,8 @@ public class GetBooksCommand implements Command {
     public String execute(HttpServletRequest req) {
         Paging paging = PagingUtil.extractPaging(req);
         List<BookDto> books = bookService.getAll(paging.getLimit(), paging.getOffset());
-
+        req.setAttribute("currentPage", PagingUtil.getCurrentPage(paging));
+        req.setAttribute("lastPage", PagingUtil.getTotalPages(bookService.count(), paging.getLimit()));
         req.setAttribute("books", books);
         return "jsp/allBooks.jsp";
     }

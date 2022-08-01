@@ -19,6 +19,8 @@ public class GetOrdersCommand implements Command {
     public String execute(HttpServletRequest req) {
         Paging paging = PagingUtil.extractPaging(req);
         List<OrderDto> orders = orderService.getAll(paging.getLimit(), paging.getOffset());
+        req.setAttribute("currentPage", PagingUtil.getCurrentPage(paging));
+        req.setAttribute("lastPage", PagingUtil.getTotalPages(orderService.count(), paging.getLimit()));
         req.setAttribute("orders", orders);
         return "jsp/allOrders.jsp";
     }

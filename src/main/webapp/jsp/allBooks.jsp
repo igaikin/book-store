@@ -19,9 +19,9 @@
 <jsp:include page="navbar.jsp"/>
 <h2><fmt:message key="btn.catalogue"/></h2>
 <div class="main">
+    <jsp:include page="pagination.jsp"/>
     <table>
         <tr>
-            <th><fmt:message key="title.count"/></th>
             <th><fmt:message key="title.image"/></th>
             <th><fmt:message key="title.author"/></th>
             <th><fmt:message key="title.title"/></th>
@@ -31,9 +31,8 @@
             <th><fmt:message key="title.price"/></th>
             <th><fmt:message key="title.action"/></th>
         </tr>
-        <c:forEach items="${books}" var="book" varStatus="counter">
+        <c:forEach items="${books}" var="book">
             <tr>
-                <td>${counter.count}</td>
                 <td style="height: 250px">
                     <img src="${book.image}" style="width: auto; height: 100%" alt="${book.author} - ${book.title}"/>
                 </td>

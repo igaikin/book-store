@@ -19,6 +19,8 @@ public class GetUsersCommand implements Command {
     public String execute(HttpServletRequest req) {
         Paging paging = PagingUtil.extractPaging(req);
         List<UserDto> users = userService.getAll(paging.getLimit(), paging.getOffset());
+        req.setAttribute("currentPage", PagingUtil.getCurrentPage(paging));
+        req.setAttribute("lastPage", PagingUtil.getTotalPages(userService.count(), paging.getLimit()));
         req.setAttribute("users", users);
         return "jsp/allUsers.jsp";
     }

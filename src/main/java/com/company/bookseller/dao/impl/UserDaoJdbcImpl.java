@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.log4j.Log4j2;
 
+import static com.company.bookseller.service.util.paging.PagingUtil.totalCounter;
+
 @Log4j2
 public class UserDaoJdbcImpl implements UserDao {
-    private static final Logger LOG = LogManager.getLogger(UserDaoJdbcImpl.class);
     private static final String CREATE_USER =
             "INSERT INTO users  (avatar, first_name, last_name, role_id, email, password) "
                     + "VALUES (?, ?, ?, (SELECT id FROM roles WHERE role = ?), ?, ?)";
@@ -24,10 +25,10 @@ public class UserDaoJdbcImpl implements UserDao {
     private static final String DELETE_USER = "UPDATE users SET deleted = true WHERE id = ? AND  deleted = false";
     private static final String USER_ALL = "SELECT u.id, u.avatar, u.first_name, u.last_name, r.role, u.email, u"
             + ".password FROM users u JOIN roles r ON u.role_id = r.id ";
-    private static final String GET_ALL = USER_ALL + "WHERE u.deleted = false ORDER BY u.id";
-    private static final String GET_ALL_PAGED = USER_ALL + "WHERE u.deleted = false ORDER BY u.id  LIMIT ? OFFSET ?";
+    private static final String GET_ALL_PAGED = USER_ALL + "WHERE u.deleted = false ORDER BY u.id LIMIT ? OFFSET ?";
     private static final String GET_BY_ID = USER_ALL + "WHERE u.id = ? AND u.deleted = false ORDER BY u.id";
     private static final String GET_BY_EMAIL = USER_ALL + "WHERE u.email = ? AND u.deleted = false ORDER BY u.email";
+    private static final String COUNT = "SELECT count(*) AS total FROM users";
     private final ConnectionManager connectionManager;
 
     public UserDaoJdbcImpl(ConnectionManager connectionManager) {
@@ -45,22 +46,6 @@ public class UserDaoJdbcImpl implements UserDao {
         user.setPassword(resultSet.getString("password"));
         return user;
     }
-//
-//    @Override
-//    public List<User> getAll() {
-//        List<User> users = new ArrayList<>();
-//        try {
-//            Connection connection = connectionManager.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(GET_ALL);
-//            while (resultSet.next()) {
-//                users.add(processUser(resultSet));
-//            }
-//        } catch (SQLException e) {
-//            LOG.error(e);
-//        }
-//        return users;
-//    }
 
     @Override
     public List<User> getAll(int limit, int offset) {
@@ -96,6 +81,12 @@ public class UserDaoJdbcImpl implements UserDao {
         }
         return user;
     }
+
+    @Override
+    public long count() {
+        return totalCounter(connectionManager, COUNT, log);
+    }
+
 
     @Override
     public User getByEmail(String email) {

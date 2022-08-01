@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.log4j.Log4j2;
 
+import static com.company.bookseller.service.util.paging.PagingUtil.totalCounter;
+
 @Log4j2
 public class BookDaoJdbcImpl implements BookDao {
-    private static final Logger LOG = LogManager.getLogger(BookDaoJdbcImpl.class);
     private static final String CREATE_BOOK =
             "INSERT INTO books (image, author, title, cover_id, pages, isbn, price)"
                     + "VALUES (?, ?, ?, (SELECT id FROM covers WHERE cover = ?), ?, ?, ?)";
@@ -25,13 +26,12 @@ public class BookDaoJdbcImpl implements BookDao {
     private static final String BOOK_ALL =
             "SELECT b.id, b.image, b.title, b.author, c.cover, b.pages, b.isbn, b.price, b.deleted "
                     + "FROM books b JOIN covers c ON b.cover_id = c.id ";
-    private static final String GET_ALL = BOOK_ALL + "WHERE b.deleted = false ORDER BY b.id";
-    private static final String GET_SEARCH = BOOK_ALL + "WHERE b.deleted = false ORDER BY b.id AND b.title like ?";
     private static final String GET_ALL_PAGED = BOOK_ALL + "WHERE b.deleted = false ORDER BY b.id LIMIT ? OFFSET ?";
     private static final String GET_BY_ID = BOOK_ALL + "WHERE b.id = ? AND deleted = false ORDER BY b.id";
     private static final String GET_BY_ISBN = BOOK_ALL + "WHERE b.isbn = ? AND b.deleted = false ORDER BY b.isbn";
     private static final String GET_BY_ORDER_ID = BOOK_ALL + "WHERE order_id = ?";
     private static final String GET_BY_USER_ID = BOOK_ALL + "WHERE user_id = ?";
+    private static final String COUNT = "SELECT count(*) AS total FROM books";
     private final ConnectionManager connectionManager;
 
     public BookDaoJdbcImpl(ConnectionManager connectionManager) {
@@ -50,22 +50,6 @@ public class BookDaoJdbcImpl implements BookDao {
         book.setPrice(resultSet.getBigDecimal("price"));
         return book;
     }
-//
-//    @Override
-//    public List<Book> getAll() {
-//        List<Book> books = new ArrayList<>();
-//        try {
-//            Connection connection = connectionManager.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(GET_ALL);
-//            while (resultSet.next()) {
-//                books.add(processBook(resultSet));
-//            }
-//        } catch (SQLException e) {
-//            LOG.error(e);
-//        }
-//        return books;
-//    }
 
     @Override
     public List<Book> getAll(int limit, int offset) {
@@ -84,7 +68,6 @@ public class BookDaoJdbcImpl implements BookDao {
         }
         return books;
     }
-
 
     @Override
     public Book get(Long id) {
@@ -119,6 +102,11 @@ public class BookDaoJdbcImpl implements BookDao {
             log.error(e);
         }
         return books;
+    }
+
+    @Override
+    public long count() {
+        return totalCounter(connectionManager, COUNT, log);
     }
 
     @Override

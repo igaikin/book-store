@@ -19,9 +19,9 @@
 <jsp:include page="navbar.jsp"/>
 <h2><fmt:message key="btn.users"/></h2>
 <div class="main">
+    <jsp:include page="pagination.jsp"/>
     <table>
         <tr>
-            <th><fmt:message key="title.count"/></th>
             <th><fmt:message key="title.avatar"/></th>
             <th><fmt:message key="title.firstName"/></th>
             <th><fmt:message key="title.lastName"/></th>
@@ -29,9 +29,8 @@
             <th><fmt:message key="title.role"/></th>
             <th><fmt:message key="title.action"/></th>
         </tr>
-        <c:forEach items="${users}" var="user" varStatus="counter">
+        <c:forEach items="${users}" var="user">
             <tr>
-                <td>${counter.count}</td>
                 <td style="height: 125px">
                     <img src="${user.avatar}" style="width: auto; height: 100%" alt="${user.email}"/>
                 </td>
@@ -59,6 +58,7 @@
             </tr>
         </c:forEach><br/>
     </table>
+    <jsp:include page="pagination.jsp"/>
     </br>
     <a href="controller?command=register_user_form"> <fmt:message key="btn.register"/> </a>
     <c:if test="${message != null}">${message}</c:if>

@@ -25,14 +25,11 @@ public class OrderServiceImpl implements OrderService {
     public OrderServiceImpl(OrderDao orderDao) {
         this.orderDao = orderDao;
     }
-//
-//    @Override
-//    public List<OrderDto> getAll() {
-//        return orderDao.getAll()
-//                .stream()
-//                .map(this::orderToDto)
-//                .collect(Collectors.toList());
-//    }
+
+    @Override
+    public long count() {
+        return orderDao.count();
+    }
 
     @Override
     public List<OrderDto> getAll(int limit, int offset) {

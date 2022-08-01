@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.log4j.Log4j2;
 
+import static com.company.bookseller.service.util.paging.PagingUtil.totalCounter;
+
 @Log4j2
 public class OrderDaoJdbcImpl implements OrderDao {
-    private static final Logger LOG = LogManager.getLogger(OrderDaoJdbcImpl.class);
     private static final String CREATE_ORDER =
             "INSERT INTO orders  (date, status_id, user_id, total_price)"
                     + "VALUES (?, (SELECT id FROM statuses WHERE status = ?), ?, ?)";
@@ -25,12 +26,12 @@ public class OrderDaoJdbcImpl implements OrderDao {
                     + "total_price = ? WHERE id = ?";
     private static final String ORDERS_ALL = "SELECT o.id, o.date, s.status, o.user_id, o.total_price "
             + "FROM orders o JOIN statuses s ON o.status_id = s.id";
-    private static final String GET_ALL = ORDERS_ALL + " ORDER BY o.id";
     private static final String GET_ALL_PAGED = ORDERS_ALL + " ORDER BY o.id  LIMIT ? OFFSET ?";
     private static final String GET_BY_ID = ORDERS_ALL + " WHERE o.id = ? ORDER BY o.id";
     private static final String GET_BY_USER_ID = ORDERS_ALL + " WHERE user_id = ?";
     private static final String DELETE_ORDER = "UPDATE orders SET status_id = (SELECT id FROM statuses WHERE status = 'CANCELLED')"
             + " WHERE id = ?";
+    private static final String COUNT = "SELECT count(*) AS total FROM orders";
     private final ConnectionManager connectionManager;
 
     public OrderDaoJdbcImpl(ConnectionManager connectionManager) {
@@ -46,22 +47,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
         order.setTotalPrice(resultSet.getBigDecimal("total_price"));
         return order;
     }
-//
-//    @Override
-//    public List<Order> getAll() {
-//        List<Order> orders = new ArrayList<>();
-//        try {
-//            Connection connection = connectionManager.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(GET_ALL);
-//            while (resultSet.next()) {
-//                orders.add(processOrder(resultSet));
-//            }
-//        } catch (SQLException e) {
-//            LOG.error(e);
-//        }
-//        return orders;
-//    }
 
     @Override
     public List<Order> getAll(int limit, int offset) {
@@ -152,6 +137,11 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     public List<Order> getByUserId(Long userId) {
         return getOrderByParam(userId, GET_BY_USER_ID);
+    }
+
+    @Override
+    public long count() {
+        return totalCounter(connectionManager, COUNT, log);
     }
 
     private List<Order> getOrderByParam(Long paramId, String sql) {

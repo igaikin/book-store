@@ -19,9 +19,9 @@
 <jsp:include page="navbar.jsp"/>
 <h2><fmt:message key="btn.orders"/></h2>
 <div class="main">
+    <jsp:include page="pagination.jsp"/>
     <table>
         <tr>
-            <th><fmt:message key="title.count"/></th>
             <th><fmt:message key="title.status"/></th>
             <th><fmt:message key="title.time"/></th>
             <th><fmt:message key="title.user"/></th>
@@ -29,9 +29,8 @@
             <th><fmt:message key="title.price"/></th>
             <th><fmt:message key="title.action"/></th>
         </tr>
-        <c:forEach items="${orders}" var="order" varStatus="counter">
+        <c:forEach items="${orders}" var="order">
             <tr>
-                <td>${counter.count}</td>
                 <td>${order.status.name}</td>
                 <td>
                     <time>${order.orderDateTime}</time>
@@ -66,6 +65,7 @@
             </tr>
         </c:forEach><br/>
     </table>
+    <jsp:include page="pagination.jsp"/>
     <c:if test="${message != null}">${message}</c:if>
 </div>
 <jsp:include page="footer.jsp"/>

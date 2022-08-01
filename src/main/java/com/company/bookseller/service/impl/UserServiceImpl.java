@@ -38,14 +38,11 @@ public class UserServiceImpl implements UserService {
         userDto.setPassword(user.getPassword());
         return userDto;
     }
-//
-//    @Override
-//    public List<UserDto> getAll() {
-//        return userDao.getAll()
-//                .stream()
-//                .map(this::userToDto)
-//                .collect(Collectors.toList());
-//    }
+
+    @Override
+    public long count() {
+        return userDao.count();
+    }
 
     @Override
     public List<UserDto> getAll(int limit, int offset) {
@@ -89,10 +86,6 @@ public class UserServiceImpl implements UserService {
         if (existing != null && existing.getId() != userDto.getId()) {
             throw new RuntimeException("User with email: " + userDto.getEmail() + " does not exist");
         }
-//        if (userDto.getPassword() = userDto.) {
-//            String encryptedPassword = PasswordUtil.encryptPassword(userDto.getPassword());
-//            userDto.setPassword(encryptedPassword);
-//        }
         User updated = userDao.update(userToEntity(userDto));
         return get(updated.getId());
     }
