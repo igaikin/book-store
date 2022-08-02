@@ -41,8 +41,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> getSearch(String search) {
-        return bookDao.getSearch(search)
+    public List<BookDto> search(String search, int limit, int offset) {
+        return bookDao.search(search, limit, offset)
                 .stream()
                 .map(this::bookToDto)
                 .collect(Collectors.toList());

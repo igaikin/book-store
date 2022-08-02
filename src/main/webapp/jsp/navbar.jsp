@@ -65,8 +65,12 @@
             </a>
         </li>
         <li>
-            <input name="command" type="search" value="" placeholder="<fmt:message key="btn.search"/> ...">
-            <input action="controller" type="submit" value="<fmt:message key="btn.search"/>">
+            <form action="controller">
+                <input name="command" value="search" type="hidden"/>
+                <label for="search-input" hidden>Search: </label>
+                <input id="search-input" name="searchString" type="search" placeholder="<fmt:message key="btn.search"/> ..."/>
+                <input type="submit" value="<fmt:message key="btn.search"/>">
+            </form>
         </li>
     </ul>
 </nav>

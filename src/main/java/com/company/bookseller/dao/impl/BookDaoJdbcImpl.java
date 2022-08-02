@@ -27,6 +27,8 @@ public class BookDaoJdbcImpl implements BookDao {
             "SELECT b.id, b.image, b.title, b.author, c.cover, b.pages, b.isbn, b.price, b.deleted "
                     + "FROM books b JOIN covers c ON b.cover_id = c.id ";
     private static final String GET_ALL_PAGED = BOOK_ALL + "WHERE b.deleted = false ORDER BY b.id LIMIT ? OFFSET ?";
+    private static final String SEARCH = BOOK_ALL + "WHERE b.deleted = false AND b.title ILIKE ? ORDER BY b.id LIMIT "
+            + "? OFFSET ?";
     private static final String GET_BY_ID = BOOK_ALL + "WHERE b.id = ? AND deleted = false ORDER BY b.id";
     private static final String GET_BY_ISBN = BOOK_ALL + "WHERE b.isbn = ? AND b.deleted = false ORDER BY b.isbn";
     private static final String GET_BY_ORDER_ID = BOOK_ALL + "WHERE order_id = ?";
@@ -87,13 +89,14 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
-    public List<Book> getSearch(String search) {
-//        "%" + "?" + "%"
+    public List<Book> search(String search, int limit, int offset) {
         List<Book> books = new ArrayList<>();
         try {
             Connection connection = connectionManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement(GET_SEARCH);
-            statement.setString(1, search);
+            PreparedStatement statement = connection.prepareStatement(SEARCH);
+            statement.setString(1, "%" + search + "%");
+            statement.setInt(2, limit);
+            statement.setInt(3, offset);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 books.add(processBook(resultSet));

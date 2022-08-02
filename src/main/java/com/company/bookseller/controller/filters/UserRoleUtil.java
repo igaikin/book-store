@@ -13,6 +13,7 @@ public class UserRoleUtil {
                     "LOGIN",
                     "LOGIN_PAGE",
                     "ADD_TO_CART",
+                    "SEARCH",
                     "ERROR",
                     "CREATE_ORDER",
                     "BOOK",
@@ -62,6 +63,7 @@ public class UserRoleUtil {
 //"ERROR"
 //"LOGIN"
 //"LOGIN_PAGE"
+//"SEARCH"
 
 
 //*****************************************USER

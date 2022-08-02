@@ -6,5 +6,5 @@ import java.util.List;
 public interface BookDao extends AbstractDao<Book, Long> {
     Book getByIsbn(String isbn);
 
-    List<Book> getSearch(String search);
+    List<Book> search(String search, int limit, int offset);
 }
