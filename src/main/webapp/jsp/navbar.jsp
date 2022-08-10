@@ -20,7 +20,7 @@
         <li>
             <a href="controller?command=cart"><fmt:message key="btn.cart"/></a>
         </li>
-        <c:if test="${userGlobal == null}">
+        <c:if test="${sessionScope.userGlobal == null}">
             <li>
                 <a href="controller?command=login_page"><fmt:message key="btn.login"/></a>
             </li>
@@ -29,18 +29,20 @@
                 <a href="controller?command=register_user_form"><fmt:message key="btn.register"/></a>
             </li>
         </c:if>
-        <c:if test="${userGlobal != null}">
+        <c:if test="${sessionScope.userGlobal != null}">
             <li>
-                <a href="controller?command=profile&id=${userGlobal.id}"><fmt:message key="btn.profile"/></a>
+                <a href="controller?command=profile&id=${sessionScope.userGlobal.id}"><fmt:message
+                        key="btn.profile"/></a>
             </li>
             <li>
-            <c:if test="${userGlobal != null}">
+            <c:if test="${sessionScope.userGlobal != null}">
                 <li>
-                    <a href="controller?command=my_orders&id=${userGlobal.id}"><fmt:message key="btn.myOrders"/> </a>
+                    <a href="controller?command=my_orders&id=${sessionScope.userGlobal.id}"><fmt:message
+                            key="btn.myOrders"/> </a>
                 </li>
             </c:if>
             </li>
-            <c:if test="${userGlobal.role=='ADMIN'}">
+            <c:if test="${sessionScope.userGlobal.role=='ADMIN'}">
                 <li>
                     <a href="controller?command=orders"> <fmt:message key="btn.orders"/> </a>
                 </li>
