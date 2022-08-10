@@ -24,7 +24,8 @@ public class SearchCommand implements Command {
         req.setAttribute("currentPage", PagingUtil.getCurrentPage(paging));
         req.setAttribute("lastPage", PagingUtil.getTotalPages(bookService.count(), paging.getLimit()));
         req.setAttribute("books", books);
-        return "jsp/allBooks.jsp";
+        req.setAttribute("searchString", search);
+        return "jsp/allBooks.jsp"; //FIXME Pagination
     }
 
 }

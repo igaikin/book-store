@@ -65,10 +65,16 @@
             </a>
         </li>
         <li>
-            <form action="controller">
+            <form method="post" action="controller">
                 <input name="command" value="search" type="hidden"/>
                 <label for="search-input" hidden>Search: </label>
-                <input id="search-input" name="searchString" type="search" placeholder="<fmt:message key="btn.search"/> ..."/>
+                <c:if test="${requestScope.searchString == null}">
+                    <input id="search-input" name="searchString" type="search"
+                           placeholder="<fmt:message key="btn.search"/> ..."/>
+                </c:if>
+                <c:if test="${requestScope.searchString != null}">
+                    <input id="search-input" name="searchString" type="search" value="${requestScope.searchString}"/>
+                </c:if>
                 <input type="submit" value="<fmt:message key="btn.search"/>">
             </form>
         </li>
