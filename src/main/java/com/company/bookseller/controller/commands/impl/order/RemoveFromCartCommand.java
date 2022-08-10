@@ -8,17 +8,17 @@ import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddToCartCommand implements Command {
+public class RemoveFromCartCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         HttpSession session = req.getSession();
         Map<Long, Integer> cart = getCart(session);
 
         Long bookId = Long.valueOf(req.getParameter("book_id"));
-        CartUtil.addBookToCart(bookId, cart);
+        CartUtil.removeBookAtCart(bookId, cart);
         session.setAttribute("cart", cart);
         req.setAttribute("message", MessageManager.getMessage("msg.addToCart"));
-        return CommandFactory.getInstance().getCommand("books").execute(req);
+        return CommandFactory.getInstance().getCommand("cart").execute(req);
     }
 
 

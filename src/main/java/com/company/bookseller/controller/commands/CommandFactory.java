@@ -17,7 +17,7 @@ import com.company.bookseller.controller.commands.impl.order.AddToCartCommand;
 import com.company.bookseller.controller.commands.impl.order.CartCommand;
 import com.company.bookseller.controller.commands.impl.order.CreateOrderCommand;
 import com.company.bookseller.controller.commands.impl.order.DeleteOrderCommand;
-import com.company.bookseller.controller.commands.impl.order.EditCartCommand;
+import com.company.bookseller.controller.commands.impl.order.RemoveFromCartCommand;
 import com.company.bookseller.controller.commands.impl.order.EditOrderCommand;
 import com.company.bookseller.controller.commands.impl.order.EditOrderFormCommand;
 import com.company.bookseller.controller.commands.impl.order.GetMyOrdersCommand;
@@ -81,8 +81,7 @@ public class CommandFactory {
         register.put("ADD_TO_CART", new AddToCartCommand());
         register.put("CART", new CartCommand(ServiceFactory.getInstance().getService(BookService.class),
                 ServiceFactory.getInstance().getService(CartService.class)));
-        register.put("EDIT_CART", new EditCartCommand(ServiceFactory.getInstance().getService(BookService.class),
-                        ServiceFactory.getInstance().getService(CartService.class)));
+        register.put("REMOVE_FROM_CART", new RemoveFromCartCommand());
 
 
         register.put("ERROR", new ErrorCommand());

@@ -28,13 +28,24 @@
         </tr>
         <c:forEach var="entry" items="${requestScope.cart}">
             <tr>
+                <td style="height: 250px">
+                    <img src="${book.image}" style="width: auto; height: 100%" alt="${book.author} - ${book.title}"/>
+                </td>
                 <td>${entry.book.author} - ${entry.book.title}</td>
                 <td>
-                    <div class="number">
-                        <span class="minus">-</span>
-                        <input ${entry.quantity} type="number" value="1" size="5"/>
-                        <span class="plus">+</span>
-                    </div>
+                    <form action="controller" method="post">
+                        <input type="hidden" name="command" value="remove_from_cart">
+                        <input type="hidden" name="quantity" value="${entry.quantity}">
+                        <input type="hidden" name="from" value="jsp/cart.jsp">
+                        <input type="submit" value="<fmt:message key="btn.-"/>">
+                    </form>
+                        ${entry.quantity}
+                    <form action="controller" method="post">
+                        <input type="hidden" name="command" value="add_to_cart">
+                        <input type="hidden" ame="quantity" value="${entry.quantity}">
+                        <input type="hidden" name="from" value="jsp/cart.jsp">
+                        <input type="submit" value="<fmt:message key="btn.+"/>">
+                    </form>
                 </td>
                 <td>${entry.price}</td>
             </tr>

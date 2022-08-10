@@ -18,7 +18,8 @@
 <body id="content">
 <jsp:include page="jsp/header.jsp"/>
 <jsp:include page="jsp/navbar.jsp"/>
-<div class="main">
+<div class="main_page">
+    <fmt:message key="msg.news"/>
 </div>
 <jsp:include page="jsp/footer.jsp"/>
 </body>
