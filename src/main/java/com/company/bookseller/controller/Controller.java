@@ -4,6 +4,7 @@ import com.company.bookseller.controller.commands.Command;
 import com.company.bookseller.controller.commands.CommandFactory;
 import com.company.bookseller.util.MessageManager;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +14,11 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @WebServlet("/controller")
+@MultipartConfig(fileSizeThreshold = Controller.MB,
+        maxFileSize = Controller.MB * 10,
+        maxRequestSize = Controller.MB * 100)
 public class Controller extends HttpServlet {
+    public static final int MB = 1024 * 1024;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

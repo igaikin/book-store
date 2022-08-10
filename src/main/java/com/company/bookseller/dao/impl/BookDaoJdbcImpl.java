@@ -1,8 +1,8 @@
 package com.company.bookseller.dao.impl;
 
-import com.company.bookseller.dao.entity.Book;
 import com.company.bookseller.dao.BookDao;
 import com.company.bookseller.dao.connection.ConnectionManager;
+import com.company.bookseller.dao.entity.Book;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
